@@ -604,7 +604,7 @@ Code for displaying admin side of UI
     	}
 
     	function course_selected(course) {
-    		window.location.search = "course="+course;
+    		window.location.search += "course="+course;
     	}
     	function game_selected(game) {
     		window.location.search = "game="+game;
