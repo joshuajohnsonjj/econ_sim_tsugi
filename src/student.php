@@ -12,7 +12,7 @@ require_once "../../config.php";
 use \Tsugi\Core\LTIX;
 
 $LAUNCH = LTIX::session_start();
-
+die($LAUNCH->user);
 if ($LAUNCH->user->instructor)
 	header("Location: ..");
 
