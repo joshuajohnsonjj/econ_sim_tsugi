@@ -52,13 +52,8 @@ Contains code for displaying game results from admin side
 	    </span>
 	  </div>
 	  <div class="title-bar-right">
-	  	<?php if (isset($_GET['usr'])) { ?>
-	  		<img src="../assets/img/default_usr_img.jpeg" style="height: 40px; border-radius: 18px; float: right;">
-	  		<p style="margin-top: 10px; padding-right: 50px">Logged in as: <?= $_SESSION['username'] ?></p>
-	  		<button onclick="logout_usr()" class="alert button" style="margin-right: 60px;">
-	  			<strong>Logout</strong> <i class="fas fa-sign-out-alt"></i>
-	  		</button>
-	  	<?php } ?>
+		<img src="../assets/img/default_usr_img.jpeg" style="height: 40px; border-radius: 18px; float: right;">
+		<p style="margin-top: 10px; padding-right: 50px">Logged in as: <?= $USER->displayname ?></p>
 	  </div>
 	</div>
 	<!-- end title bar -->
