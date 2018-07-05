@@ -777,7 +777,7 @@ Code for displaying admin side of UI
 
     	function redirectResultsPage() {
     		urlPrefix = window.location.href.substr(0, window.location.href.indexOf('src'));
-    		window.location=urlPrefix+'src/results.php?game='+$('#id').val();
+    		window.location=urlPrefix+'src/results.php?PHPSESSID=<?=$_GET['PHPSESSID']?>&game='+$('#id').val();
     	}
 
     </script>
