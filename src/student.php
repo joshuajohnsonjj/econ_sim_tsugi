@@ -13,7 +13,7 @@ use \Tsugi\Core\LTIX;
 
 $LAUNCH = LTIX::session_start();
 
-if ($USER->instructor)
+if ($LAUNCH->user->instructor)
 	header("Location: ..");
 
 ?>
