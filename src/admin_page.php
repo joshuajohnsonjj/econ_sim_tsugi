@@ -18,7 +18,7 @@ Code for displaying admin side of UI
 	if (!isset($_GET['course']) && !isset($_GET['game']))	
 		$courses = getCourses($mysqli, $USER->email);
 	
-	$games = NULL;
+	$games = [];
 	$selectedCourseName = NULL;
 	$selectedCourseSection = NULL;
 	if (isset($_GET["course"])) {
