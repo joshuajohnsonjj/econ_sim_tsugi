@@ -123,7 +123,7 @@ Code for displaying admin side of UI
 					<div class="grid-x grid-padding-x small-up-2 medium-up-3" style="margin-bottom: 30px;">
 			<?php } ?>
 						<div class="cell grow">
-						  	<a onclick="window.location=window.location+'<?=$course["id"]?>'">
+						  	<a onclick="window.location=window.location+'&course=<?=$course["id"]?>'">
 						      	<div class="card" style="<?= htmlspecialchars($course_backgrounds[$course_num]) ?>">
 							        <div class="card-section">
 							        	<i class="fas <?= $course["avatar"] ?> fa-7x float-center game_options_content"></i>
