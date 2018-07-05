@@ -20,8 +20,10 @@ $LAUNCH = LTIX::session_start();
 
 <script src="js/vendor/jquery.js"></script>
 <script type="text/javascript">
-jQuery.get("cgi-bin/test, function(response) { 
+	
+jQuery.get("cgi-bin/test", function(response) { 
 	var_dump(response);
 });
+	
 </script>	
 
