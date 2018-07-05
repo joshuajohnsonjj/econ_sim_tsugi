@@ -9,6 +9,7 @@ or update existing.
 
 ini_set('display_errors', 1); error_reporting(-1);
 include 'sql_settup.php';
+use \Tsugi\Core\LTIX;
 
 // saves equilibrium to game in table
 if (isset($_POST['equilibrium'])) {
