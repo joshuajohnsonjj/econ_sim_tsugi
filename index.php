@@ -12,7 +12,7 @@ if ( !$LAUNCH->user->instructor ) { // if student add to user table and redirect
 		$add_usr_sql = "INSERT INTO Users (email) VALUES ('".$LAUNCH->user->email."')";
 		$mysqli->query($add_usr_sql);
 	}
-    header("Location: src/student.php");
+    header("Location: ".addSession("src/student.php"));
 } else { // if instructor redirect to admin UI
 //     header("Location: src/admin_page.php");
     var_dump("Instructor status: ".$LAUNCH->user->instructor);
