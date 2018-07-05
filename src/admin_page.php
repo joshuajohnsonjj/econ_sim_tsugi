@@ -637,13 +637,13 @@ Code for displaying admin side of UI
     		});
     	}
 
-    	function toggleSession(id, gameName, mode) { // TODO: get rid of this form... no need to create table
-		 	socket.emit('toggleGameSession', id, mode, $('#sessionRunning').val());
+    	function toggleSession(id, gameName, mode) {
+		socket.emit('toggleGameSession', id, mode, $('#sessionRunning').val());
 
 		    $.ajax({
 		    	url: "utils/session.php",
 		    	method: "POST",
-		    	data: {action: "toggle", id: id},
+		    	data: {action: "toggle", id: id, PHPSESSID: <?=$_GET['PHPSESSID']?>},
 		    	success: function(toggledOn) {
 		    		if (toggledOn) {
 		    			$('#sessionIdSubheader').css('display', '');
