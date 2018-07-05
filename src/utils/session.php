@@ -29,7 +29,7 @@ if (isset($_POST["checkExistance"])) { // Called when student tries to enter gam
 
 // called when admin starts/stops a session
 // set the "live" column in Game table
-else if ($_POST['action'] == 'toggle') {
+else if (isset($_POST['action'])) {
 	$toggledOn = false;
 	// Get game's live status and change it to opposite of current value
 	$result = $mysqli->query('SELECT live FROM Games WHERE id='.$_POST["id"].' LIMIT 1');
