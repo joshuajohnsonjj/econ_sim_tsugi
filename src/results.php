@@ -6,7 +6,7 @@ Contains code for displaying game results from admin side
 */
 	ini_set('display_errors', 1); error_reporting(-1); 
 	include 'utils/sql_settup.php';
-	require_once "../../tsugi/config.php";
+	require_once "../../config.php";
 
 	use \Tsugi\Core\LTIX;
 
