@@ -18,7 +18,7 @@ if (isset($_POST['name']) && isset($_POST['section']) && isset($_POST['avatar'])
 	$add_course_sql = "INSERT INTO Courses (name, section, owner, avatar) VALUES ('".$_POST['name']."', '".$_POST['section']."', '".$USER->email."', '".$_POST['avatar']."')";
 
 	if ($mysqli->query($add_course_sql) === TRUE) 
-		header("Location: ../../src/admin_page.php");
+		header("Location: ".addSession("../../src/admin_page.php"));
 	else 
 	    echo "Error: " . $sql . "<br>" . $mysqli->error;
 }
@@ -36,7 +36,7 @@ else {
 			while ($row = $result->fetch_assoc())
 				$mysqli->query("DELETE FROM Games WHERE id=".$row['id']);
 
-		header("Location: ../../src/admin_page.php");
+		header("Location: ".addSession("../../src/admin_page.php"));
 	}
 	else 
 	    echo "Error: " . $delete_sql . "<br>" . $mysqli->error;
