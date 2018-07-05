@@ -325,9 +325,9 @@ Contains code for the game UI.
 	<!-- Bottom bar -->
 	<footer class="footer" style="filter: <?= !$startGame ? 'blur(10px) brightness(0.7);' : 'none'?>"></footer>
 
-    <script src="../js/vendor/jquery.js"></script>
-    <script src="../js/vendor/what-input.js"></script>
-    <script src="../js/vendor/foundation.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/what-input/5.1.0/what-input.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/js/foundation.js"></script>
     <script src="../js/app.js"></script>
     <script src="../js/node_modules/chart.js/dist/Chart.js"></script>
 	<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.1/build/alertify.min.js"></script>
