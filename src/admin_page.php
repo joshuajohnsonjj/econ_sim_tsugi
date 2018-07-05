@@ -14,7 +14,8 @@ Code for displaying admin side of UI
 
 	if (!$USER->instructor)
 		header("Location: ..");
-
+	
+	$courses=[];
 	if (!isset($_GET['course']) && !isset($_GET['game']))	
 		$courses = getCourses($mysqli, $USER->email);
 	
@@ -77,7 +78,7 @@ Code for displaying admin side of UI
 	  </div>
 	</div>
 	<!-- end title bar -->
-	<button id="backButton" class="secondary button" style="float: left;" onclick="window.location = window.location.origin+window.location.pathname+'<?= $gameInfo ? "?course=".$gameInfo["course_id"] : "" ?>'">
+	<button id="backButton" class="secondary button" style="float: left;" onclick="window.location = window.location.origin+window.location.pathname+'<?= $_GET["PHPSESSID"].($gameInfo ? "?course=".$gameInfo["course_id"] : "") ?>'">
 		<i class="fas fa-angle-left"></i> Back
 	</button>
 
