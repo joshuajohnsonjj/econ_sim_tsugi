@@ -17,8 +17,7 @@ $LAUNCH = LTIX::session_start();
 //     header("Location: ".addSession("src/admin_page.php"));
 // }
 ?>
-
-<script src="js/vendor/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
 <script type="text/javascript">
 	
 jQuery.get("cgi-bin/test", function(response) { 
