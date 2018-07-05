@@ -575,9 +575,9 @@ Contains code for the game UI.
 			// (their opponent quit)
 			urlPrefix = window.location.href.substr(0, window.location.href.indexOf('src'));
 			if ($('#usrname').val() != user) 
-				window.location = urlPrefix+'src/student.php?session=err2';
+				window.location = urlPrefix+'src/student.php?PHPSESSID=<?=$_GET["PHPSESSID"]?>&session=err2';
 			else
-				window.location = urlPrefix+'src/student.php';
+				window.location = urlPrefix+'src/student.php?PHPSESSID=<?=$_GET["PHPSESSID"]?>';
 		});
 
 		function leaveGame() { // fires when one player hits exit game button in side menu
