@@ -552,9 +552,9 @@ Code for displaying admin side of UI
 	<!-- Bottom bar -->
 	<footer class="footer"></footer>
 
-    <script src="../js/vendor/jquery.js"></script>
-    <script src="../js/vendor/what-input.js"></script>
-    <script src="../js/vendor/foundation.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/what-input/5.1.0/what-input.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/js/foundation.js"></script>
     <script src="../js/app.js"></script>
     <script src="http://localhost:8080/socket.io/socket.io.js"></script>
     <script type="text/javascript">
