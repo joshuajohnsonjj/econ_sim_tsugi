@@ -54,7 +54,7 @@ else if (isset($_POST['deleteId']) && isset($_POST['deletedGameCourse'])) {
 	$delete_sql = "DELETE FROM Games WHERE id='".$_POST['deleteId']."'";
 
 	if ($mysqli->query($delete_sql) === TRUE) {
-		$url="../../econ_sim/src/admin_page.php?course=".$_POST['deletedGameCourse'];
+		$url="../../src/admin_page.php?course=".$_POST['deletedGameCourse'];
 		header("Location: ".addSession($url));
 	}
 	else 
