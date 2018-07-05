@@ -1,6 +1,6 @@
 <?php
 include "src/utils/sql_settup.php";
-require_once "../tsugi/config.php";
+require_once "../config.php";
 
 use \Tsugi\Core\LTIX;
 
