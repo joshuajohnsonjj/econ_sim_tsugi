@@ -158,7 +158,7 @@ Contains code for displaying game results from admin side
         			chartData.push(indivData);
 
         			// data for table (add username to front of individual data arrays)
-        			indivData.splice(0,0,gameCollection.gameList[i]['singleGameObject']['player']);
+        			indivData.splice(0,0,gameCollection.gameList[i]['singleGameObject']['player'].substr(0, gameCollection.gameList[i]['singleGameObject']['player'].indexOf('@')));
         			tableData.push(indivData);
 
         			indivData = [];
@@ -172,8 +172,8 @@ Contains code for displaying game results from admin side
         			chartData.push(indivData2);
 
         			// data for table (add username to front of individual data arrays)
-        			indivData.splice(0,0,gameCollection.gameList[i]['multiGameObject']['playerOne']);
-        			indivData2.splice(0,0,gameCollection.gameList[i]['multiGameObject']['playerTwo']);
+        			indivData.splice(0,0,gameCollection.gameList[i]['multiGameObject']['playerOne'].substr(0, gameCollection.gameList[i]['multiGameObject']['playerOne'].indexOf('@')));
+        			indivData2.splice(0,0,gameCollection.gameList[i]['multiGameObject']['playerTwo'].substr(0, gameCollection.gameList[i]['multiGameObject']['playerTwo'].indexOf('@')));
         			tableData.push(indivData);
         			tableData.push(indivData2);
 
