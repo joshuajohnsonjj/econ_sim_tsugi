@@ -643,7 +643,7 @@ Code for displaying admin side of UI
 		    $.ajax({
 		    	url: "utils/session.php",
 		    	method: "POST",
-		    	data: {action: "toggle", id: id, PHPSESSID: <?=$_GET['PHPSESSID']?>},
+		    	data: {action: "toggle", id: id, PHPSESSID: '<?=$_GET['PHPSESSID']?>'},
 		    	success: function(toggledOn) {
 		    		if (toggledOn) {
 		    			$('#sessionIdSubheader').css('display', '');
