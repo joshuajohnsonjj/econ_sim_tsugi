@@ -16,8 +16,12 @@ $LAUNCH = LTIX::session_start();
 // } else { // if instructor redirect to admin UI
 //     header("Location: ".addSession("src/admin_page.php"));
 // }
+?>
+
+<script src="js/vendor/jquery.js"></script>
+<script type="text/javascript">
 jQuery.get("cgi-bin/test, function(response) { 
 	var_dump(response);
 });
-?>
+</script>	
 
