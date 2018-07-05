@@ -13,7 +13,7 @@ use \Tsugi\Core\LTIX;
 
 $LAUNCH = LTIX::session_start();
 
-$mysqli = new mysqli('localhost', 'root', 'root', 'econ_sim_data');
+$mysqli = new mysqli('localhost', 'root', 'nd_dev_sql329ds', 'econ_sim_data');
 
 if (mysqli_connect_error()) {
 	die('Connect Error ('.mysqli_connect_errno().') '.mysqli_connect_error());
