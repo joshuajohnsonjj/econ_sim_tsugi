@@ -273,7 +273,7 @@ Contains code for displaying game results from admin side
 
 		function redirectAdimn(game) {
 			urlPrefix = window.location.href.substr(0, window.location.href.indexOf('src'));
-			window.location=urlPrefix+'src/admin_page.php?game='+game;
+			window.location=urlPrefix+'src/admin_page.php?PHPSESSID=<?=$_GET["PHPSESSID"]?>&game='+game;
 		}
 	</script>
 
