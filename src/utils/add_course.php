@@ -7,7 +7,7 @@ Contains code for adding a new course to mysql database, as well as deleting exi
 
 ini_set('display_errors', 1); error_reporting(-1);
 include 'sql_settup.php';
-require_once "../../../tsugi/config.php";
+require_once "../../../config.php";
 
 use \Tsugi\Core\LTIX;
 
