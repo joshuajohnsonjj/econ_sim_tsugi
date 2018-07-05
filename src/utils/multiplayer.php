@@ -12,7 +12,7 @@ Often called continuously to detect changes in state.
 
 // $LAUNCH = LTIX::session_start();
 
-$mysqli = new mysqli('localhost', 'root', 'root', 'econ_sim_data');
+$mysqli = new mysqli('localhost', 'root', 'nd_dev_sql329ds', 'econ_sim_data');
 
 
 if ($_POST['action'] == 'check') { // checks if opponent has submitted quantity for round
