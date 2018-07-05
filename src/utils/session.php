@@ -23,7 +23,7 @@ if (isset($_POST["checkExistance"])) { // Called when student tries to enter gam
 	// get current status of the "live" column for entered game id
 	if ($mysqli->query('SELECT live FROM Games WHERE id="'.$_POST["id"].'" LIMIT 1')->fetch_assoc()['live']) {
 		$url="../game_main.php?session=".$_POST['id'];
-		header("Location: ".addSession($url);
+		header("Location: ".addSession($url));
 	}
 	else 
 		header("Location: ".addSession("../student.php?session=err"));
