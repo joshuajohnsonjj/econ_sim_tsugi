@@ -100,7 +100,7 @@ if ($LAUNCH->user->instructor)
 		    form.setAttribute("method", "post");
 		    form.setAttribute("action", "utils/session.php");
 
-		    var params = {"id":$("#gameIdInput").val(), "checkExistance":"yes", "PHPSESSID":<?=$_GET['PHPSESSID']?>};
+		    var params = {"id":$("#gameIdInput").val(), "checkExistance":"yes", "PHPSESSID":"<?=$_GET['PHPSESSID']?>"};
 
 		    for (var key in params) {
 	            var hiddenField = document.createElement("input");
