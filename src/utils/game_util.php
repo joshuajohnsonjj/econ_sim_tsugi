@@ -9,7 +9,9 @@ or update existing.
 
 ini_set('display_errors', 1); error_reporting(-1);
 include 'sql_settup.php';
+require_once "../../../config.php";
 use \Tsugi\Core\LTIX;
+$LAUNCH = LTIX::session_start();
 
 // saves equilibrium to game in table
 if (isset($_POST['equilibrium'])) {
