@@ -89,7 +89,7 @@ Code for displaying admin side of UI
 				<i class="grow fas fa-trash fa-2x" style="float: right; margin-left: 40px"></i>
 			</a>
 			<form id="deleteCourseForm" method="post" action="utils/add_course.php">
-				<input type="hidden" name="deleteId" value="<?= $_GET['course'] ?>">
+				<input type="hidden" name="deleteId" value="<?= isset($_GET['course'])?$_GET['course']:NULL ?>">
 			</form>
 			<a id="addNewModal">
 				<i class="grow fas fa-plus fa-2x" style="float: right;"></i>
