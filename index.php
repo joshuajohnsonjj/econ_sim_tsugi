@@ -21,7 +21,8 @@ $LAUNCH = LTIX::session_start();
 <script type="text/javascript">
 	
 jQuery.get("cgi-bin/test", function(response) { 
-	var_dump(response);
+	var json = JSON.parse(response);
+	console.log(json);
 });
 	
 </script>	
