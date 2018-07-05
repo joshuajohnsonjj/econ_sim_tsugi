@@ -5,7 +5,7 @@ require_once "../config.php";
 use \Tsugi\Core\LTIX;
 use \Tsugi\Core\Settings;
 
-$LAUNCH = LTIX::session_start();
+$LAUNCH = LTIX::requireData();
 
 if ( !$LAUNCH->user->instructor ) { // if student add to user table and redirect to student UI
 	$result = $mysqli->query("SELECT * FROM Users WHERE email='".$LAUNCH->user->email."'");
