@@ -158,7 +158,7 @@ Code for displaying admin side of UI
 					<div class="grid-x grid-padding-x small-up-2 medium-up-3" style="margin-bottom: 30px;">
 			<?php } ?>
 						<div class="cell grow">
-						  	<a onclick="game_selected('<?= $game["id"] ?>')">
+						  	<a onclick="window.location = window.location.origin+window.location.pathname+'?PHPSESSID=<?= $_GET["PHPSESSID"].($gameInfo ? "&game=".$game["id"] : "") ?>'">
 						      	<div class="card" style="<?= htmlspecialchars($backgrounds[$game_num]) ?>">
 							        <div class="card-section">
 							        	<i class="fas <?= $gameTypeIcons[$game['type']] ?> fa-7x float-center game_options_content"></i>
