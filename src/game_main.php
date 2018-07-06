@@ -369,19 +369,22 @@ Contains code for the game UI.
 
 		// singleplayer submission occured
 		socket.on('singleplayerSubmission', function(quantity) {
-			intervalId = setInterval(startTimer, 1000);
+			var gameOver = true;
+			if (year != numRounds) intervalId = setInterval(startTimer, 1000);
 
 			jQuery.get("../../../cgi-bin/econ_test/single?quantity="+quantity+"&intercept="+$('#dIntr').val()+"&slope="+$('#dSlope').val()+"&fixed="+$('#fCost').val()+"&const="+$('#cCost').val(), function(data) {
 				var json = JSON.parse(data);
 				console.log(json);
 
-				// Enable/update summary display content
-			  	document.getElementById("summarySection").style.display = "";
-			  	document.getElementById("summaryYear").innerHTML = "Summary for Year "+year;
-			  	year+=1;
-			  	$('#yearSpan').text(year-1);
-			  	$('#yearSpan2').text(year-1);
-			  	document.getElementById("year").innerHTML = "<b>Year:</b> "+year;
+				if (year != numRounds) {
+				  	document.getElementById("summarySection").style.display = "";
+				  	document.getElementById("summaryYear").innerHTML = "Summary for Year "+year;
+				  	year+=1;
+				  	$('#yearSpan').text(year-1);
+				  	$('#yearSpan2').text(year-1);
+				  	document.getElementById("year").innerHTML = "<b>Year:</b> "+year;
+				  	gameOver = false;
+				}
 
 			  	// save equilibrium to database for display in instructor results
 			  	$.ajax({
@@ -441,19 +444,20 @@ Contains code for the game UI.
 				init('cost_section');
 
 				// enable button
-				if (year != numRounds+1) $('#price_submit_btn').prop('disabled', false);
+				if (!gameOver) $('#price_submit_btn').prop('disabled', false);
 			});
 		});
 
 		// multiplayer submission occured
     	socket.on('multiplayerSubmission', function(gameObj) {
     		// verify that submission came from this specific groupId. If not, ignore it
-			if (gameObj['id'] != groupId) {
-				console.log('submission from other game. Ignoring...');
-				return;
-			}
+// 			if (gameObj['id'] != groupId) {
+// 				console.log('submission from other game. Ignoring...');
+// 				return;
+// 			}
 
 			gameObject = gameObj;
+			var gameOver = true;
 
 			// if the legnths of the data arrays for both players are unequal, wait for other player to submit
 			if ((gameObject['p1Data'].length != gameObject['p2Data'].length)) {
@@ -462,7 +466,7 @@ Contains code for the game UI.
 				}
 			}
 			else { // both players have submitted now
-				intervalId = setInterval(startTimer, 1000);
+				if (year != numRounds) intervalId = setInterval(startTimer, 1000);
 
 				// hide spinner
 				$('#waitOppSub').css('display', 'none');
@@ -484,12 +488,15 @@ Contains code for the game UI.
 					console.log(json);
 
 					// Enable/update summary display content
-				  	document.getElementById("summarySection").style.display = "";
-				  	document.getElementById("summaryYear").innerHTML = "Summary for Year "+year;
-				  	year+=1;
-				  	$('#yearSpan').text(year-1);
-				  	$('#yearSpan2').text(year-1);
-				  	document.getElementById("year").innerHTML = "<b>Year: </b>"+year;
+				  	if (year != numRounds) {
+					  	document.getElementById("summarySection").style.display = "";
+					  	document.getElementById("summaryYear").innerHTML = "Summary for Year "+year;
+					  	year+=1;
+					  	$('#yearSpan').text(year-1);
+					  	$('#yearSpan2').text(year-1);
+					  	document.getElementById("year").innerHTML = "<b>Year: </b>"+year;
+					  	gameOver = false;
+					 }
 
 				  	// save equilibrium to database for display in instructor results
 				  	$.ajax({
@@ -563,7 +570,7 @@ Contains code for the game UI.
 					init('cost_section');
 
 					// enable button
-					if (year != numRounds+1) $('#price_submit_btn').prop('disabled', false);
+					if (!gameOver) $('#price_submit_btn').prop('disabled', false);
 				});
 			}
 		});
@@ -1032,8 +1039,8 @@ Contains code for the game UI.
 			alertify.set('notifier','position', 'top-right');
 			alertify.error('<i class="fas fa-exclamation-circle"></i><br><strong>Year: '+year+ ' - Time\'s Up!</strong><br>'+$("#quantity").val()+' was submitted.');
 	    	clearInterval(intervalId);
-	    	// $('#price_submit_btn').prop('disabled', true);
-	    	// submitResponse();
+	    	$('#price_submit_btn').prop('disabled', true);
+	    	submitResponse();
 	    }
 
 	    minute = Math.floor((totalSeconds)/60);
