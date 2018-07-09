@@ -451,7 +451,7 @@ Contains code for the game UI.
 				$.ajax({
 					url: "utils/game_util.php",
 					method: 'POST',
-					data: { equilibrium: json['equilibrium'], id: $('#sessionId').val() }
+					data: { equilibrium: equilibrium, id: $('#sessionId').val() }
 				});
 		});
 
