@@ -392,9 +392,9 @@ Contains code for the game UI.
 					// save equilibrium to database for display in instructor results
 					$.ajax({
 						url: "utils/game_util.php",
-						headers: {
-								'Access-Control-Allow-Origin':'*'
-							},
+						dataType: 'json',
+						contentType: 'application/json',
+						headers: {'Access-Control-Allow-Origin':'*'},
 						method: 'POST',
 						data: { equilibrium: json['equilibrium'], id: $('#sessionId').val() }
 					});
