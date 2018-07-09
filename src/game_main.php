@@ -375,6 +375,7 @@ Contains code for the game UI.
 			$.ajax({
 				url: "http://localhost:8888/cgi-bin/econ_test/single?quantity="+quantity+"&intercept="+$('#dIntr').val()+"&slope="+$('#dSlope').val()+"&fixed="+$('#fCost').val()+"&const="+$('#cCost').val(), 
 				dataType: 'jsonp',
+				jsonpCallback: 'callback',
 				success: function(data) {
 					var json = JSON.parse(data);
 					console.log(json);
