@@ -745,14 +745,36 @@ Code for displaying admin side of UI
     	}
 
     	function createGame() {
+		var slope = $('#s2').children('.slider-handle').attr('aria-valuenow');
+		var intercept = $('#s1').children('.slider-handle').attr('aria-valuenow');
+		var constCost = $('#s4').children('.slider-handle').attr('aria-valuenow');
+		
     		document.getElementById('rand').value = document.getElementById('smallSwitch').checked;
     		document.getElementById('limit').value = $('#s5').children('.slider-handle').attr('aria-valuenow');
     		document.getElementById('numRnd').value = $('#s6').children('.slider-handle').attr('aria-valuenow');
-    		document.getElementById('dIntr').value = $('#s1').children('.slider-handle').attr('aria-valuenow');
-    		document.getElementById('dSlope').value = $('#s2').children('.slider-handle').attr('aria-valuenow');
+    		document.getElementById('dIntr').value = intercept;
+    		document.getElementById('dSlope').value = slope;
     		document.getElementById('fCost').value = $('#s3').children('.slider-handle').attr('aria-valuenow');
-    		document.getElementById('cCost').value = $('#s4').children('.slider-handle').attr('aria-valuenow');
+    		document.getElementById('cCost').value = constCost;
     		document.getElementById('gameName').value = document.getElementById('title').value;
+		
+		if ($('#mode').val() == 'single') {
+			var slopeDerivative = 2*slope
+    			var num = intercept-constCost
+    			var eq = num/slopeDerivative	
+		}
+		else {
+			var variables = (-2*slope*((-2*slope)/slope))+(-1*slope)
+    			var equation = (-1*intercept)+(-1*((-2*slope)*(intercept/slope)))+(((-2*slope)*((-1*constCost)/slope))*-1)+constCost
+    			var eq = equation/variables
+		}
+		
+		var hiddenField = document.createElement("input");
+	        hiddenField.setAttribute("type", "hidden");
+	        hiddenField.setAttribute("name", "equilibrium");
+	        hiddenField.setAttribute("value", eq);
+		$("#newGameForm").appendChild(hiddenField);
+		
     		$("#newGameForm").submit();
     	}
 
