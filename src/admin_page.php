@@ -557,10 +557,10 @@ Code for displaying admin side of UI
     <script src="https://cdnjs.cloudflare.com/ajax/libs/what-input/5.1.0/what-input.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/js/foundation.js"></script>
     <script src="../js/app.js"></script>
-    <script src="http://54.227.117.138:8080/socket.io/socket.io.js"></script>
+    <script src="https://54.227.117.138:8080/socket.io/socket.io.js"></script>
     <script type="text/javascript">
     	// connect to server
-    	var socket = io.connect('http://54.227.117.138:8080');
+    	var socket = io.connect('https://54.227.117.138:8080');
 
     	// back button in new game modal
     	function backToGameType() {
