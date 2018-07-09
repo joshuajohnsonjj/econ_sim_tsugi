@@ -371,14 +371,28 @@ Contains code for the game UI.
 		socket.on('singleplayerSubmission', function(quantity) {
 			var gameOver = true;
 			if (year != numRounds) intervalId = setInterval(startTimer, 1000);
-			var equilibrium;
 
-			$.ajax({
-				url: "http://localhost:8888/cgi-bin/econ_test/single?quantity="+quantity+"&intercept="+$('#dIntr').val()+"&slope="+$('#dSlope').val()+"&fixed="+$('#fCost').val()+"&const="+$('#cCost').val(), 
-				success: function(data) {
-					var json = JSON.parse(data);
-					console.log(json);
+			// MATH FOR GETTING RESULTS
+			// ------------------------
+			// Demand calculaton
+			var demandIntercept = $('#dIntr').val();
+			var demandSlope = $('#dSlope').val();
+			var demand = demandIntercept - demandSlope*quantity;
 
+			// Cost calculation
+			var fixedCost = $('#fCost').val();
+			var constCost = $('#cCost').val();      // Price to produce per unit
+			var totalCost = fixedCost + constCost*quantity;
+			var avgTtlCost = (fixedCost/quantity) + ((constCost*quantity)/quantity);
+
+			// Profit & Revenue calculations
+			var profit = demand*quantity - totalCost;
+			var totalRev = demand*quantity;
+
+			// % return caluclations
+			var percReturn = (float(profit)/totalRev)*100;
+			// ------------------------
+			
 					if (year != numRounds) {
 						document.getElementById("summarySection").style.display = "";
 						document.getElementById("summaryYear").innerHTML = "Summary for Year "+year;
@@ -390,27 +404,26 @@ Contains code for the game UI.
 					}
 
 					// update values based on retrieved data
-					cumulativeRevenue += json['totalRevenue'];
-					cumulativeProfit += json['profit'];
+					cumulativeRevenue += totalRev;
+					cumulativeProfit += profit;
 					cumulativeHistory.push(cumulativeRevenue);
 					cumulativeProfHistory.push(cumulativeProfit);
-					profitHistory.push(json['profit']);
-					revenueHistory.push(json['totalRevenue']);
-					ttlCostHist.push(json['totalCost']);
-					avgTtlCostHist.push(json['averageTotalCost']);
+					profitHistory.push(profit);
+					revenueHistory.push(totalRev);
+					ttlCostHist.push(totalCost);
+					avgTtlCostHist.push(avgTtlCost);
 					quantityHistory.push(quantity);
-					priceHistory.push(json['demand']);
-					marginalCostHist.push(json['unitCost']);
-					equilibrium = json['equilibrium'];
+					priceHistory.push(demand);
+					marginalCostHist.push(constCost);
 
 				// correctly format output with commas and negatives where neccissary
 				var marketPriceString, revenueString, profitString, cumulativeString;
-				if (json['demand'] < 0 ) marketPriceString = '-$'+(json['demand']*(-1)).toLocaleString();
-				else marketPriceString = '$'+json['demand'].toLocaleString();
-				if (json['totalRevenue'] < 0 ) revenueString = '-$'+(json['totalRevenue']*(-1)).toLocaleString();
-				else revenueString = '$'+json['totalRevenue'].toLocaleString();
-				if (json['profit'] < 0 ) profitString = '-$'+(json['profit']*(-1)).toLocaleString();
-				else profitString = '$'+json['profit'].toLocaleString();
+				if (demand < 0 ) marketPriceString = '-$'+(demand*(-1)).toLocaleString();
+				else marketPriceString = '$'+demand.toLocaleString();
+				if (totalRev < 0 ) revenueString = '-$'+(totalRev*(-1)).toLocaleString();
+				else revenueString = '$'+totalRev.toLocaleString();
+				if (profit < 0 ) profitString = '-$'+(profit*(-1)).toLocaleString();
+				else profitString = '$'+profit.toLocaleString();
 				if (cumulativeRevenue < 0 ) cumulativeString = '-$'+(cumulativeRevenue*(-1)).toLocaleString();
 				else cumulativeString = '$'+cumulativeRevenue.toLocaleString();
 
@@ -418,8 +431,8 @@ Contains code for the game UI.
 					document.getElementById("marketPrice").innerHTML = marketPriceString;
 					document.getElementById("prodQuantity").innerHTML = quantity;
 					document.getElementById("revenue").innerHTML = revenueString;
-					document.getElementById("unitCost").innerHTML = json['unitCost'];
-					document.getElementById("ttlCost").innerHTML = json['totalCost'].toLocaleString();
+					document.getElementById("unitCost").innerHTML = constCost;
+					document.getElementById("ttlCost").innerHTML = totalCost.toLocaleString();
 					document.getElementById("profit").innerHTML = profitString;
 					document.getElementById("cumulative").innerHTML = cumulativeString;
 
@@ -427,13 +440,13 @@ Contains code for the game UI.
 					$('#liRevenue').text(revenueString);
 					$('#liNet').text(profitString);
 					$('#liPrice').text(marketPriceString);
-					$('#liReturn').text(json['percentReturn'].toPrecision(4)+'%');
+					$('#liReturn').text(percReturn.toPrecision(4)+'%');
 
 					// set cost screen stuff
 					$('#liSales').text(quantity+" Units");
-					$('#liPrice2').text('$'+json['demand'].toLocaleString());
-					$('#liMarginal').text('$'+json['unitCost']+"/Unit");
-					$('#liProduction').text('$'+json['totalCost'].toLocaleString());
+					$('#liPrice2').text('$'+demand.toLocaleString());
+					$('#liMarginal').text('$'+constCost+"/Unit");
+					$('#liProduction').text('$'+totalCost.toLocaleString());
 
 					// redraw graph
 					init('dashboard_section');
@@ -442,8 +455,6 @@ Contains code for the game UI.
 
 					// enable button
 					if (!gameOver) $('#price_submit_btn').prop('disabled', false);
-				}
-			});
 		});
 
 		// multiplayer submission occured
