@@ -14,11 +14,11 @@ use \Tsugi\Core\LTIX;
 $LAUNCH = LTIX::session_start();
 
 // saves equilibrium to game in table
-if (isset($_POST['equilibrium'])) {
-	$mysqli->query("UPDATE Games Set equilibrium='".$_POST['equilibrium']."' WHERE id=".$_POST['id']);
-}
+// if (isset($_POST['equilibrium'])) {
+// 	$mysqli->query("UPDATE Games Set equilibrium='".$_POST['equilibrium']."' WHERE id=".$_POST['id']);
+// }
 // Create/save game game
-else if (isset($_POST['mode']) && isset($_POST['difficulty']) && isset($_POST['market_struct']) 
+if (isset($_POST['mode']) && isset($_POST['difficulty']) && isset($_POST['market_struct']) 
 	&& isset($_POST['macroEconomy']) && isset($_POST['randEvents']) && isset($_POST['limit']) 
 	&& isset($_POST['numRounds']) && isset($_POST['course_id']) && isset($_POST['gameName'])) {
 
