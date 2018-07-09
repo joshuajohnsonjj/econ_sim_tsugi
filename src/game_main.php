@@ -371,6 +371,7 @@ Contains code for the game UI.
 		socket.on('singleplayerSubmission', function(quantity) {
 			var gameOver = true;
 			if (year != numRounds) intervalId = setInterval(startTimer, 1000);
+			var equilibrium;
 
 			$.ajax({
 				url: "http://localhost:8888/cgi-bin/econ_test/single?quantity="+quantity+"&intercept="+$('#dIntr').val()+"&slope="+$('#dSlope').val()+"&fixed="+$('#fCost').val()+"&const="+$('#cCost').val(), 
@@ -389,16 +390,6 @@ Contains code for the game UI.
 						gameOver = false;
 					}
 
-					// save equilibrium to database for display in instructor results
-					$.ajax({
-						url: "utils/game_util.php",
-						dataType: 'json',
-						contentType: 'application/json',
-						headers: {'Access-Control-Allow-Origin':'*'},
-						method: 'POST',
-						data: { equilibrium: json['equilibrium'], id: $('#sessionId').val() }
-					});
-
 					// update values based on retrieved data
 					cumulativeRevenue += json['totalRevenue'];
 					cumulativeProfit += json['profit'];
@@ -411,6 +402,7 @@ Contains code for the game UI.
 					quantityHistory.push(quantity);
 					priceHistory.push(json['demand']);
 					marginalCostHist.push(json['unitCost']);
+					equilibrium = json['equilibrium'];
 
 				// correctly format output with commas and negatives where neccissary
 				var marketPriceString, revenueString, profitString, cumulativeString;
@@ -453,15 +445,18 @@ Contains code for the game UI.
 					if (!gameOver) $('#price_submit_btn').prop('disabled', false);
 				}
 			});
+			
+			// save equilibrium to database for display in instructor results
+			if (year <= 2)
+				$.ajax({
+					url: "utils/game_util.php",
+					method: 'POST',
+					data: { equilibrium: json['equilibrium'], id: $('#sessionId').val() }
+				});
 		});
 
 		// multiplayer submission occured
     	socket.on('multiplayerSubmission', function(gameObj) {
-    		// verify that submission came from this specific groupId. If not, ignore it
-// 			if (gameObj['id'] != groupId) {
-// 				console.log('submission from other game. Ignoring...');
-// 				return;
-// 			}
 
 			gameObject = gameObj;
 			var gameOver = true;
