@@ -375,79 +375,80 @@ Contains code for the game UI.
 			$.ajax({
 				url: "http://localhost:8888/cgi-bin/econ_test/single?quantity="+quantity+"&intercept="+$('#dIntr').val()+"&slope="+$('#dSlope').val()+"&fixed="+$('#fCost').val()+"&const="+$('#cCost').val(), 
 				success: function(data) {
-				var json = JSON.parse(data);
-				console.log(json);
+					var json = JSON.parse(data);
+					console.log(json);
 
-				if (year != numRounds) {
-				  	document.getElementById("summarySection").style.display = "";
-				  	document.getElementById("summaryYear").innerHTML = "Summary for Year "+year;
-				  	year+=1;
-				  	$('#yearSpan').text(year-1);
-				  	$('#yearSpan2').text(year-1);
-				  	document.getElementById("year").innerHTML = "<b>Year:</b> "+year;
-				  	gameOver = false;
+					if (year != numRounds) {
+						document.getElementById("summarySection").style.display = "";
+						document.getElementById("summaryYear").innerHTML = "Summary for Year "+year;
+						year+=1;
+						$('#yearSpan').text(year-1);
+						$('#yearSpan2').text(year-1);
+						document.getElementById("year").innerHTML = "<b>Year:</b> "+year;
+						gameOver = false;
+					}
+
+					// save equilibrium to database for display in instructor results
+					$.ajax({
+						url: "utils/game_util.php", 
+						method: 'POST',
+						data: { equilibrium: json['equilibrium'], id: $('#sessionId').val() }
+					});
+
+					// update values based on retrieved data
+					cumulativeRevenue += json['totalRevenue'];
+					cumulativeProfit += json['profit'];
+					cumulativeHistory.push(cumulativeRevenue);
+					cumulativeProfHistory.push(cumulativeProfit);
+					profitHistory.push(json['profit']);
+					revenueHistory.push(json['totalRevenue']);
+					ttlCostHist.push(json['totalCost']);
+					avgTtlCostHist.push(json['averageTotalCost']);
+					quantityHistory.push(quantity);
+					priceHistory.push(json['demand']);
+					marginalCostHist.push(json['unitCost']);
+
+				// correctly format output with commas and negatives where neccissary
+				var marketPriceString, revenueString, profitString, cumulativeString;
+				if (json['demand'] < 0 ) marketPriceString = '-$'+(json['demand']*(-1)).toLocaleString();
+				else marketPriceString = '$'+json['demand'].toLocaleString();
+				if (json['totalRevenue'] < 0 ) revenueString = '-$'+(json['totalRevenue']*(-1)).toLocaleString();
+				else revenueString = '$'+json['totalRevenue'].toLocaleString();
+				if (json['profit'] < 0 ) profitString = '-$'+(json['profit']*(-1)).toLocaleString();
+				else profitString = '$'+json['profit'].toLocaleString();
+				if (cumulativeRevenue < 0 ) cumulativeString = '-$'+(cumulativeRevenue*(-1)).toLocaleString();
+				else cumulativeString = '$'+cumulativeRevenue.toLocaleString();
+
+					// Set text in summary section to represent retrieved data
+					document.getElementById("marketPrice").innerHTML = marketPriceString;
+					document.getElementById("prodQuantity").innerHTML = quantity;
+					document.getElementById("revenue").innerHTML = revenueString;
+					document.getElementById("unitCost").innerHTML = json['unitCost'];
+					document.getElementById("ttlCost").innerHTML = json['totalCost'].toLocaleString();
+					document.getElementById("profit").innerHTML = profitString;
+					document.getElementById("cumulative").innerHTML = cumulativeString;
+
+					// set income screen stuff
+					$('#liRevenue').text(revenueString);
+					$('#liNet').text(profitString);
+					$('#liPrice').text(marketPriceString);
+					$('#liReturn').text(json['percentReturn'].toPrecision(4)+'%');
+
+					// set cost screen stuff
+					$('#liSales').text(quantity+" Units");
+					$('#liPrice2').text('$'+json['demand'].toLocaleString());
+					$('#liMarginal').text('$'+json['unitCost']+"/Unit");
+					$('#liProduction').text('$'+json['totalCost'].toLocaleString());
+
+					// redraw graph
+					init('dashboard_section');
+					init('income_section');
+					init('cost_section');
+
+					// enable button
+					if (!gameOver) $('#price_submit_btn').prop('disabled', false);
 				}
-
-			  	// save equilibrium to database for display in instructor results
-			  	$.ajax({
-			  		url: "utils/game_util.php", 
-			  		method: 'POST',
-		  			data: { equilibrium: json['equilibrium'], id: $('#sessionId').val() }
-		  		});
-
-				// update values based on retrieved data
-				cumulativeRevenue += json['totalRevenue'];
-				cumulativeProfit += json['profit'];
-				cumulativeHistory.push(cumulativeRevenue);
-				cumulativeProfHistory.push(cumulativeProfit);
-				profitHistory.push(json['profit']);
-				revenueHistory.push(json['totalRevenue']);
-				ttlCostHist.push(json['totalCost']);
-				avgTtlCostHist.push(json['averageTotalCost']);
-				quantityHistory.push(quantity);
-				priceHistory.push(json['demand']);
-				marginalCostHist.push(json['unitCost']);
-
-		        // correctly format output with commas and negatives where neccissary
-		        var marketPriceString, revenueString, profitString, cumulativeString;
-		        if (json['demand'] < 0 ) marketPriceString = '-$'+(json['demand']*(-1)).toLocaleString();
-		        else marketPriceString = '$'+json['demand'].toLocaleString();
-		        if (json['totalRevenue'] < 0 ) revenueString = '-$'+(json['totalRevenue']*(-1)).toLocaleString();
-		        else revenueString = '$'+json['totalRevenue'].toLocaleString();
-		        if (json['profit'] < 0 ) profitString = '-$'+(json['profit']*(-1)).toLocaleString();
-		        else profitString = '$'+json['profit'].toLocaleString();
-		        if (cumulativeRevenue < 0 ) cumulativeString = '-$'+(cumulativeRevenue*(-1)).toLocaleString();
-		        else cumulativeString = '$'+cumulativeRevenue.toLocaleString();
-
-				// Set text in summary section to represent retrieved data
-				document.getElementById("marketPrice").innerHTML = marketPriceString;
-				document.getElementById("prodQuantity").innerHTML = quantity;
-				document.getElementById("revenue").innerHTML = revenueString;
-				document.getElementById("unitCost").innerHTML = json['unitCost'];
-				document.getElementById("ttlCost").innerHTML = json['totalCost'].toLocaleString();
-				document.getElementById("profit").innerHTML = profitString;
-				document.getElementById("cumulative").innerHTML = cumulativeString;
-
-				// set income screen stuff
-				$('#liRevenue').text(revenueString);
-				$('#liNet').text(profitString);
-				$('#liPrice').text(marketPriceString);
-				$('#liReturn').text(json['percentReturn'].toPrecision(4)+'%');
-
-				// set cost screen stuff
-				$('#liSales').text(quantity+" Units");
-				$('#liPrice2').text('$'+json['demand'].toLocaleString());
-				$('#liMarginal').text('$'+json['unitCost']+"/Unit");
-				$('#liProduction').text('$'+json['totalCost'].toLocaleString());
-
-				// redraw graph
-				init('dashboard_section');
-				init('income_section');
-				init('cost_section');
-
-				// enable button
-				if (!gameOver) $('#price_submit_btn').prop('disabled', false);
-			}
+			});
 		});
 
 		// multiplayer submission occured
