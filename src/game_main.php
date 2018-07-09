@@ -375,7 +375,6 @@ Contains code for the game UI.
 
 			$.ajax({
 				url: "http://localhost:8888/cgi-bin/econ_test/single?quantity="+quantity+"&intercept="+$('#dIntr').val()+"&slope="+$('#dSlope').val()+"&fixed="+$('#fCost').val()+"&const="+$('#cCost').val(), 
-// 				dataType: 'jsonp',
 				success: function(data) {
 					var json = JSON.parse(data);
 					console.log(json);
@@ -445,14 +444,6 @@ Contains code for the game UI.
 					if (!gameOver) $('#price_submit_btn').prop('disabled', false);
 				}
 			});
-			
-			// save equilibrium to database for display in instructor results
-			if (year <= 2)
-				$.ajax({
-					url: "utils/game_util.php",
-					method: 'POST',
-					data: { equilibrium: equilibrium, id: $('#sessionId').val() }
-				});
 		});
 
 		// multiplayer submission occured
@@ -500,14 +491,6 @@ Contains code for the game UI.
 							document.getElementById("year").innerHTML = "<b>Year: </b>"+year;
 							gameOver = false;
 						 }
-
-						// save equilibrium to database for display in instructor results
-						$.ajax({
-							url: "utils/game_util.php", 
-							method: 'POST',
-							data: { equilibrium: json['equilibrium'], id: $('#sessionId').val() }
-						});
-
 						// update values based on retrieved data
 						cumulativeRevenue += json['revenue1'];
 						cumulativeProfit += json['profit1'];
