@@ -460,116 +460,131 @@ Contains code for the game UI.
 		// multiplayer submission occured
     	socket.on('multiplayerSubmission', function(gameObj) {
 
-			gameObject = gameObj;
-			var gameOver = true;
+		gameObject = gameObj;
+		var gameOver = true;
 
-			// if the legnths of the data arrays for both players are unequal, wait for other player to submit
-			if ((gameObject['p1Data'].length != gameObject['p2Data'].length)) {
-				if ((gameObject['username']==$('#usrname').val())) { // display waiting spinner for submitted player
-					$('#waitOppSub').css('display', '');
-				}
+		// if the legnths of the data arrays for both players are unequal, wait for other player to submit
+		if ((gameObject['p1Data'].length != gameObject['p2Data'].length)) {
+			if ((gameObject['username']==$('#usrname').val())) { // display waiting spinner for submitted player
+				$('#waitOppSub').css('display', '');
 			}
-			else { // both players have submitted now
-				if (year != numRounds) intervalId = setInterval(startTimer, 1000);
+		}
+		else { // both players have submitted now
+			if (year != numRounds) intervalId = setInterval(startTimer, 1000);
 
-				// hide spinner
-				$('#waitOppSub').css('display', 'none');
+			// hide spinner
+			$('#waitOppSub').css('display', 'none');
 
-				// grab opponent's most recent submission value
-				if ($('#usrname').val() == gameObject['p1']) {
-					var oppQuantity = gameObject['p2Data'][gameObject['p2Data'].length-1];
-					var quantity = gameObject['p1Data'][gameObject['p1Data'].length-1];
-				}
-	    		else {
-	    			var oppQuantity = gameObject['p1Data'][gameObject['p1Data'].length-1];
-	    			var quantity = gameObject['p2Data'][gameObject['p2Data'].length-1];
-	    		}
+			// grab opponent's most recent submission value
+			if ($('#usrname').val() == gameObject['p1']) {
+				var oppQuantity = gameObject['p2Data'][gameObject['p2Data'].length-1];
+				var quantity = gameObject['p1Data'][gameObject['p1Data'].length-1];
+			}
+			else {
+				var oppQuantity = gameObject['p1Data'][gameObject['p1Data'].length-1];
+				var quantity = gameObject['p2Data'][gameObject['p2Data'].length-1];
+			}
 
-	    		// call python script to get results
-		    	$.ajax({
-		    		url: "http://localhost:8888/cgi-bin/econ_test/multi?q1="+quantity+"&q2="+oppQuantity+"&intercept="+$('#dIntr').val()+"&slope="+$('#dSlope').val()+"&fixed="+$('#fCost').val()+"&const="+$('#cCost').val(), 
-		    		success: function(data) {
-						var json = JSON.parse(data);
-						console.log(json);
+	    		// MATH FOR GETTING RESULTS
+			// ------------------------
+			// Demand calculaton
+			var totalQuantity = quantity+oppQuantity;
+			var demandIntercept = $('#dIntr').val();
+			var demandSlope = $('#dSlope').val();
+			var demand = demandIntercept - demandSlope*quantity;
 
-						// Enable/update summary display content
-						if (year != numRounds) {
-							document.getElementById("summarySection").style.display = "";
-							document.getElementById("summaryYear").innerHTML = "Summary for Year "+year;
-							year+=1;
-							$('#yearSpan').text(year-1);
-							$('#yearSpan2').text(year-1);
-							document.getElementById("year").innerHTML = "<b>Year: </b>"+year;
-							gameOver = false;
-						 }
-						// update values based on retrieved data
-						cumulativeRevenue += json['revenue1'];
-						cumulativeProfit += json['profit1'];
-						oppCumulativeRevenue += json['revenue2'];
-						oppCumulativeProfit += json['profit2'];
-						oppCumulativeHistory.push(oppCumulativeRevenue);
-						oppCumulativeProfHistory.push(oppCumulativeProfit);
-						cumulativeHistory.push(cumulativeRevenue);
-						cumulativeProfHistory.push(cumulativeProfit);
-						oppProfitHistory.push(json['profit2']);
-						oppRevenueHistory.push(json['revenue2']);
-						profitHistory.push(json['profit1']);
-						revenueHistory.push(json['revenue1']);
-						ttlCostHist.push(json['totalCost']);
-						avgTtlCostHist.push(json['averageTotalCost']);
-						quantityHistory.push(quantity);
-						oppQuantityHistory.push(oppQuantity);
-						priceHistory.push(json['demand']);
-						marginalCostHist.push(json['unitCost']);
+			// Cost calculation
+			var fixedCost = $('#fCost').val();
+			var constCost = $('#cCost').val();      // Price to produce per unit
+			var totalCost = fixedCost + constCost*quantity;
+			var avgTtlCost = (fixedCost/quantity) + ((constCost*quantity)/quantity);
 
-						// correctly format output with commas and negatives where neccissary
-						var marketPriceString, revenue1String, revenue2String, profit1String, profit1String, cumulativeString;
-					if (json['demand'] < 0 ) marketPriceString = '-$'+(json['demand']*(-1)).toLocaleString();
-					else marketPriceString = '$'+json['demand'].toLocaleString();
-					if (json['revenue1'] < 0 ) revenue1String = '-$'+(json['revenue1']*(-1)).toLocaleString();
-					else revenue1String = '$'+json['revenue1'].toLocaleString();
-					if (json['revenue2'] < 0 ) revenue2String = '-$'+(json['revenue2']*(-1)).toLocaleString();
-					else revenue2String = '$'+json['revenue2'].toLocaleString();
-					if (json['profit1'] < 0 ) profit1String = '-$'+(json['profit1']*(-1)).toLocaleString();
-					else profit1String = '$'+json['profit1'].toLocaleString();
-					if (json['profit2'] < 0 ) profit2String = '-$'+(json['profit2']*(-1)).toLocaleString();
-					else profit2String = '$'+json['profit2'].toLocaleString();
-					if (cumulativeRevenue < 0 ) cumulativeString = '-$'+(cumulativeRevenue*(-1)).toLocaleString();
-					else cumulativeString = '$'+cumulativeRevenue.toLocaleString();
+			// Profit & Revenue calculations
+			var profit1 = demand*quantity - totalCost;
+			var profit2 = demand*oppQuantity - totalCost;
+			var revenue1 = demand*quantity;
+			var revenue2 = demand*oppQuantity;
 
-						// Set text in summary section to represent retrieved data
-						document.getElementById("marketPrice").innerHTML = marketPriceString;
-						$('#opponentQuantity').css('display', '');
-						$('#opponentQuantity > span').text(oppQuantity+ " units.");
-						document.getElementById("prodQuantity").innerHTML = quantity;
-						document.getElementById("revenue").innerHTML = revenue1String;
-						document.getElementById("unitCost").innerHTML = json['unitCost'];
-						document.getElementById("ttlCost").innerHTML = json['totalCost'];
-						document.getElementById("profit").innerHTML = profit1String;
-						document.getElementById("cumulative").innerHTML = cumulativeString;
+			// % return caluclations
+			var percReturn1 = (profit1/revenue1)*100;
+			var percReturn2 = (profit2/revenue2)*100;
+			// ------------------------
 
-						// set income screen stuff
-						$('#liRevenue').html('<b>'+revenue1String+'</b> / <em>'+revenue2String+'</em>');
-						$('#liNet').html('<b>'+profit1String+'</b> / <em>'+profit2String+'</em>');
-						$('#liPrice').text(marketPriceString);
-						$('#liReturn').html('<b>'+json['percentReturn1'].toPrecision(4)+'%</b> / <em>'+json['percentReturn2'].toPrecision(4)+'%</em>');
+			// Enable/update summary display content
+			if (year != numRounds) {
+				document.getElementById("summarySection").style.display = "";
+				document.getElementById("summaryYear").innerHTML = "Summary for Year "+year;
+				year+=1;
+				$('#yearSpan').text(year-1);
+				$('#yearSpan2').text(year-1);
+				document.getElementById("year").innerHTML = "<b>Year: </b>"+year;
+				gameOver = false;
+			 }
+			// update values based on retrieved data
+			cumulativeRevenue += revenue1;
+			cumulativeProfit += profit1;
+			oppCumulativeRevenue += revenue2;
+			oppCumulativeProfit += profit2;
+			oppCumulativeHistory.push(oppCumulativeRevenue);
+			oppCumulativeProfHistory.push(oppCumulativeProfit);
+			cumulativeHistory.push(cumulativeRevenue);
+			cumulativeProfHistory.push(cumulativeProfit);
+			oppProfitHistory.push(profit2);
+			oppRevenueHistory.push(revenue2);
+			profitHistory.push(profit1);
+			revenueHistory.push(revenue1);
+			ttlCostHist.push(totalCost);
+			avgTtlCostHist.push(avgTtlCost);
+			quantityHistory.push(quantity);
+			oppQuantityHistory.push(oppQuantity);
+			priceHistory.push(demand);
+			marginalCostHist.push(constCost);
 
-						// set cost screen stuff
-						$('#liSales').text(quantity+" Units");
-						$('#liPrice2').text('$'+json['demand']);
-						$('#liMarginal').text('$'+json['unitCost']+"/Unit");
-						$('#liProduction').text('$'+json['totalCost']);
-						// $('#liShipments').text(quantity+' Units');
+			// correctly format output with commas and negatives where neccissary
+			var marketPriceString, revenue1String, revenue2String, profit1String, profit2String, cumulativeString;
+			if (demand < 0 ) marketPriceString = '-$'+(demand*(-1)).toLocaleString();
+			else marketPriceString = '$'+demand.toLocaleString();
+			if (revenue1 < 0 ) revenue1String = '-$'+(revenue1*(-1)).toLocaleString();
+			else revenue1String = '$'+revenue1.toLocaleString();
+			if (revenue2 < 0 ) revenue2String = '-$'+(revenue2*(-1)).toLocaleString();
+			else revenue2String = '$'+revenue2.toLocaleString();
+			if (profit1 < 0 ) profit1String = '-$'+(profit1*(-1)).toLocaleString();
+			else profit1String = '$'+profit1.toLocaleString();
+			if (profit2 < 0 ) profit2String = '-$'+(profit2*(-1)).toLocaleString();
+			else profit2String = '$'+profit2.toLocaleString();
+			if (cumulativeRevenue < 0 ) cumulativeString = '-$'+(cumulativeRevenue*(-1)).toLocaleString();
+			else cumulativeString = '$'+cumulativeRevenue.toLocaleString();
 
-						// redraw graph
-						init('dashboard_section');
-						init('income_section');
-						init('cost_section');
+			// Set text in summary section to represent retrieved data
+			document.getElementById("marketPrice").innerHTML = marketPriceString;
+			$('#opponentQuantity').css('display', '');
+			$('#opponentQuantity > span').text(oppQuantity+ " units.");
+			document.getElementById("prodQuantity").innerHTML = quantity;
+			document.getElementById("revenue").innerHTML = revenue1String;
+			document.getElementById("unitCost").innerHTML = constCost;
+			document.getElementById("ttlCost").innerHTML = totalCost;
+			document.getElementById("profit").innerHTML = profit1String;
+			document.getElementById("cumulative").innerHTML = cumulativeString;
 
-						// enable button
-						if (!gameOver) $('#price_submit_btn').prop('disabled', false);
-					}
-				});
+			// set income screen stuff
+			$('#liRevenue').html('<b>'+revenue1String+'</b> / <em>'+revenue2String+'</em>');
+			$('#liNet').html('<b>'+profit1String+'</b> / <em>'+profit2String+'</em>');
+			$('#liPrice').text(marketPriceString);
+			$('#liReturn').html('<b>'+percReturn1.toPrecision(4)+'%</b> / <em>'+percReturn2.toPrecision(4)+'%</em>');
+
+			// set cost screen stuff
+			$('#liSales').text(quantity+" Units");
+			$('#liPrice2').text('$'+demand);
+			$('#liMarginal').text('$'+constCost+"/Unit");
+			$('#liProduction').text('$'+totalCost);
+
+			// redraw graph
+			init('dashboard_section');
+			init('income_section');
+			init('cost_section');
+
+			// enable button
+			if (!gameOver) $('#price_submit_btn').prop('disabled', false);
 			}
 		});
 
