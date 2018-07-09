@@ -390,7 +390,7 @@ Contains code for the game UI.
 			var totalRev = demand*quantity;
 
 			// % return caluclations
-			var percReturn = (float(profit)/totalRev)*100;
+			var percReturn = (profit/totalRev)*100;
 			// ------------------------
 			
 					if (year != numRounds) {
