@@ -332,7 +332,23 @@ Contains code for the game UI.
     <script src="../js/node_modules/chart.js/dist/Chart.js"></script>
 	<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.1/build/alertify.min.js"></script>
 	<script src="http://localhost:8080/socket.io/socket.io.js"></script>
-    <script type="text/javascript"> 
+	<script src="{% static 'designer/js/jquery.cookie.js' %}"></script>
+    <script type="text/javascript">
+	var csrftoken = $.cookie('csrftoken');
+
+	function csrfSafeMethod(method) {
+	    // these HTTP methods do not require CSRF protection
+	    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+	}
+
+	$.ajaxSetup({
+	    beforeSend: function(xhr, settings) {
+		if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+		    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+		}
+	    }
+	});
+	    
     	// STUFF FOR SOCKET.IO
     	// ===================
     	// connect to server 
