@@ -773,7 +773,7 @@ Code for displaying admin side of UI
 	        hiddenField.setAttribute("type", "hidden");
 	        hiddenField.setAttribute("name", "equilibrium");
 	        hiddenField.setAttribute("value", eq);
-		$("#newGameForm").appendChild(hiddenField);
+		document.getElementById("newGameForm").appendChild(hiddenField);
 		
     		$("#newGameForm").submit();
     	}
