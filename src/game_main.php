@@ -606,15 +606,14 @@ Contains code for the game UI.
 		}
 		// ==================
 
-    	// TODO -- handle refreshes
+    	//  handle refreshes - kick user(s) out to previous screen
+    	$(window).on('beforeunload', function(e) {
+				console.log('page navigation captured');
+				return 'By leaving this page you will lose your current game.';
+			});
     	if (performance.navigation.type == 1) {
     		dismissWaitScreen();
-
-    		// rejoin socket.io room
-    		socket.emit('gameRefreshed', groupId);
-
-    		// SET ALL DATA SO FAR... SAVE IN SESSION VARIABLE???
-    		
+    		socket.emit('leaveGame', $('#usrname').val(), groupId);	
     	}
 
     	// Scrolling animations
