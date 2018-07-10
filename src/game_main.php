@@ -109,8 +109,8 @@ Contains code for the game UI.
 			</div>
 		    <span class="title-bar-title">
 		    	<h3 style="margin: 30px 0 0 30px; font-weight: 500"><?= $gameInfo['name'] ?></h3>
-		    	<h6 id="opponentHeading" style="margin-left: 30px">
-		    		<?= $gameInfo['mode'] == 'multi' ? 'Opponent: ' : ''?>
+		    	<h6 style="margin-left: 30px">
+		    		Opponent: <span class="competition"></span>
 		    	</h6>
 		    </span>
 		  </div>
@@ -301,12 +301,6 @@ Contains code for the game UI.
 
 			</div>
 			<!-- ------------- -->
-
-			<!-- Settings  -->
-			<div class="display_sections" id="settings_section" style="display: none;">
-
-			</div>
-			<!-- --------- -->
 		</div>
 	</div>
 
@@ -314,7 +308,7 @@ Contains code for the game UI.
 	<!-- begining of game instructions -->
 	<div class="reveal" id="beginModal" data-reveal data-animation-in="slide-in-up" style="border-radius: 5px; opacity: 0.9">
 		<h2 style="text-align: left;"><strong>Instructions</strong></h2>
-		<p style="text-align: left;">You are a firm that sells mustard bottles. Your firm operates <?= $gameInfo['market_struct'] == 'monopoly' ? 'as a monopoly' : ($gameInfo['market_struct'] == 'oligopoly' ? 'from within an oligopoly' : ($gameInfo['market_struct'] == 'monopolistic' ? 'within a monopolisticly competetive market structure' : 'from within a perfectly competetive market structure')) ?>. Your goal is to maximize profit by choosing a quantity of bottles to sell for each of <?= $gameInfo['num_rounds'] ?> years. Additional instructions/background... etc etc etc ...</p>
+		<p style="text-align: left;">You are a firm that sells mustard bottles. Your firm operates <?= $gameInfo['market_struct'] == 'monopoly' ? 'as a monopoly' : ($gameInfo['market_struct'] == 'oligopoly' ? 'from within an oligopoly' : ($gameInfo['market_struct'] == 'monopolistic' ? 'within a monopolisticly competetive market structure' : 'from within a perfectly competetive market structure')) ?>. <?= $gameInfo['mode'] == 'multi' ? 'Your competition in this market is <span class="competition"></span>.':''?> Your goal is to maximize profit by choosing a quantity of bottles to sell for each of <?= $gameInfo['num_rounds'] ?> years. Additional instructions/background... etc etc etc ...</p>
 		<button class="close-button" data-close aria-label="Close reveal" type="button">
 			<span aria-hidden="true">&times;</span>
 		</button>
@@ -374,8 +368,8 @@ Contains code for the game UI.
 				var opp;
 				if ($('#usrname').val() == gameObj['playerOne']) opp = gameObj['playerTwo'].substr(0, gameObj['playerTwo'].indexOf('@'));
 				else opp = gameObj['playerOne'].substr(0, gameObj['playerOne'].indexOf('@'));
-				$('#opponentHeading').text('Opponent: '+opp);
 				$('#opponent').val(opp);
+				$('.competition').text(opp);
 			}
 
 			window.location.href = window.location.href+"#"+groupId;
