@@ -40,7 +40,12 @@ Contains code for the game UI.
 
     	// Func for off canvas menu to change screen content
     	function change_content(to_section) {
-    		var headers = {"dashboard_section": "Dashboard", "income_section": "Income Statement", "cost_section": "Cost Data","industry_section": "Industry Data", "settings_section": "Settings"};
+    		if (to_section == 'instructions') {
+    			$('#beginModal').foundation('open');
+    			return;
+    		}
+
+    		var headers = {"dashboard_section": "Dashboard", "income_section": "Income Statement", "cost_section": "Cost Data","industry_section": "Industry Data"};
     		var elements = document.getElementsByClassName("display_sections");
 
     		if (firstSubmit) {
@@ -71,7 +76,7 @@ Contains code for the game UI.
 		  <li><a onclick="change_content('income_section')">Income Statement</a></li>
 		  <li><a onclick="change_content('cost_section')">Cost Data</a></li>
 		  <li><a onclick="change_content('industry_section')">Industry Data</a></li>
-		  <li><a onclick="change_content('settings_section')">Settings</a></li>
+		  <li><a onclick="change_content('instructions')">'Instructions</a></li>
 		</ul>
 
 		<ul class="vertical menu" style="position: absolute; bottom: 0; width: 100%; margin-bottom: 25px">
@@ -305,7 +310,16 @@ Contains code for the game UI.
 		</div>
 	</div>
 
-	<!-- END GAME MODAL -->
+	<!-- MODALS -->
+	<!-- begining of game instructions -->
+	<div class="reveal" id="beginModal" data-reveal data-animation-in="slide-in-up" style="border-radius: 5px; opacity: 0.9">
+		<h2 style="text-align: left;"><strong>Instructions</strong></h2>
+		<p style="text-align: left;">You are a firm that sells mustard bottles. Your firm operates <?= $gameInfo['market_struct'] == 'monopoly' ? 'as a monopoly' : ($gameInfo['market_struct'] == 'oligopoly' ? 'from within an oligopoly' : ($gameInfo['market_struct'] == 'monopolistic' ? 'within a monopolisticly competetive market structure' : 'from within a perfectly competetive market structure')) ?>. Your goal is to maximize profit by choosing a quantity of bottles to sell for each of <?= $gameInfo['num_rounds'] ?> years. Additional instructions/background... etc etc etc ...</p>
+		<button class="close-button" data-close aria-label="Close reveal" type="button">
+			<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<!-- end game -->
 	<div class="reveal" id="endModal" data-reveal data-animation-in="slide-in-up" style="border-radius: 5px; opacity: 0.9">
 		<h2 style="text-align: center;"><strong>Game Over!</strong></h2>
 		<p style="text-align: center;">(Dismiss to view final results)</p>
@@ -702,27 +716,6 @@ Contains code for the game UI.
     	var oppProfitHistory = [];
     	var oppRevenueHistory = [];
     	var oppQuantityHistory = [];
-
-    	// Func for off canvas menu to change screen content
-    	function change_content(to_section) {
-    		var headers = {"dashboard_section": "Dashboard", "income_section": "Income Statement", "cost_section": "Cost Data","industry_section": "Industry Data", "settings_section": "Settings"};
-    		var elements = document.getElementsByClassName("display_sections");
-
-    		if (firstSubmit) {
-	    		document.body.scrollTop = document.documentElement.scrollTop = 0; // force page to top
-
-	    		for (var i = elements.length - 1; i >= 0; i--) {
-	    			elements[i].style.display = "none";
-	    		}
-
-	    		document.getElementById(to_section).style.display = "";
-	    		$('#dynamicHeader').text(headers[to_section]);
-
-	    		init(to_section);
-	    	}
-	    	else
-	    		$('#emptyInputNotice').foundation('show');
-    	}
 
     	// CHARTS SET UP \\
     	// =================
