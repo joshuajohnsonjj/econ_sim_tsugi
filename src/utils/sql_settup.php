@@ -8,7 +8,7 @@ Next are a handfull of utility functions relating to the mysql database.
 */
 
 DEFINE('DB_USERNAME', 'root');
-DEFINE('DB_PASSWORD', 'nd_dev_sql329ds');
+DEFINE('DB_PASSWORD', '');
 DEFINE('DB_HOST', 'localhost');
 DEFINE('DB_DATABASE', 'econ_sim_data');
 
