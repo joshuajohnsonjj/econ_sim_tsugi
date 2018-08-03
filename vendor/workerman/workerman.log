@@ -1,0 +1,1359 @@
+2018-07-12 22:53:30 pid:20907 Workerman[start.php] start in DEBUG mode
+2018-07-12 23:12:14 pid:20907 Workerman[start.php] stopping ...
+2018-07-12 23:12:14 pid:20907 Workerman[start.php] has been stopped
+2018-07-12 23:13:19 pid:21181 Workerman[start.php] start in DEBUG mode
+2018-07-13 01:13:10 pid:21181 Workerman[start.php] stopping ...
+2018-07-13 01:13:10 pid:21181 Workerman[start.php] has been stopped
+2018-07-13 01:14:32 pid:22640 Workerman[start.php] start in DEBUG mode
+2018-07-13 01:18:04 pid:22640 Workerman[start.php] stopping ...
+2018-07-13 01:18:04 pid:22640 Workerman[start.php] has been stopped
+2018-07-13 01:24:45 pid:22777 Workerman[start.php] start in DEBUG mode
+2018-07-13 01:25:30 pid:22777 Workerman[start.php] stopping ...
+2018-07-13 01:25:30 pid:22777 Workerman[start.php] has been stopped
+2018-07-13 01:25:31 pid:22792 Workerman[start.php] start in DEBUG mode
+2018-07-13 01:25:37 pid:22792 Workerman[start.php] stopping ...
+2018-07-13 01:25:37 pid:22792 Workerman[start.php] has been stopped
+2018-07-13 01:25:38 pid:22797 Workerman[start.php] start in DEBUG mode
+2018-07-13 01:26:24 pid:22797 Workerman[start.php] stopping ...
+2018-07-13 01:26:24 pid:22797 Workerman[start.php] has been stopped
+2018-07-13 01:26:25 pid:22819 Workerman[start.php] start in DEBUG mode
+2018-07-13 01:28:29 pid:22819 Workerman[start.php] stopping ...
+2018-07-13 01:28:29 pid:22819 Workerman[start.php] has been stopped
+2018-07-13 01:28:30 pid:22854 Workerman[start.php] start in DEBUG mode
+2018-07-13 01:28:58 pid:22854 Workerman[start.php] stopping ...
+2018-07-13 01:28:58 pid:22854 Workerman[start.php] has been stopped
+2018-07-13 01:28:59 pid:22866 Workerman[start.php] start in DEBUG mode
+2018-07-13 01:29:00 pid:22868 Worker[22868] process terminated with ERROR: E_ERROR "Uncaught ArgumentCountError: Too few arguments to function {closure}(), 1 passed and exactly 2 expected in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:55
+Stack trace:
+#0 [internal function]: {closure}(Object(PHPSocketIO\Socket))
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('connection', Object(PHPSocketIO\Socket))
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Nsp.php(102): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Nsp.php(68): PHPSocketIO\Nsp->emit('connection', Object(PHPSocketIO\Socket))
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(64): PHPSocketIO\Nsp->add(Object(PHPSocketIO\Client), Object(PHPSocketIO\Nsp), Array)
+#6 /Applications/MAMP/htdocs/tsugi-php-stan in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php on line 55"
+2018-07-13 01:29:00 pid:22866 worker[PHPSocketIO:22868] exit with status 65280
+2018-07-13 01:29:23 pid:22869 Worker[22869] process terminated with ERROR: E_ERROR "Uncaught ArgumentCountError: Too few arguments to function {closure}(), 1 passed and exactly 2 expected in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:55
+Stack trace:
+#0 [internal function]: {closure}(Object(PHPSocketIO\Socket))
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('connection', Object(PHPSocketIO\Socket))
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Nsp.php(102): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Nsp.php(68): PHPSocketIO\Nsp->emit('connection', Object(PHPSocketIO\Socket))
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(64): PHPSocketIO\Nsp->add(Object(PHPSocketIO\Client), Object(PHPSocketIO\Nsp), Array)
+#6 /Applications/MAMP/htdocs/tsugi-php-stan in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php on line 55"
+2018-07-13 01:29:23 pid:22866 worker[PHPSocketIO:22869] exit with status 65280
+2018-07-13 01:29:23 pid:22876 Worker[22876] process terminated with ERROR: E_ERROR "Uncaught ArgumentCountError: Too few arguments to function {closure}(), 1 passed and exactly 2 expected in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:55
+Stack trace:
+#0 [internal function]: {closure}(Object(PHPSocketIO\Socket))
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('connection', Object(PHPSocketIO\Socket))
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Nsp.php(102): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Nsp.php(68): PHPSocketIO\Nsp->emit('connection', Object(PHPSocketIO\Socket))
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(64): PHPSocketIO\Nsp->add(Object(PHPSocketIO\Client), Object(PHPSocketIO\Nsp), Array)
+#6 /Applications/MAMP/htdocs/tsugi-php-stan in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php on line 55"
+2018-07-13 01:29:23 pid:22866 worker[PHPSocketIO:22876] exit with status 65280
+2018-07-13 01:29:45 pid:22877 Worker[22877] process terminated with ERROR: E_ERROR "Uncaught ArgumentCountError: Too few arguments to function {closure}(), 1 passed and exactly 2 expected in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:55
+Stack trace:
+#0 [internal function]: {closure}(Object(PHPSocketIO\Socket))
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('connection', Object(PHPSocketIO\Socket))
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Nsp.php(102): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Nsp.php(68): PHPSocketIO\Nsp->emit('connection', Object(PHPSocketIO\Socket))
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(64): PHPSocketIO\Nsp->add(Object(PHPSocketIO\Client), Object(PHPSocketIO\Nsp), Array)
+#6 /Applications/MAMP/htdocs/tsugi-php-stan in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php on line 55"
+2018-07-13 01:29:45 pid:22866 worker[PHPSocketIO:22877] exit with status 65280
+2018-07-13 01:29:45 pid:22882 Worker[22882] process terminated with ERROR: E_ERROR "Uncaught ArgumentCountError: Too few arguments to function {closure}(), 1 passed and exactly 2 expected in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:55
+Stack trace:
+#0 [internal function]: {closure}(Object(PHPSocketIO\Socket))
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('connection', Object(PHPSocketIO\Socket))
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Nsp.php(102): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Nsp.php(68): PHPSocketIO\Nsp->emit('connection', Object(PHPSocketIO\Socket))
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(64): PHPSocketIO\Nsp->add(Object(PHPSocketIO\Client), Object(PHPSocketIO\Nsp), Array)
+#6 /Applications/MAMP/htdocs/tsugi-php-stan in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php on line 55"
+2018-07-13 01:29:45 pid:22866 worker[PHPSocketIO:22882] exit with status 65280
+2018-07-13 01:30:09 pid:22883 Worker[22883] process terminated with ERROR: E_ERROR "Uncaught ArgumentCountError: Too few arguments to function {closure}(), 1 passed and exactly 2 expected in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:55
+Stack trace:
+#0 [internal function]: {closure}(Object(PHPSocketIO\Socket))
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('connection', Object(PHPSocketIO\Socket))
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Nsp.php(102): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Nsp.php(68): PHPSocketIO\Nsp->emit('connection', Object(PHPSocketIO\Socket))
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(64): PHPSocketIO\Nsp->add(Object(PHPSocketIO\Client), Object(PHPSocketIO\Nsp), Array)
+#6 /Applications/MAMP/htdocs/tsugi-php-stan in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php on line 55"
+2018-07-13 01:30:09 pid:22866 worker[PHPSocketIO:22883] exit with status 65280
+2018-07-13 01:30:09 pid:22891 Worker[22891] process terminated with ERROR: E_ERROR "Uncaught ArgumentCountError: Too few arguments to function {closure}(), 1 passed and exactly 2 expected in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:55
+Stack trace:
+#0 [internal function]: {closure}(Object(PHPSocketIO\Socket))
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('connection', Object(PHPSocketIO\Socket))
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Nsp.php(102): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Nsp.php(68): PHPSocketIO\Nsp->emit('connection', Object(PHPSocketIO\Socket))
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(64): PHPSocketIO\Nsp->add(Object(PHPSocketIO\Client), Object(PHPSocketIO\Nsp), Array)
+#6 /Applications/MAMP/htdocs/tsugi-php-stan in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php on line 55"
+2018-07-13 01:30:09 pid:22866 worker[PHPSocketIO:22891] exit with status 65280
+2018-07-13 01:30:14 pid:22866 Workerman[start.php] stopping ...
+2018-07-13 01:30:14 pid:22866 Workerman[start.php] has been stopped
+2018-07-13 01:30:20 pid:22897 Workerman[start.php] start in DEBUG mode
+2018-07-13 01:31:55 pid:22897 Workerman[start.php] stopping ...
+2018-07-13 01:31:55 pid:22897 Workerman[start.php] has been stopped
+2018-07-13 01:31:56 pid:22924 Workerman[start.php] start in DEBUG mode
+2018-07-13 01:32:00 pid:22926 ArgumentCountError: Too few arguments to function {closure}(), 3 passed and exactly 4 expected in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:64
+Stack trace:
+#0 [internal function]: {closure}('6', NULL, '0')
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('toggleGameSessi...', '6', NULL, '0')
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(307): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(269): PHPSocketIO\Socket->onevent(Array)
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(202): PHPSocketIO\Socket->onpacket(Array)
+#6 [internal function]: PHPSocketIO\Client->ondecoded(Array)
+#7 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#8 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Parser/Decoder.php(34): PHPSocketIO\Event\Emitter->emit('decoded', Array)
+#9 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(182): PHPSocketIO\Parser\Decoder->add('2["toggleGameSe...')
+#10 [internal function]: PHPSocketIO\Client->ondata('2["toggleGameSe...')
+#11 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#12 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Socket.php(187): PHPSocketIO\Event\Emitter->emit('data', '2["toggleGameSe...')
+#13 [internal function]: PHPSocketIO\Engine\Socket->onPacket(Array)
+#14 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#15 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transport.php(56): PHPSocketIO\Event\Emitter->emit('packet', Array)
+#16 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transport.php(61): PHPSocketIO\Engine\Transport->onPacket(Array)
+#17 [internal function]: PHPSocketIO\Engine\Transport->onData('42["toggleGameS...')
+#18 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transports/WebSocket.php(26): call_user_func(Array, '42["toggleGameS...')
+#19 [internal function]: PHPSocketIO\Engine\Transports\WebSocket->onData2(Object(Workerman\Connection\TcpConnection), '42["toggleGameS...')
+#20 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Connection/TcpConnection.php(645): call_user_func(Array, Object(Workerman\Connection\TcpConnection), '42["toggleGameS...')
+#21 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #51)
+#22 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Events/Select.php(289): call_user_func_array(Array, Array)
+#23 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(2231): Workerman\Events\Select->loop()
+#24 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1356): Workerman\Worker->run()
+#25 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1188): Workerman\Worker::forkOneWorkerForLinux(Object(Workerman\Worker))
+#26 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1162): Workerman\Worker::forkWorkersForLinux()
+#27 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(478): Workerman\Worker::forkWorkers()
+#28 /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start.php(12): Workerman\Worker::runAll()
+#29 {main}
+2018-07-13 01:32:00 pid:22926 Worker[22926] process terminated
+2018-07-13 01:32:00 pid:22924 worker[PHPSocketIO:22926] exit with status 64000
+2018-07-13 01:33:36 pid:22924 Workerman[start.php] stopping ...
+2018-07-13 01:33:36 pid:22924 Workerman[start.php] has been stopped
+2018-07-13 01:33:40 pid:22956 Workerman[start.php] start in DEBUG mode
+2018-07-13 01:34:05 pid:22956 Workerman[start.php] stopping ...
+2018-07-13 01:34:05 pid:22956 Workerman[start.php] has been stopped
+2018-07-13 01:34:06 pid:22966 Workerman[start.php] start in DEBUG mode
+2018-07-13 01:46:20 pid:22966 Workerman[start.php] stopping ...
+2018-07-13 01:46:20 pid:22966 Workerman[start.php] has been stopped
+2018-07-13 01:46:21 pid:23113 Workerman[start.php] start in DEBUG mode
+2018-07-13 01:47:27 pid:23113 Workerman[start.php] stopping ...
+2018-07-13 01:47:27 pid:23113 Workerman[start.php] has been stopped
+2018-07-13 01:47:47 pid:23137 Workerman[start.php] start in DEBUG mode
+2018-07-13 01:48:10 pid:23137 Workerman[start.php] stopping ...
+2018-07-13 01:48:10 pid:23137 Workerman[start.php] has been stopped
+2018-07-13 01:48:12 pid:23148 Workerman[start.php] start in DEBUG mode
+2018-07-13 02:05:02 pid:23150 Worker[23150] process terminated with ERROR: E_ERROR "Uncaught Error: Cannot use object of type stdClass as array in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:94
+Stack trace:
+#0 [internal function]: {closure}(Array)
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('joinGame', Array)
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(307): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(269): PHPSocketIO\Socket->onevent(Array)
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(202): PHPSocketIO\Socket->onpacket(Array)
+#6 [internal function]: PHPSocketIO\Client->ondecoded(Array)
+#7 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, A in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php on line 94"
+2018-07-13 02:05:02 pid:23148 worker[PHPSocketIO:23150] exit with status 65280
+2018-07-13 02:09:09 pid:23148 Workerman[start.php] stopping ...
+2018-07-13 02:09:09 pid:23148 Workerman[start.php] has been stopped
+2018-07-13 02:09:14 pid:23440 Workerman[start.php] start in DEBUG mode
+2018-07-13 02:09:31 pid:23442 Worker[23442] process terminated with ERROR: E_ERROR "Uncaught Error: Cannot use object of type stdClass as array in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:96
+Stack trace:
+#0 [internal function]: {closure}(Array)
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('joinGame', Array)
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(307): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(269): PHPSocketIO\Socket->onevent(Array)
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(202): PHPSocketIO\Socket->onpacket(Array)
+#6 [internal function]: PHPSocketIO\Client->ondecoded(Array)
+#7 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, A in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php on line 96"
+2018-07-13 02:09:31 pid:23440 worker[PHPSocketIO:23442] exit with status 65280
+2018-07-13 02:14:54 pid:23440 Workerman[start.php] stopping ...
+2018-07-13 02:14:54 pid:23440 Workerman[start.php] has been stopped
+2018-07-13 02:14:55 pid:23545 Workerman[start.php] start in DEBUG mode
+2018-07-13 02:16:00 pid:23547 Worker[23547] process terminated with ERROR: E_ERROR "Uncaught Error: Call to a member function to() on null in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:127
+Stack trace:
+#0 [internal function]: {closure}(Array)
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('joinGame', Array)
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(307): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(269): PHPSocketIO\Socket->onevent(Array)
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(202): PHPSocketIO\Socket->onpacket(Array)
+#6 [internal function]: PHPSocketIO\Client->ondecoded(Array)
+#7 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php on line 127"
+2018-07-13 02:16:00 pid:23545 worker[PHPSocketIO:23547] exit with status 65280
+2018-07-13 02:18:27 pid:23545 Workerman[start.php] stopping ...
+2018-07-13 02:18:27 pid:23545 Workerman[start.php] has been stopped
+2018-07-13 02:18:29 pid:23609 Workerman[start.php] start in DEBUG mode
+2018-07-13 02:18:41 pid:23611 Worker[23611] process terminated with ERROR: E_ERROR "Uncaught Error: Cannot use object of type stdClass as array in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:127
+Stack trace:
+#0 [internal function]: {closure}(Array)
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('joinGame', Array)
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(307): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(269): PHPSocketIO\Socket->onevent(Array)
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(202): PHPSocketIO\Socket->onpacket(Array)
+#6 [internal function]: PHPSocketIO\Client->ondecoded(Array)
+#7 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array,  in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php on line 127"
+2018-07-13 02:18:41 pid:23609 worker[PHPSocketIO:23611] exit with status 65280
+2018-07-13 02:19:43 pid:23609 Workerman[start.php] stopping ...
+2018-07-13 02:19:43 pid:23609 Workerman[start.php] has been stopped
+2018-07-13 02:19:46 pid:23632 Workerman[start.php] start in DEBUG mode
+2018-07-13 02:29:01 pid:23632 Workerman[start.php] stopping ...
+2018-07-13 02:29:01 pid:23632 Workerman[start.php] has been stopped
+2018-07-13 02:29:04 pid:23741 Workerman[start.php] start in DEBUG mode
+2018-07-13 02:29:19 pid:23743 Worker[23743] process terminated with ERROR: E_ERROR "Uncaught Error: Cannot use object of type stdClass as array in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:96
+Stack trace:
+#0 [internal function]: {closure}(Array)
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('joinGame', Array)
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(307): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(269): PHPSocketIO\Socket->onevent(Array)
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(202): PHPSocketIO\Socket->onpacket(Array)
+#6 [internal function]: PHPSocketIO\Client->ondecoded(Array)
+#7 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, A in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php on line 96"
+2018-07-13 02:29:19 pid:23741 worker[PHPSocketIO:23743] exit with status 65280
+2018-07-13 02:33:34 pid:23741 Workerman[start.php] stopping ...
+2018-07-13 02:33:34 pid:23741 Workerman[start.php] has been stopped
+2018-07-13 02:33:36 pid:23808 Workerman[start.php] start in DEBUG mode
+2018-07-13 02:34:07 pid:23810 Worker[23810] process terminated with ERROR: E_ERROR "Uncaught Error: Cannot use object of type stdClass as array in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:127
+Stack trace:
+#0 [internal function]: {closure}(Array)
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('joinGame', Array)
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(307): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(269): PHPSocketIO\Socket->onevent(Array)
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(202): PHPSocketIO\Socket->onpacket(Array)
+#6 [internal function]: PHPSocketIO\Client->ondecoded(Array)
+#7 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array,  in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php on line 127"
+2018-07-13 02:34:07 pid:23808 worker[PHPSocketIO:23810] exit with status 65280
+2018-07-13 02:34:57 pid:23808 Workerman[start.php] stopping ...
+2018-07-13 02:34:57 pid:23808 Workerman[start.php] has been stopped
+2018-07-13 02:34:59 pid:23841 Workerman[start.php] start in DEBUG mode
+2018-07-13 02:36:06 pid:23841 Workerman[start.php] stopping ...
+2018-07-13 02:36:06 pid:23841 Workerman[start.php] has been stopped
+2018-07-13 02:36:07 pid:23862 Workerman[start.php] start in DEBUG mode
+2018-07-13 02:40:15 pid:23862 Workerman[start.php] stopping ...
+2018-07-13 02:40:15 pid:23862 Workerman[start.php] has been stopped
+2018-07-13 02:40:21 pid:23929 Workerman[start.php] start in DEBUG mode
+2018-07-13 02:41:19 pid:23931 Error: Cannot use object of type stdClass as array in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:146
+Stack trace:
+#0 [internal function]: {closure}(Array)
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('updateData', Array)
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(307): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(269): PHPSocketIO\Socket->onevent(Array)
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(202): PHPSocketIO\Socket->onpacket(Array)
+#6 [internal function]: PHPSocketIO\Client->ondecoded(Array)
+#7 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#8 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Parser/Decoder.php(34): PHPSocketIO\Event\Emitter->emit('decoded', Array)
+#9 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(182): PHPSocketIO\Parser\Decoder->add('2["updateData",...')
+#10 [internal function]: PHPSocketIO\Client->ondata('2["updateData",...')
+#11 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#12 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Socket.php(187): PHPSocketIO\Event\Emitter->emit('data', '2["updateData",...')
+#13 [internal function]: PHPSocketIO\Engine\Socket->onPacket(Array)
+#14 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#15 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transport.php(56): PHPSocketIO\Event\Emitter->emit('packet', Array)
+#16 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transport.php(61): PHPSocketIO\Engine\Transport->onPacket(Array)
+#17 [internal function]: PHPSocketIO\Engine\Transport->onData('42["updateData"...')
+#18 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transports/WebSocket.php(26): call_user_func(Array, '42["updateData"...')
+#19 [internal function]: PHPSocketIO\Engine\Transports\WebSocket->onData2(Object(Workerman\Connection\TcpConnection), '42["updateData"...')
+#20 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Connection/TcpConnection.php(645): call_user_func(Array, Object(Workerman\Connection\TcpConnection), '42["updateData"...')
+#21 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #58)
+#22 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Events/Select.php(289): call_user_func_array(Array, Array)
+#23 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(2231): Workerman\Events\Select->loop()
+#24 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1356): Workerman\Worker->run()
+#25 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1188): Workerman\Worker::forkOneWorkerForLinux(Object(Workerman\Worker))
+#26 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1162): Workerman\Worker::forkWorkersForLinux()
+#27 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(478): Workerman\Worker::forkWorkers()
+#28 /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start.php(12): Workerman\Worker::runAll()
+#29 {main}
+2018-07-13 02:41:19 pid:23931 Worker[23931] process terminated
+2018-07-13 02:41:19 pid:23929 worker[PHPSocketIO:23931] exit with status 64000
+2018-07-13 02:44:51 pid:23929 Workerman[start.php] stopping ...
+2018-07-13 02:44:51 pid:23929 Workerman[start.php] has been stopped
+2018-07-13 02:44:57 pid:23989 Workerman[start.php] start in DEBUG mode
+2018-07-13 02:49:39 pid:23989 Workerman[start.php] stopping ...
+2018-07-13 02:49:39 pid:23989 Workerman[start.php] has been stopped
+2018-07-13 02:49:40 pid:24065 Workerman[start.php] start in DEBUG mode
+2018-07-13 02:53:11 pid:24065 Workerman[start.php] stopping ...
+2018-07-13 02:53:11 pid:24065 Workerman[start.php] has been stopped
+2018-07-13 02:53:13 pid:24126 Workerman[start.php] start in DEBUG mode
+2018-07-13 02:54:00 pid:24126 Workerman[start.php] stopping ...
+2018-07-13 02:54:00 pid:24126 Workerman[start.php] has been stopped
+2018-07-13 02:54:03 pid:24144 Workerman[start.php] start in DEBUG mode
+2018-07-13 02:54:44 pid:24144 Workerman[start.php] stopping ...
+2018-07-13 02:54:44 pid:24144 Workerman[start.php] has been stopped
+2018-07-13 02:54:50 pid:24163 Workerman[start.php] start in DEBUG mode
+2018-07-13 02:56:00 pid:24163 Workerman[start.php] stopping ...
+2018-07-13 02:56:00 pid:24163 Workerman[start.php] has been stopped
+2018-07-13 02:56:03 pid:24186 Workerman[start.php] start in DEBUG mode
+2018-07-13 02:56:55 pid:24186 Workerman[start.php] stopping ...
+2018-07-13 02:56:55 pid:24186 Workerman[start.php] has been stopped
+2018-07-13 02:56:57 pid:24205 Workerman[start.php] start in DEBUG mode
+2018-07-13 02:58:18 pid:24205 Workerman[start.php] stopping ...
+2018-07-13 02:58:18 pid:24205 Workerman[start.php] has been stopped
+2018-07-13 02:58:21 pid:24230 Workerman[start.php] start in DEBUG mode
+2018-07-13 03:02:05 pid:24230 Workerman[start.php] stopping ...
+2018-07-13 03:02:05 pid:24230 Workerman[start.php] has been stopped
+2018-07-13 03:02:08 pid:24292 Workerman[start.php] start in DEBUG mode
+2018-07-13 03:02:36 pid:24292 Workerman[start.php] stopping ...
+2018-07-13 03:02:36 pid:24292 Workerman[start.php] has been stopped
+2018-07-13 03:02:36 pid:24314 Workerman[start.php] start in DEBUG mode
+2018-07-13 03:03:22 pid:24314 Workerman[start.php] stopping ...
+2018-07-13 03:03:22 pid:24314 Workerman[start.php] has been stopped
+2018-07-13 03:03:25 pid:24336 Workerman[start.php] start in DEBUG mode
+2018-07-13 03:03:34 pid:24338 Error: Cannot use object of type stdClass as array in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:147
+Stack trace:
+#0 [internal function]: {closure}(Array)
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('updateData', Array)
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(307): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(269): PHPSocketIO\Socket->onevent(Array)
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(202): PHPSocketIO\Socket->onpacket(Array)
+#6 [internal function]: PHPSocketIO\Client->ondecoded(Array)
+#7 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#8 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Parser/Decoder.php(34): PHPSocketIO\Event\Emitter->emit('decoded', Array)
+#9 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(182): PHPSocketIO\Parser\Decoder->add('2["updateData",...')
+#10 [internal function]: PHPSocketIO\Client->ondata('2["updateData",...')
+#11 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#12 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Socket.php(187): PHPSocketIO\Event\Emitter->emit('data', '2["updateData",...')
+#13 [internal function]: PHPSocketIO\Engine\Socket->onPacket(Array)
+#14 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#15 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transport.php(56): PHPSocketIO\Event\Emitter->emit('packet', Array)
+#16 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transport.php(61): PHPSocketIO\Engine\Transport->onPacket(Array)
+#17 [internal function]: PHPSocketIO\Engine\Transport->onData('42["updateData"...')
+#18 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transports/WebSocket.php(26): call_user_func(Array, '42["updateData"...')
+#19 [internal function]: PHPSocketIO\Engine\Transports\WebSocket->onData2(Object(Workerman\Connection\TcpConnection), '42["updateData"...')
+#20 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Connection/TcpConnection.php(645): call_user_func(Array, Object(Workerman\Connection\TcpConnection), '42["updateData"...')
+#21 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #57)
+#22 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Events/Select.php(289): call_user_func_array(Array, Array)
+#23 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(2231): Workerman\Events\Select->loop()
+#24 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1356): Workerman\Worker->run()
+#25 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1188): Workerman\Worker::forkOneWorkerForLinux(Object(Workerman\Worker))
+#26 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1162): Workerman\Worker::forkWorkersForLinux()
+#27 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(478): Workerman\Worker::forkWorkers()
+#28 /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start.php(12): Workerman\Worker::runAll()
+#29 {main}
+2018-07-13 03:03:34 pid:24338 Worker[24338] process terminated
+2018-07-13 03:03:34 pid:24336 worker[PHPSocketIO:24338] exit with status 64000
+2018-07-13 03:04:08 pid:24336 Workerman[start.php] stopping ...
+2018-07-13 03:04:08 pid:24336 Workerman[start.php] has been stopped
+2018-07-13 03:04:11 pid:24360 Workerman[start.php] start in DEBUG mode
+2018-07-13 03:04:20 pid:24362 Error: Cannot use object of type stdClass as array in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:148
+Stack trace:
+#0 [internal function]: {closure}(Array)
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('updateData', Array)
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(307): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(269): PHPSocketIO\Socket->onevent(Array)
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(202): PHPSocketIO\Socket->onpacket(Array)
+#6 [internal function]: PHPSocketIO\Client->ondecoded(Array)
+#7 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#8 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Parser/Decoder.php(34): PHPSocketIO\Event\Emitter->emit('decoded', Array)
+#9 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(182): PHPSocketIO\Parser\Decoder->add('2["updateData",...')
+#10 [internal function]: PHPSocketIO\Client->ondata('2["updateData",...')
+#11 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#12 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Socket.php(187): PHPSocketIO\Event\Emitter->emit('data', '2["updateData",...')
+#13 [internal function]: PHPSocketIO\Engine\Socket->onPacket(Array)
+#14 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#15 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transport.php(56): PHPSocketIO\Event\Emitter->emit('packet', Array)
+#16 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transport.php(61): PHPSocketIO\Engine\Transport->onPacket(Array)
+#17 [internal function]: PHPSocketIO\Engine\Transport->onData('42["updateData"...')
+#18 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transports/WebSocket.php(26): call_user_func(Array, '42["updateData"...')
+#19 [internal function]: PHPSocketIO\Engine\Transports\WebSocket->onData2(Object(Workerman\Connection\TcpConnection), '42["updateData"...')
+#20 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Connection/TcpConnection.php(645): call_user_func(Array, Object(Workerman\Connection\TcpConnection), '42["updateData"...')
+#21 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #58)
+#22 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Events/Select.php(289): call_user_func_array(Array, Array)
+#23 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(2231): Workerman\Events\Select->loop()
+#24 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1356): Workerman\Worker->run()
+#25 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1188): Workerman\Worker::forkOneWorkerForLinux(Object(Workerman\Worker))
+#26 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1162): Workerman\Worker::forkWorkersForLinux()
+#27 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(478): Workerman\Worker::forkWorkers()
+#28 /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start.php(12): Workerman\Worker::runAll()
+#29 {main}
+2018-07-13 03:04:20 pid:24362 Worker[24362] process terminated
+2018-07-13 03:04:20 pid:24360 worker[PHPSocketIO:24362] exit with status 64000
+2018-07-13 03:05:28 pid:24360 Workerman[start.php] stopping ...
+2018-07-13 03:05:28 pid:24360 Workerman[start.php] has been stopped
+2018-07-13 03:05:31 pid:24387 Workerman[start.php] start in DEBUG mode
+2018-07-13 03:06:14 pid:24387 Workerman[start.php] stopping ...
+2018-07-13 03:06:14 pid:24387 Workerman[start.php] has been stopped
+2018-07-13 03:06:19 pid:24410 Workerman[start.php] start in DEBUG mode
+2018-07-13 03:07:58 pid:24410 Workerman[start.php] stopping ...
+2018-07-13 03:07:58 pid:24410 Workerman[start.php] has been stopped
+2018-07-13 03:07:59 pid:24439 Workerman[start.php] start in DEBUG mode
+2018-07-13 03:12:22 pid:24439 Workerman[start.php] stopping ...
+2018-07-13 03:12:22 pid:24439 Workerman[start.php] has been stopped
+2018-07-13 03:12:23 pid:24500 Workerman[start.php] start in DEBUG mode
+2018-07-13 03:13:49 pid:24500 Workerman[start.php] stopping ...
+2018-07-13 03:13:49 pid:24500 Workerman[start.php] has been stopped
+2018-07-13 03:13:51 pid:24524 Workerman[start.php] start in DEBUG mode
+2018-07-13 03:18:03 pid:24524 Workerman[start.php] stopping ...
+2018-07-13 03:18:03 pid:24524 Workerman[start.php] has been stopped
+2018-07-13 03:18:05 pid:24584 Workerman[start.php] start in DEBUG mode
+2018-07-13 03:25:08 pid:24584 Workerman[start.php] stopping ...
+2018-07-13 03:25:08 pid:24584 Workerman[start.php] has been stopped
+2018-07-13 03:25:10 pid:24687 Workerman[start.php] start in DEBUG mode
+2018-07-13 03:27:01 pid:24687 Workerman[start.php] stopping ...
+2018-07-13 03:27:01 pid:24687 Workerman[start.php] has been stopped
+2018-07-13 03:27:03 pid:24718 Workerman[start.php] start in DEBUG mode
+2018-07-13 03:27:57 pid:24718 Workerman[start.php] stopping ...
+2018-07-13 03:27:57 pid:24718 Workerman[start.php] has been stopped
+2018-07-13 03:27:58 pid:24743 Workerman[start.php] start in DEBUG mode
+2018-07-13 04:12:06 pid:24743 Workerman[start.php] stopping ...
+2018-07-13 04:12:06 pid:24743 Workerman[start.php] has been stopped
+2018-07-13 04:12:10 pid:25256 Workerman[start.php] start in DEBUG mode
+2018-07-13 04:12:24 pid:25258 Worker[25258] process terminated with ERROR: E_ERROR "Uncaught Error: Call to a member function to() on null in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:127
+Stack trace:
+#0 [internal function]: {closure}(Array)
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('joinGame', Array)
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(307): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(269): PHPSocketIO\Socket->onevent(Array)
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(202): PHPSocketIO\Socket->onpacket(Array)
+#6 [internal function]: PHPSocketIO\Client->ondecoded(Array)
+#7 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php on line 127"
+2018-07-13 04:12:24 pid:25256 worker[PHPSocketIO:25258] exit with status 65280
+2018-07-13 04:13:52 pid:25256 Workerman[start.php] stopping ...
+2018-07-13 04:13:52 pid:25256 Workerman[start.php] has been stopped
+2018-07-13 04:13:55 pid:25296 Workerman[start.php] start in DEBUG mode
+2018-07-13 04:17:08 pid:25296 Workerman[start.php] stopping ...
+2018-07-13 04:17:08 pid:25296 Workerman[start.php] has been stopped
+2018-07-13 04:17:11 pid:25359 Workerman[start.php] start in DEBUG mode
+2018-07-13 04:27:28 pid:25361 Error: Cannot use object of type stdClass as array in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:74
+Stack trace:
+#0 [internal function]: {closure}('6', '1')
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('toggleGameSessi...', '6', '1')
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(307): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(269): PHPSocketIO\Socket->onevent(Array)
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(202): PHPSocketIO\Socket->onpacket(Array)
+#6 [internal function]: PHPSocketIO\Client->ondecoded(Array)
+#7 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#8 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Parser/Decoder.php(34): PHPSocketIO\Event\Emitter->emit('decoded', Array)
+#9 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(182): PHPSocketIO\Parser\Decoder->add('2["toggleGameSe...')
+#10 [internal function]: PHPSocketIO\Client->ondata('2["toggleGameSe...')
+#11 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#12 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Socket.php(187): PHPSocketIO\Event\Emitter->emit('data', '2["toggleGameSe...')
+#13 [internal function]: PHPSocketIO\Engine\Socket->onPacket(Array)
+#14 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#15 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transport.php(56): PHPSocketIO\Event\Emitter->emit('packet', Array)
+#16 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transport.php(61): PHPSocketIO\Engine\Transport->onPacket(Array)
+#17 [internal function]: PHPSocketIO\Engine\Transport->onData('42["toggleGameS...')
+#18 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transports/WebSocket.php(26): call_user_func(Array, '42["toggleGameS...')
+#19 [internal function]: PHPSocketIO\Engine\Transports\WebSocket->onData2(Object(Workerman\Connection\TcpConnection), '42["toggleGameS...')
+#20 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Connection/TcpConnection.php(645): call_user_func(Array, Object(Workerman\Connection\TcpConnection), '42["toggleGameS...')
+#21 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #68)
+#22 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Events/Select.php(289): call_user_func_array(Array, Array)
+#23 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(2231): Workerman\Events\Select->loop()
+#24 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1356): Workerman\Worker->run()
+#25 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1188): Workerman\Worker::forkOneWorkerForLinux(Object(Workerman\Worker))
+#26 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1162): Workerman\Worker::forkWorkersForLinux()
+#27 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(478): Workerman\Worker::forkWorkers()
+#28 /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start.php(12): Workerman\Worker::runAll()
+#29 {main}
+2018-07-13 04:27:28 pid:25361 Worker[25361] process terminated
+2018-07-13 04:27:28 pid:25359 worker[PHPSocketIO:25361] exit with status 64000
+2018-07-13 04:31:45 pid:25359 Workerman[start.php] stopping ...
+2018-07-13 04:31:45 pid:25359 Workerman[start.php] has been stopped
+2018-07-13 19:39:35 pid:26656 Workerman[start.php] start in DEBUG mode
+2018-07-13 19:39:56 pid:26658 Worker[26658] process terminated with ERROR: E_ERROR "Uncaught Error: Cannot use object of type stdClass as array in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:104
+Stack trace:
+#0 [internal function]: {closure}(Array)
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('joinGame', Array)
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(307): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(269): PHPSocketIO\Socket->onevent(Array)
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(202): PHPSocketIO\Socket->onpacket(Array)
+#6 [internal function]: PHPSocketIO\Client->ondecoded(Array)
+#7 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array,  in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php on line 104"
+2018-07-13 19:39:56 pid:26656 worker[PHPSocketIO:26658] exit with status 65280
+2018-07-13 19:43:47 pid:26656 Workerman[start.php] stopping ...
+2018-07-13 19:43:47 pid:26656 Workerman[start.php] has been stopped
+2018-07-13 19:43:51 pid:26724 Workerman[start.php] start in DEBUG mode
+2018-07-13 19:49:23 pid:26726 Error: Cannot use object of type stdClass as array in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:166
+Stack trace:
+#0 [internal function]: {closure}(Array)
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('updateData', Array)
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(307): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(269): PHPSocketIO\Socket->onevent(Array)
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(202): PHPSocketIO\Socket->onpacket(Array)
+#6 [internal function]: PHPSocketIO\Client->ondecoded(Array)
+#7 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#8 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Parser/Decoder.php(34): PHPSocketIO\Event\Emitter->emit('decoded', Array)
+#9 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(182): PHPSocketIO\Parser\Decoder->add('2["updateData",...')
+#10 [internal function]: PHPSocketIO\Client->ondata('2["updateData",...')
+#11 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#12 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Socket.php(187): PHPSocketIO\Event\Emitter->emit('data', '2["updateData",...')
+#13 [internal function]: PHPSocketIO\Engine\Socket->onPacket(Array)
+#14 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#15 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transport.php(56): PHPSocketIO\Event\Emitter->emit('packet', Array)
+#16 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transport.php(61): PHPSocketIO\Engine\Transport->onPacket(Array)
+#17 [internal function]: PHPSocketIO\Engine\Transport->onData('42["updateData"...')
+#18 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transports/WebSocket.php(26): call_user_func(Array, '42["updateData"...')
+#19 [internal function]: PHPSocketIO\Engine\Transports\WebSocket->onData2(Object(Workerman\Connection\TcpConnection), '42["updateData"...')
+#20 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Connection/TcpConnection.php(645): call_user_func(Array, Object(Workerman\Connection\TcpConnection), '42["updateData"...')
+#21 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #65)
+#22 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Events/Select.php(289): call_user_func_array(Array, Array)
+#23 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(2231): Workerman\Events\Select->loop()
+#24 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1356): Workerman\Worker->run()
+#25 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1188): Workerman\Worker::forkOneWorkerForLinux(Object(Workerman\Worker))
+#26 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1162): Workerman\Worker::forkWorkersForLinux()
+#27 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(478): Workerman\Worker::forkWorkers()
+#28 /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start.php(12): Workerman\Worker::runAll()
+#29 {main}
+2018-07-13 19:49:23 pid:26726 Worker[26726] process terminated
+2018-07-13 19:49:23 pid:26724 worker[PHPSocketIO:26726] exit with status 64000
+2018-07-13 19:51:16 pid:26724 Workerman[start.php] stopping ...
+2018-07-13 19:51:16 pid:26724 Workerman[start.php] has been stopped
+2018-07-13 19:51:19 pid:26840 Workerman[start.php] start in DEBUG mode
+2018-07-13 19:51:53 pid:26842 Error: Cannot use object of type stdClass as array in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:167
+Stack trace:
+#0 [internal function]: {closure}(Array)
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('updateData', Array)
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(307): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(269): PHPSocketIO\Socket->onevent(Array)
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(202): PHPSocketIO\Socket->onpacket(Array)
+#6 [internal function]: PHPSocketIO\Client->ondecoded(Array)
+#7 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#8 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Parser/Decoder.php(34): PHPSocketIO\Event\Emitter->emit('decoded', Array)
+#9 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(182): PHPSocketIO\Parser\Decoder->add('2["updateData",...')
+#10 [internal function]: PHPSocketIO\Client->ondata('2["updateData",...')
+#11 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#12 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Socket.php(187): PHPSocketIO\Event\Emitter->emit('data', '2["updateData",...')
+#13 [internal function]: PHPSocketIO\Engine\Socket->onPacket(Array)
+#14 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#15 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transport.php(56): PHPSocketIO\Event\Emitter->emit('packet', Array)
+#16 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transport.php(61): PHPSocketIO\Engine\Transport->onPacket(Array)
+#17 [internal function]: PHPSocketIO\Engine\Transport->onData('42["updateData"...')
+#18 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transports/WebSocket.php(26): call_user_func(Array, '42["updateData"...')
+#19 [internal function]: PHPSocketIO\Engine\Transports\WebSocket->onData2(Object(Workerman\Connection\TcpConnection), '42["updateData"...')
+#20 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Connection/TcpConnection.php(645): call_user_func(Array, Object(Workerman\Connection\TcpConnection), '42["updateData"...')
+#21 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #60)
+#22 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Events/Select.php(289): call_user_func_array(Array, Array)
+#23 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(2231): Workerman\Events\Select->loop()
+#24 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1356): Workerman\Worker->run()
+#25 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1188): Workerman\Worker::forkOneWorkerForLinux(Object(Workerman\Worker))
+#26 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1162): Workerman\Worker::forkWorkersForLinux()
+#27 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(478): Workerman\Worker::forkWorkers()
+#28 /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start.php(12): Workerman\Worker::runAll()
+#29 {main}
+2018-07-13 19:51:53 pid:26842 Worker[26842] process terminated
+2018-07-13 19:51:53 pid:26840 worker[PHPSocketIO:26842] exit with status 64000
+2018-07-13 19:53:37 pid:26840 Workerman[start.php] stopping ...
+2018-07-13 19:53:37 pid:26840 Workerman[start.php] has been stopped
+2018-07-13 19:53:40 pid:26880 Workerman[start.php] start in DEBUG mode
+2018-07-13 19:54:01 pid:26882 Error: Cannot use object of type stdClass as array in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:189
+Stack trace:
+#0 [internal function]: {closure}(Array)
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('updateData', Array)
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(307): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(269): PHPSocketIO\Socket->onevent(Array)
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(202): PHPSocketIO\Socket->onpacket(Array)
+#6 [internal function]: PHPSocketIO\Client->ondecoded(Array)
+#7 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#8 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Parser/Decoder.php(34): PHPSocketIO\Event\Emitter->emit('decoded', Array)
+#9 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(182): PHPSocketIO\Parser\Decoder->add('2["updateData",...')
+#10 [internal function]: PHPSocketIO\Client->ondata('2["updateData",...')
+#11 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#12 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Socket.php(187): PHPSocketIO\Event\Emitter->emit('data', '2["updateData",...')
+#13 [internal function]: PHPSocketIO\Engine\Socket->onPacket(Array)
+#14 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#15 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transport.php(56): PHPSocketIO\Event\Emitter->emit('packet', Array)
+#16 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transport.php(61): PHPSocketIO\Engine\Transport->onPacket(Array)
+#17 [internal function]: PHPSocketIO\Engine\Transport->onData('42["updateData"...')
+#18 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transports/WebSocket.php(26): call_user_func(Array, '42["updateData"...')
+#19 [internal function]: PHPSocketIO\Engine\Transports\WebSocket->onData2(Object(Workerman\Connection\TcpConnection), '42["updateData"...')
+#20 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Connection/TcpConnection.php(645): call_user_func(Array, Object(Workerman\Connection\TcpConnection), '42["updateData"...')
+#21 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #60)
+#22 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Events/Select.php(289): call_user_func_array(Array, Array)
+#23 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(2231): Workerman\Events\Select->loop()
+#24 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1356): Workerman\Worker->run()
+#25 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1188): Workerman\Worker::forkOneWorkerForLinux(Object(Workerman\Worker))
+#26 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1162): Workerman\Worker::forkWorkersForLinux()
+#27 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(478): Workerman\Worker::forkWorkers()
+#28 /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start.php(12): Workerman\Worker::runAll()
+#29 {main}
+2018-07-13 19:54:01 pid:26882 Worker[26882] process terminated
+2018-07-13 19:54:01 pid:26880 worker[PHPSocketIO:26882] exit with status 64000
+2018-07-13 19:55:57 pid:26880 Workerman[start.php] stopping ...
+2018-07-13 19:55:57 pid:26880 Workerman[start.php] has been stopped
+2018-07-13 19:57:35 pid:26956 Workerman[start.php] start in DEBUG mode
+2018-07-13 20:00:15 pid:26956 Workerman[start.php] stopping ...
+2018-07-13 20:00:15 pid:26956 Workerman[start.php] has been stopped
+2018-07-13 20:03:20 pid:27051 Workerman[start.php] start in DEBUG mode
+2018-07-13 20:03:22 pid:27051 Workerman[start.php] stopping ...
+2018-07-13 20:03:22 pid:27051 Workerman[start.php] has been stopped
+2018-07-13 20:21:10 pid:27253 Workerman[start.php] start in DAEMON mode
+2018-07-13 20:21:19 pid:27261 Workerman[start.php] start in DAEMON mode
+2018-07-13 20:21:19 pid:27261 Workerman[start.php] already running
+2018-07-13 20:21:36 pid:27265 Workerman[start.php] stop 
+2018-07-13 20:21:36 pid:27265 Workerman[start.php] is stopping ...
+2018-07-13 20:21:36 pid:27255 Workerman[start.php] stopping ...
+2018-07-13 20:21:36 pid:27255 Workerman[start.php] has been stopped
+2018-07-13 20:21:36 pid:27265 Workerman[start.php] stop success
+2018-07-13 21:01:37 pid:65450 Workerman[] start in DAEMON mode
+2018-07-13 21:10:02 pid:62949 Workerman[] start in DEBUG mode
+2018-07-14 01:53:31 pid:62949 Workerman[] start in DEBUG mode
+2018-07-16 22:53:25 pid:37960 Workerman[start.php] start in DEBUG mode
+2018-07-16 22:54:58 pid:37960 Workerman[start.php] stopping ...
+2018-07-16 22:54:58 pid:37960 Workerman[start.php] has been stopped
+2018-07-16 22:55:01 pid:37988 Workerman[start.php] start in DEBUG mode
+2018-07-16 22:55:12 pid:37990 Error: Call to a member function query() on null in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:78
+Stack trace:
+#0 [internal function]: {closure}('6', '1')
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('toggleGameSessi...', '6', '1')
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(307): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(269): PHPSocketIO\Socket->onevent(Array)
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(202): PHPSocketIO\Socket->onpacket(Array)
+#6 [internal function]: PHPSocketIO\Client->ondecoded(Array)
+#7 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#8 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Parser/Decoder.php(34): PHPSocketIO\Event\Emitter->emit('decoded', Array)
+#9 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(182): PHPSocketIO\Parser\Decoder->add('2["toggleGameSe...')
+#10 [internal function]: PHPSocketIO\Client->ondata('2["toggleGameSe...')
+#11 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#12 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Socket.php(187): PHPSocketIO\Event\Emitter->emit('data', '2["toggleGameSe...')
+#13 [internal function]: PHPSocketIO\Engine\Socket->onPacket(Array)
+#14 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#15 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transport.php(56): PHPSocketIO\Event\Emitter->emit('packet', Array)
+#16 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transport.php(61): PHPSocketIO\Engine\Transport->onPacket(Array)
+#17 [internal function]: PHPSocketIO\Engine\Transport->onData('42["toggleGameS...')
+#18 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transports/WebSocket.php(26): call_user_func(Array, '42["toggleGameS...')
+#19 [internal function]: PHPSocketIO\Engine\Transports\WebSocket->onData2(Object(Workerman\Connection\TcpConnection), '42["toggleGameS...')
+#20 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Connection/TcpConnection.php(645): call_user_func(Array, Object(Workerman\Connection\TcpConnection), '42["toggleGameS...')
+#21 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #59)
+#22 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Events/Select.php(289): call_user_func_array(Array, Array)
+#23 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(2231): Workerman\Events\Select->loop()
+#24 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1356): Workerman\Worker->run()
+#25 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1188): Workerman\Worker::forkOneWorkerForLinux(Object(Workerman\Worker))
+#26 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1162): Workerman\Worker::forkWorkersForLinux()
+#27 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(478): Workerman\Worker::forkWorkers()
+#28 /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start.php(12): Workerman\Worker::runAll()
+#29 {main}
+2018-07-16 22:55:12 pid:37990 Worker[37990] process terminated
+2018-07-16 22:55:12 pid:37988 worker[PHPSocketIO:37990] exit with status 64000
+2018-07-16 22:57:53 pid:37988 Workerman[start.php] stopping ...
+2018-07-16 22:57:53 pid:37988 Workerman[start.php] has been stopped
+2018-07-16 22:57:56 pid:38065 Workerman[start.php] start in DEBUG mode
+2018-07-16 22:59:18 pid:38067 Error: Call to a member function query() on null in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:79
+Stack trace:
+#0 [internal function]: {closure}('6', '1')
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('toggleGameSessi...', '6', '1')
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(307): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(269): PHPSocketIO\Socket->onevent(Array)
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(202): PHPSocketIO\Socket->onpacket(Array)
+#6 [internal function]: PHPSocketIO\Client->ondecoded(Array)
+#7 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#8 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Parser/Decoder.php(34): PHPSocketIO\Event\Emitter->emit('decoded', Array)
+#9 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(182): PHPSocketIO\Parser\Decoder->add('2["toggleGameSe...')
+#10 [internal function]: PHPSocketIO\Client->ondata('2["toggleGameSe...')
+#11 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#12 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Socket.php(187): PHPSocketIO\Event\Emitter->emit('data', '2["toggleGameSe...')
+#13 [internal function]: PHPSocketIO\Engine\Socket->onPacket(Array)
+#14 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#15 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transport.php(56): PHPSocketIO\Event\Emitter->emit('packet', Array)
+#16 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transport.php(61): PHPSocketIO\Engine\Transport->onPacket(Array)
+#17 [internal function]: PHPSocketIO\Engine\Transport->onData('42["toggleGameS...')
+#18 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transports/WebSocket.php(26): call_user_func(Array, '42["toggleGameS...')
+#19 [internal function]: PHPSocketIO\Engine\Transports\WebSocket->onData2(Object(Workerman\Connection\TcpConnection), '42["toggleGameS...')
+#20 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Connection/TcpConnection.php(645): call_user_func(Array, Object(Workerman\Connection\TcpConnection), '42["toggleGameS...')
+#21 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #52)
+#22 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Events/Select.php(289): call_user_func_array(Array, Array)
+#23 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(2231): Workerman\Events\Select->loop()
+#24 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1356): Workerman\Worker->run()
+#25 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1188): Workerman\Worker::forkOneWorkerForLinux(Object(Workerman\Worker))
+#26 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1162): Workerman\Worker::forkWorkersForLinux()
+#27 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(478): Workerman\Worker::forkWorkers()
+#28 /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start.php(12): Workerman\Worker::runAll()
+#29 {main}
+2018-07-16 22:59:18 pid:38067 Worker[38067] process terminated
+2018-07-16 22:59:18 pid:38065 worker[PHPSocketIO:38067] exit with status 64000
+2018-07-16 23:02:13 pid:38065 Workerman[start.php] stopping ...
+2018-07-16 23:02:13 pid:38065 Workerman[start.php] has been stopped
+2018-07-16 23:32:19 pid:38480 Workerman[start.php] start in DEBUG mode
+2018-07-16 23:33:33 pid:38480 Workerman[start.php] stopping ...
+2018-07-16 23:33:33 pid:38480 Workerman[start.php] has been stopped
+2018-07-16 23:33:38 pid:38513 Workerman[start.php] start in DEBUG mode
+2018-07-16 23:33:54 pid:38513 Workerman[start.php] stopping ...
+2018-07-16 23:33:54 pid:38513 Workerman[start.php] has been stopped
+2018-07-16 23:33:55 pid:38527 Workerman[start.php] start in DEBUG mode
+2018-07-17 00:34:29 pid:38527 Workerman[start.php] stopping ...
+2018-07-17 00:34:29 pid:38527 Workerman[start.php] has been stopped
+2018-07-17 00:34:31 pid:39192 Workerman[start.php] start in DEBUG mode
+2018-07-17 00:34:38 pid:39194 Worker[39194] process terminated with ERROR: E_ERROR "Uncaught Error: Call to a member function query() on null in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:97
+Stack trace:
+#0 [internal function]: {closure}(Array)
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('joinGame', Array)
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(307): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(269): PHPSocketIO\Socket->onevent(Array)
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(202): PHPSocketIO\Socket->onpacket(Array)
+#6 [internal function]: PHPSocketIO\Client->ondecoded(Array)
+#7 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Arr in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php on line 97"
+2018-07-17 00:34:38 pid:39192 worker[PHPSocketIO:39194] exit with status 65280
+2018-07-17 00:35:03 pid:39192 Workerman[start.php] stopping ...
+2018-07-17 00:35:03 pid:39192 Workerman[start.php] has been stopped
+2018-07-17 00:35:06 pid:39209 Workerman[start.php] start in DEBUG mode
+2018-07-17 00:35:11 pid:39211 Worker[39211] process terminated with ERROR: E_ERROR "Uncaught Error: Call to a member function query() on null in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:97
+Stack trace:
+#0 [internal function]: {closure}(Array)
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('joinGame', Array)
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(307): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(269): PHPSocketIO\Socket->onevent(Array)
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(202): PHPSocketIO\Socket->onpacket(Array)
+#6 [internal function]: PHPSocketIO\Client->ondecoded(Array)
+#7 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Arr in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php on line 97"
+2018-07-17 00:35:11 pid:39209 worker[PHPSocketIO:39211] exit with status 65280
+2018-07-17 00:35:56 pid:39209 Workerman[start.php] stopping ...
+2018-07-17 00:35:56 pid:39209 Workerman[start.php] has been stopped
+2018-07-17 00:36:25 pid:39245 Workerman[start.php] start in DEBUG mode
+2018-07-17 00:37:29 pid:39245 Workerman[start.php] stopping ...
+2018-07-17 00:37:29 pid:39245 Workerman[start.php] has been stopped
+2018-07-17 00:37:30 pid:39272 Workerman[start.php] start in DEBUG mode
+2018-07-17 00:37:52 pid:39274 Error: Call to a member function query() on null in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:79
+Stack trace:
+#0 [internal function]: {closure}('6', '1')
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('toggleGameSessi...', '6', '1')
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(307): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(269): PHPSocketIO\Socket->onevent(Array)
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(202): PHPSocketIO\Socket->onpacket(Array)
+#6 [internal function]: PHPSocketIO\Client->ondecoded(Array)
+#7 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#8 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Parser/Decoder.php(34): PHPSocketIO\Event\Emitter->emit('decoded', Array)
+#9 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(182): PHPSocketIO\Parser\Decoder->add('2["toggleGameSe...')
+#10 [internal function]: PHPSocketIO\Client->ondata('2["toggleGameSe...')
+#11 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#12 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Socket.php(187): PHPSocketIO\Event\Emitter->emit('data', '2["toggleGameSe...')
+#13 [internal function]: PHPSocketIO\Engine\Socket->onPacket(Array)
+#14 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#15 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transport.php(56): PHPSocketIO\Event\Emitter->emit('packet', Array)
+#16 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transport.php(61): PHPSocketIO\Engine\Transport->onPacket(Array)
+#17 [internal function]: PHPSocketIO\Engine\Transport->onData('42["toggleGameS...')
+#18 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transports/WebSocket.php(26): call_user_func(Array, '42["toggleGameS...')
+#19 [internal function]: PHPSocketIO\Engine\Transports\WebSocket->onData2(Object(Workerman\Connection\TcpConnection), '42["toggleGameS...')
+#20 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Connection/TcpConnection.php(645): call_user_func(Array, Object(Workerman\Connection\TcpConnection), '42["toggleGameS...')
+#21 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #51)
+#22 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Events/Select.php(289): call_user_func_array(Array, Array)
+#23 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(2231): Workerman\Events\Select->loop()
+#24 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1356): Workerman\Worker->run()
+#25 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1188): Workerman\Worker::forkOneWorkerForLinux(Object(Workerman\Worker))
+#26 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1162): Workerman\Worker::forkWorkersForLinux()
+#27 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(478): Workerman\Worker::forkWorkers()
+#28 /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start.php(12): Workerman\Worker::runAll()
+#29 {main}
+2018-07-17 00:37:52 pid:39274 Worker[39274] process terminated
+2018-07-17 00:37:52 pid:39272 worker[PHPSocketIO:39274] exit with status 64000
+2018-07-17 00:37:56 pid:39282 Error: Call to a member function query() on null in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:79
+Stack trace:
+#0 [internal function]: {closure}('6', '1')
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('toggleGameSessi...', '6', '1')
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(307): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(269): PHPSocketIO\Socket->onevent(Array)
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(202): PHPSocketIO\Socket->onpacket(Array)
+#6 [internal function]: PHPSocketIO\Client->ondecoded(Array)
+#7 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#8 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Parser/Decoder.php(34): PHPSocketIO\Event\Emitter->emit('decoded', Array)
+#9 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(182): PHPSocketIO\Parser\Decoder->add('2["toggleGameSe...')
+#10 [internal function]: PHPSocketIO\Client->ondata('2["toggleGameSe...')
+#11 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#12 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Socket.php(187): PHPSocketIO\Event\Emitter->emit('data', '2["toggleGameSe...')
+#13 [internal function]: PHPSocketIO\Engine\Socket->onPacket(Array)
+#14 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#15 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transport.php(56): PHPSocketIO\Event\Emitter->emit('packet', Array)
+#16 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transport.php(61): PHPSocketIO\Engine\Transport->onPacket(Array)
+#17 [internal function]: PHPSocketIO\Engine\Transport->onData('42["toggleGameS...')
+#18 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transports/WebSocket.php(26): call_user_func(Array, '42["toggleGameS...')
+#19 [internal function]: PHPSocketIO\Engine\Transports\WebSocket->onData2(Object(Workerman\Connection\TcpConnection), '42["toggleGameS...')
+#20 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Connection/TcpConnection.php(645): call_user_func(Array, Object(Workerman\Connection\TcpConnection), '42["toggleGameS...')
+#21 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #52)
+#22 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Events/Select.php(289): call_user_func_array(Array, Array)
+#23 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(2231): Workerman\Events\Select->loop()
+#24 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1356): Workerman\Worker->run()
+#25 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1188): Workerman\Worker::forkOneWorkerForLinux(Object(Workerman\Worker))
+#26 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1162): Workerman\Worker::forkWorkersForLinux()
+#27 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1490): Workerman\Worker::forkWorkers()
+#28 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1439): Workerman\Worker::monitorWorkersForLinux()
+#29 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(480): Workerman\Worker::monitorWorkers()
+#30 /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start.php(12): Workerman\Worker::runAll()
+#31 {main}
+2018-07-17 00:37:56 pid:39282 Worker[39282] process terminated
+2018-07-17 00:37:56 pid:39272 worker[PHPSocketIO:39282] exit with status 64000
+2018-07-17 00:38:25 pid:39283 Error: Call to a member function query() on null in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:79
+Stack trace:
+#0 [internal function]: {closure}('6', '1')
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('toggleGameSessi...', '6', '1')
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(307): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(269): PHPSocketIO\Socket->onevent(Array)
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(202): PHPSocketIO\Socket->onpacket(Array)
+#6 [internal function]: PHPSocketIO\Client->ondecoded(Array)
+#7 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#8 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Parser/Decoder.php(34): PHPSocketIO\Event\Emitter->emit('decoded', Array)
+#9 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(182): PHPSocketIO\Parser\Decoder->add('2["toggleGameSe...')
+#10 [internal function]: PHPSocketIO\Client->ondata('2["toggleGameSe...')
+#11 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#12 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Socket.php(187): PHPSocketIO\Event\Emitter->emit('data', '2["toggleGameSe...')
+#13 [internal function]: PHPSocketIO\Engine\Socket->onPacket(Array)
+#14 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#15 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transport.php(56): PHPSocketIO\Event\Emitter->emit('packet', Array)
+#16 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transport.php(61): PHPSocketIO\Engine\Transport->onPacket(Array)
+#17 [internal function]: PHPSocketIO\Engine\Transport->onData('42["toggleGameS...')
+#18 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transports/WebSocket.php(26): call_user_func(Array, '42["toggleGameS...')
+#19 [internal function]: PHPSocketIO\Engine\Transports\WebSocket->onData2(Object(Workerman\Connection\TcpConnection), '42["toggleGameS...')
+#20 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Connection/TcpConnection.php(645): call_user_func(Array, Object(Workerman\Connection\TcpConnection), '42["toggleGameS...')
+#21 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #53)
+#22 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Events/Select.php(289): call_user_func_array(Array, Array)
+#23 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(2231): Workerman\Events\Select->loop()
+#24 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1356): Workerman\Worker->run()
+#25 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1188): Workerman\Worker::forkOneWorkerForLinux(Object(Workerman\Worker))
+#26 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1162): Workerman\Worker::forkWorkersForLinux()
+#27 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1490): Workerman\Worker::forkWorkers()
+#28 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1439): Workerman\Worker::monitorWorkersForLinux()
+#29 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(480): Workerman\Worker::monitorWorkers()
+#30 /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start.php(12): Workerman\Worker::runAll()
+#31 {main}
+2018-07-17 00:38:25 pid:39283 Worker[39283] process terminated
+2018-07-17 00:38:25 pid:39272 worker[PHPSocketIO:39283] exit with status 64000
+2018-07-17 00:40:27 pid:39272 Workerman[start.php] stopping ...
+2018-07-17 00:40:27 pid:39272 Workerman[start.php] has been stopped
+2018-07-17 00:40:29 pid:39327 Workerman[start.php] start in DEBUG mode
+2018-07-17 00:42:50 pid:39327 Workerman[start.php] stopping ...
+2018-07-17 00:42:50 pid:39327 Workerman[start.php] has been stopped
+2018-07-17 00:43:13 pid:39381 Workerman[start.php] start in DEBUG mode
+2018-07-17 00:45:27 pid:39381 Workerman[start.php] stopping ...
+2018-07-17 00:45:27 pid:39381 Workerman[start.php] has been stopped
+2018-07-17 00:45:32 pid:39439 Workerman[start.php] start in DEBUG mode
+2018-07-17 00:47:47 pid:39439 Workerman[start.php] stopping ...
+2018-07-17 00:47:47 pid:39439 Workerman[start.php] has been stopped
+2018-07-17 00:47:47 pid:39491 Workerman[start.php] start in DEBUG mode
+2018-07-17 00:47:56 pid:39493 Worker[39493] process terminated with ERROR: E_ERROR "Uncaught Error: Cannot use object of type mysqli_result as array in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:121
+Stack trace:
+#0 [internal function]: {closure}(Array)
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('joinGame', Array)
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(307): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(269): PHPSocketIO\Socket->onevent(Array)
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(202): PHPSocketIO\Socket->onpacket(Array)
+#6 [internal function]: PHPSocketIO\Client->ondecoded(Array)
+#7 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Ar in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php on line 121"
+2018-07-17 00:47:56 pid:39491 worker[PHPSocketIO:39493] exit with status 65280
+2018-07-17 00:48:48 pid:39491 Workerman[start.php] stopping ...
+2018-07-17 00:48:48 pid:39491 Workerman[start.php] has been stopped
+2018-07-17 00:48:50 pid:39524 Workerman[start.php] start in DEBUG mode
+2018-07-17 00:52:46 pid:39524 Workerman[start.php] stopping ...
+2018-07-17 00:52:46 pid:39524 Workerman[start.php] has been stopped
+2018-07-17 00:52:47 pid:39582 Workerman[start.php] start in DEBUG mode
+2018-07-17 00:53:10 pid:39582 Workerman[start.php] stopping ...
+2018-07-17 00:53:10 pid:39582 Workerman[start.php] has been stopped
+2018-07-17 00:53:27 pid:39603 Workerman[start.php] start in DEBUG mode
+2018-07-17 00:55:03 pid:39603 Workerman[start.php] stopping ...
+2018-07-17 00:55:03 pid:39603 Workerman[start.php] has been stopped
+2018-07-17 00:55:17 pid:39640 Workerman[start.php] start in DEBUG mode
+2018-07-17 00:56:24 pid:39640 Workerman[start.php] stopping ...
+2018-07-17 00:56:24 pid:39640 Workerman[start.php] has been stopped
+2018-07-17 00:56:26 pid:39667 Workerman[start.php] start in DEBUG mode
+2018-07-17 01:00:40 pid:39667 Workerman[start.php] stopping ...
+2018-07-17 01:00:40 pid:39667 Workerman[start.php] has been stopped
+2018-07-17 01:00:41 pid:39741 Workerman[start.php] start in DEBUG mode
+2018-07-17 01:01:28 pid:39741 Workerman[start.php] stopping ...
+2018-07-17 01:01:28 pid:39741 Workerman[start.php] has been stopped
+2018-07-17 01:01:31 pid:39761 Workerman[start.php] start in DEBUG mode
+2018-07-17 01:04:44 pid:39761 Workerman[start.php] stopping ...
+2018-07-17 01:04:44 pid:39761 Workerman[start.php] has been stopped
+2018-07-17 01:04:45 pid:39815 Workerman[start.php] start in DEBUG mode
+2018-07-17 01:06:25 pid:39815 Workerman[start.php] stopping ...
+2018-07-17 01:06:25 pid:39815 Workerman[start.php] has been stopped
+2018-07-17 01:06:28 pid:39858 Workerman[start.php] start in DEBUG mode
+2018-07-17 01:09:30 pid:39858 Workerman[start.php] stopping ...
+2018-07-17 01:09:30 pid:39858 Workerman[start.php] has been stopped
+2018-07-17 01:09:32 pid:39916 Workerman[start.php] start in DEBUG mode
+2018-07-17 01:12:48 pid:39916 Workerman[start.php] stopping ...
+2018-07-17 01:12:48 pid:39916 Workerman[start.php] has been stopped
+2018-07-17 01:13:04 pid:40005 Workerman[start.php] start in DEBUG mode
+2018-07-17 01:14:01 pid:40005 Workerman[start.php] stopping ...
+2018-07-17 01:14:01 pid:40005 Workerman[start.php] has been stopped
+2018-07-17 01:14:02 pid:40031 Workerman[start.php] start in DEBUG mode
+2018-07-17 02:23:21 pid:40031 Workerman[start.php] stopping ...
+2018-07-17 02:23:21 pid:40031 Workerman[start.php] has been stopped
+2018-07-17 03:36:56 pid:41636 Workerman[start.php] start in DEBUG mode
+2018-07-17 03:38:09 pid:41638 Error: Call to a member function query() on null in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:198
+Stack trace:
+#0 [internal function]: {closure}(Array)
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('updateData', Array)
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(307): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(269): PHPSocketIO\Socket->onevent(Array)
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(202): PHPSocketIO\Socket->onpacket(Array)
+#6 [internal function]: PHPSocketIO\Client->ondecoded(Array)
+#7 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#8 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Parser/Decoder.php(34): PHPSocketIO\Event\Emitter->emit('decoded', Array)
+#9 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(182): PHPSocketIO\Parser\Decoder->add('2["updateData",...')
+#10 [internal function]: PHPSocketIO\Client->ondata('2["updateData",...')
+#11 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#12 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Socket.php(187): PHPSocketIO\Event\Emitter->emit('data', '2["updateData",...')
+#13 [internal function]: PHPSocketIO\Engine\Socket->onPacket(Array)
+#14 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#15 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transport.php(56): PHPSocketIO\Event\Emitter->emit('packet', Array)
+#16 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transport.php(61): PHPSocketIO\Engine\Transport->onPacket(Array)
+#17 [internal function]: PHPSocketIO\Engine\Transport->onData('42["updateData"...')
+#18 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transports/WebSocket.php(26): call_user_func(Array, '42["updateData"...')
+#19 [internal function]: PHPSocketIO\Engine\Transports\WebSocket->onData2(Object(Workerman\Connection\TcpConnection), '42["updateData"...')
+#20 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Connection/TcpConnection.php(645): call_user_func(Array, Object(Workerman\Connection\TcpConnection), '42["updateData"...')
+#21 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #67)
+#22 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Events/Select.php(289): call_user_func_array(Array, Array)
+#23 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(2231): Workerman\Events\Select->loop()
+#24 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1356): Workerman\Worker->run()
+#25 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1188): Workerman\Worker::forkOneWorkerForLinux(Object(Workerman\Worker))
+#26 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1162): Workerman\Worker::forkWorkersForLinux()
+#27 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(478): Workerman\Worker::forkWorkers()
+#28 /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start.php(12): Workerman\Worker::runAll()
+#29 {main}
+2018-07-17 03:38:09 pid:41638 Worker[41638] process terminated
+2018-07-17 03:38:09 pid:41636 worker[PHPSocketIO:41638] exit with status 64000
+2018-07-17 03:38:36 pid:41636 Workerman[start.php] stopping ...
+2018-07-17 03:38:36 pid:41636 Workerman[start.php] has been stopped
+2018-07-17 03:38:37 pid:41680 Workerman[start.php] start in DEBUG mode
+2018-07-17 03:49:15 pid:41680 Workerman[start.php] stopping ...
+2018-07-17 03:49:15 pid:41680 Workerman[start.php] has been stopped
+2018-07-17 20:31:44 pid:44729 Workerman[start.php] start in DEBUG mode
+2018-07-17 20:58:50 pid:44729 Workerman[start.php] stopping ...
+2018-07-17 20:58:50 pid:44729 Workerman[start.php] has been stopped
+2018-07-17 20:58:51 pid:45140 Workerman[start.php] start in DEBUG mode
+2018-07-17 21:10:00 pid:45140 Workerman[start.php] stopping ...
+2018-07-17 21:10:00 pid:45140 Workerman[start.php] has been stopped
+2018-07-17 21:10:02 pid:45359 Workerman[start.php] start in DEBUG mode
+2018-07-17 21:15:41 pid:45359 Workerman[start.php] stopping ...
+2018-07-17 21:15:41 pid:45359 Workerman[start.php] has been stopped
+2018-07-17 21:15:45 pid:45460 Workerman[start.php] start in DEBUG mode
+2018-07-17 23:20:41 pid:45460 Workerman[start.php] stopping ...
+2018-07-17 23:20:41 pid:45460 Workerman[start.php] has been stopped
+2018-07-18 02:53:43 pid:49598 Workerman[start.php] start in DEBUG mode
+2018-07-19 00:07:01 pid:49598 Workerman[start.php] stopping ...
+2018-07-19 00:07:01 pid:49598 Workerman[start.php] has been stopped
+2018-07-19 00:07:03 pid:52637 Workerman[start.php] start in DEBUG mode
+2018-07-19 00:43:28 pid:52637 Workerman[start.php] stopping ...
+2018-07-19 00:43:28 pid:52637 Workerman[start.php] has been stopped
+2018-07-19 00:43:29 pid:53208 Workerman[start.php] start in DEBUG mode
+2018-07-19 03:27:54 pid:53208 Workerman[start.php] stopping ...
+2018-07-19 03:27:54 pid:53208 Workerman[start.php] has been stopped
+2018-07-20 20:17:00 pid:63810 Workerman[start.php] start in DEBUG mode
+2018-07-27 01:14:44 pid:63810 Workerman[start.php] stopping ...
+2018-07-27 01:14:44 pid:63810 Workerman[start.php] has been stopped
+2018-07-27 01:14:46 pid:95204 Workerman[start.php] start in DEBUG mode
+2018-07-27 01:14:58 pid:95206 Worker[95206] process terminated with ERROR: E_ERROR "Uncaught Error: Call to a member function emit() on null in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:224
+Stack trace:
+#0 [internal function]: {closure}()
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('instructorGrabD...')
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(307): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(269): PHPSocketIO\Socket->onevent(Array)
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(202): PHPSocketIO\Socket->onpacket(Array)
+#6 [internal function]: PHPSocketIO\Client->ondecoded(Array)
+#7 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php on line 224"
+2018-07-27 01:14:58 pid:95204 worker[PHPSocketIO:95206] exit with status 65280
+2018-07-27 01:15:33 pid:95212 Worker[95212] process terminated with ERROR: E_ERROR "Uncaught Error: Call to a member function emit() on null in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:224
+Stack trace:
+#0 [internal function]: {closure}()
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('instructorGrabD...')
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(307): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(269): PHPSocketIO\Socket->onevent(Array)
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(202): PHPSocketIO\Socket->onpacket(Array)
+#6 [internal function]: PHPSocketIO\Client->ondecoded(Array)
+#7 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php on line 224"
+2018-07-27 01:15:33 pid:95204 worker[PHPSocketIO:95212] exit with status 65280
+2018-07-27 01:16:39 pid:95204 Workerman[start.php] stopping ...
+2018-07-27 01:16:39 pid:95204 Workerman[start.php] has been stopped
+2018-07-27 01:16:44 pid:95247 Workerman[start.php] start in DEBUG mode
+2018-07-27 02:00:21 pid:95247 Workerman[start.php] stopping ...
+2018-07-27 02:00:21 pid:95247 Workerman[start.php] has been stopped
+2018-07-27 02:00:23 pid:95748 Workerman[start.php] start in DEBUG mode
+2018-07-27 02:03:36 pid:95748 Workerman[start.php] stopping ...
+2018-07-27 02:03:36 pid:95748 Workerman[start.php] has been stopped
+2018-07-27 02:04:04 pid:95829 Workerman[start.php] start in DEBUG mode
+2018-07-27 02:04:12 pid:95831 ArgumentCountError: Too few arguments to function {closure}(), 0 passed and exactly 1 expected in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:222
+Stack trace:
+#0 [internal function]: {closure}()
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('studentSubmited...')
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(307): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(269): PHPSocketIO\Socket->onevent(Array)
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(202): PHPSocketIO\Socket->onpacket(Array)
+#6 [internal function]: PHPSocketIO\Client->ondecoded(Array)
+#7 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#8 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Parser/Decoder.php(34): PHPSocketIO\Event\Emitter->emit('decoded', Array)
+#9 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(182): PHPSocketIO\Parser\Decoder->add('2["studentSubmi...')
+#10 [internal function]: PHPSocketIO\Client->ondata('2["studentSubmi...')
+#11 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#12 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Socket.php(187): PHPSocketIO\Event\Emitter->emit('data', '2["studentSubmi...')
+#13 [internal function]: PHPSocketIO\Engine\Socket->onPacket(Array)
+#14 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#15 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transport.php(56): PHPSocketIO\Event\Emitter->emit('packet', Array)
+#16 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transport.php(61): PHPSocketIO\Engine\Transport->onPacket(Array)
+#17 [internal function]: PHPSocketIO\Engine\Transport->onData('42["studentSubm...')
+#18 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transports/WebSocket.php(26): call_user_func(Array, '42["studentSubm...')
+#19 [internal function]: PHPSocketIO\Engine\Transports\WebSocket->onData2(Object(Workerman\Connection\TcpConnection), '42["studentSubm...')
+#20 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Connection/TcpConnection.php(645): call_user_func(Array, Object(Workerman\Connection\TcpConnection), '42["studentSubm...')
+#21 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #57)
+#22 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Events/Select.php(289): call_user_func_array(Array, Array)
+#23 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(2231): Workerman\Events\Select->loop()
+#24 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1356): Workerman\Worker->run()
+#25 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1188): Workerman\Worker::forkOneWorkerForLinux(Object(Workerman\Worker))
+#26 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1162): Workerman\Worker::forkWorkersForLinux()
+#27 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(478): Workerman\Worker::forkWorkers()
+#28 /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start.php(12): Workerman\Worker::runAll()
+#29 {main}
+2018-07-27 02:04:12 pid:95831 Worker[95831] process terminated
+2018-07-27 02:04:12 pid:95829 worker[PHPSocketIO:95831] exit with status 64000
+2018-07-27 02:04:43 pid:95836 ArgumentCountError: Too few arguments to function {closure}(), 0 passed and exactly 1 expected in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:222
+Stack trace:
+#0 [internal function]: {closure}()
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('studentSubmited...')
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(307): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(269): PHPSocketIO\Socket->onevent(Array)
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(202): PHPSocketIO\Socket->onpacket(Array)
+#6 [internal function]: PHPSocketIO\Client->ondecoded(Array)
+#7 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#8 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Parser/Decoder.php(34): PHPSocketIO\Event\Emitter->emit('decoded', Array)
+#9 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(182): PHPSocketIO\Parser\Decoder->add('2["studentSubmi...')
+#10 [internal function]: PHPSocketIO\Client->ondata('2["studentSubmi...')
+#11 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#12 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Socket.php(187): PHPSocketIO\Event\Emitter->emit('data', '2["studentSubmi...')
+#13 [internal function]: PHPSocketIO\Engine\Socket->onPacket(Array)
+#14 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#15 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transport.php(56): PHPSocketIO\Event\Emitter->emit('packet', Array)
+#16 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transport.php(61): PHPSocketIO\Engine\Transport->onPacket(Array)
+#17 [internal function]: PHPSocketIO\Engine\Transport->onData('42["studentSubm...')
+#18 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transports/WebSocket.php(26): call_user_func(Array, '42["studentSubm...')
+#19 [internal function]: PHPSocketIO\Engine\Transports\WebSocket->onData2(Object(Workerman\Connection\TcpConnection), '42["studentSubm...')
+#20 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Connection/TcpConnection.php(645): call_user_func(Array, Object(Workerman\Connection\TcpConnection), '42["studentSubm...')
+#21 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #63)
+#22 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Events/Select.php(289): call_user_func_array(Array, Array)
+#23 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(2231): Workerman\Events\Select->loop()
+#24 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1356): Workerman\Worker->run()
+#25 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1188): Workerman\Worker::forkOneWorkerForLinux(Object(Workerman\Worker))
+#26 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1162): Workerman\Worker::forkWorkersForLinux()
+#27 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1490): Workerman\Worker::forkWorkers()
+#28 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1439): Workerman\Worker::monitorWorkersForLinux()
+#29 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(480): Workerman\Worker::monitorWorkers()
+#30 /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start.php(12): Workerman\Worker::runAll()
+#31 {main}
+2018-07-27 02:04:43 pid:95836 Worker[95836] process terminated
+2018-07-27 02:04:43 pid:95829 worker[PHPSocketIO:95836] exit with status 64000
+2018-07-27 02:06:58 pid:95829 Workerman[start.php] stopping ...
+2018-07-27 02:06:58 pid:95829 Workerman[start.php] has been stopped
+2018-07-27 02:07:01 pid:95878 Workerman[start.php] start in DEBUG mode
+2018-07-27 02:07:26 pid:95880 ArgumentCountError: Too few arguments to function {closure}(), 0 passed and exactly 1 expected in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:222
+Stack trace:
+#0 [internal function]: {closure}()
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('studentSubmited...')
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(307): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(269): PHPSocketIO\Socket->onevent(Array)
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(202): PHPSocketIO\Socket->onpacket(Array)
+#6 [internal function]: PHPSocketIO\Client->ondecoded(Array)
+#7 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#8 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Parser/Decoder.php(34): PHPSocketIO\Event\Emitter->emit('decoded', Array)
+#9 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(182): PHPSocketIO\Parser\Decoder->add('2["studentSubmi...')
+#10 [internal function]: PHPSocketIO\Client->ondata('2["studentSubmi...')
+#11 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#12 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Socket.php(187): PHPSocketIO\Event\Emitter->emit('data', '2["studentSubmi...')
+#13 [internal function]: PHPSocketIO\Engine\Socket->onPacket(Array)
+#14 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#15 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transport.php(56): PHPSocketIO\Event\Emitter->emit('packet', Array)
+#16 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transport.php(61): PHPSocketIO\Engine\Transport->onPacket(Array)
+#17 [internal function]: PHPSocketIO\Engine\Transport->onData('42["studentSubm...')
+#18 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transports/WebSocket.php(26): call_user_func(Array, '42["studentSubm...')
+#19 [internal function]: PHPSocketIO\Engine\Transports\WebSocket->onData2(Object(Workerman\Connection\TcpConnection), '42["studentSubm...')
+#20 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Connection/TcpConnection.php(645): call_user_func(Array, Object(Workerman\Connection\TcpConnection), '42["studentSubm...')
+#21 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #58)
+#22 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Events/Select.php(289): call_user_func_array(Array, Array)
+#23 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(2231): Workerman\Events\Select->loop()
+#24 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1356): Workerman\Worker->run()
+#25 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1188): Workerman\Worker::forkOneWorkerForLinux(Object(Workerman\Worker))
+#26 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1162): Workerman\Worker::forkWorkersForLinux()
+#27 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(478): Workerman\Worker::forkWorkers()
+#28 /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start.php(12): Workerman\Worker::runAll()
+#29 {main}
+2018-07-27 02:07:26 pid:95880 Worker[95880] process terminated
+2018-07-27 02:07:26 pid:95878 worker[PHPSocketIO:95880] exit with status 64000
+2018-07-27 02:08:12 pid:95878 Workerman[start.php] stopping ...
+2018-07-27 02:08:12 pid:95878 Workerman[start.php] has been stopped
+2018-07-27 02:08:13 pid:95911 Workerman[start.php] start in DEBUG mode
+2018-07-27 21:30:05 pid:95911 Workerman[start.php] stopping ...
+2018-07-27 21:30:05 pid:95911 Workerman[start.php] has been stopped
+2018-07-27 21:30:08 pid:918 Workerman[start.php] start in DEBUG mode
+2018-07-30 00:48:05 pid:918 Workerman[start.php] stopping ...
+2018-07-30 00:48:05 pid:918 Workerman[start.php] has been stopped
+2018-07-30 00:48:06 pid:14484 Workerman[start.php] start in DEBUG mode
+2018-07-30 22:55:01 pid:14484 Workerman[start.php] stopping ...
+2018-07-30 22:55:01 pid:14484 Workerman[start.php] has been stopped
+2018-07-30 22:56:27 pid:19112 Workerman[start.php] start in DEBUG mode
+2018-07-30 23:13:30 pid:19112 Workerman[start.php] stopping ...
+2018-07-30 23:13:30 pid:19112 Workerman[start.php] has been stopped
+2018-07-30 23:13:33 pid:19344 Workerman[start.php] start in DEBUG mode
+2018-07-30 23:21:57 pid:19344 Workerman[start.php] stopping ...
+2018-07-30 23:21:57 pid:19344 Workerman[start.php] has been stopped
+2018-07-30 23:21:58 pid:19458 Workerman[start.php] start in DEBUG mode
+2018-08-01 20:51:16 pid:19458 Workerman[start.php] stopping ...
+2018-08-01 20:51:16 pid:19458 Workerman[start.php] has been stopped
+2018-08-01 20:51:18 pid:32078 Workerman[start.php] start in DEBUG mode
+2018-08-01 22:09:10 pid:32078 Workerman[start.php] stopping ...
+2018-08-01 22:09:10 pid:32078 Workerman[start.php] has been stopped
+2018-08-01 22:09:11 pid:33203 Workerman[start.php] start in DEBUG mode
+2018-08-01 22:10:30 pid:33203 Workerman[start.php] stopping ...
+2018-08-01 22:10:30 pid:33203 Workerman[start.php] has been stopped
+2018-08-01 22:10:32 pid:33226 Workerman[start.php] start in DEBUG mode
+2018-08-01 23:08:14 pid:33226 Workerman[start.php] stopping ...
+2018-08-01 23:08:14 pid:33226 Workerman[start.php] has been stopped
+2018-08-01 23:08:15 pid:34015 Workerman[start.php] start in DEBUG mode
+2018-08-01 23:11:38 pid:34015 Workerman[start.php] stopping ...
+2018-08-01 23:11:38 pid:34015 Workerman[start.php] has been stopped
+2018-08-01 23:12:25 pid:34105 Workerman[start.php] start in DEBUG mode
+2018-08-01 23:13:34 pid:34105 Workerman[start.php] stopping ...
+2018-08-01 23:13:34 pid:34105 Workerman[start.php] has been stopped
+2018-08-01 23:14:49 pid:34162 Workerman[start.php] start in DEBUG mode
+2018-08-01 23:17:02 pid:34162 Workerman[start.php] stopping ...
+2018-08-01 23:17:02 pid:34162 Workerman[start.php] has been stopped
+2018-08-01 23:17:02 pid:34214 Workerman[start.php] start in DEBUG mode
+2018-08-01 23:18:06 pid:34214 Workerman[start.php] stopping ...
+2018-08-01 23:18:06 pid:34214 Workerman[start.php] has been stopped
+2018-08-01 23:18:07 pid:34241 Workerman[start.php] start in DEBUG mode
+2018-08-01 23:19:49 pid:34241 Workerman[start.php] stopping ...
+2018-08-01 23:19:49 pid:34241 Workerman[start.php] has been stopped
+2018-08-01 23:19:50 pid:34294 Workerman[start.php] start in DEBUG mode
+2018-08-01 23:22:08 pid:34294 Workerman[start.php] stopping ...
+2018-08-01 23:22:08 pid:34294 Workerman[start.php] has been stopped
+2018-08-01 23:22:09 pid:34334 Workerman[start.php] start in DEBUG mode
+2018-08-01 23:24:26 pid:34334 Workerman[start.php] stopping ...
+2018-08-01 23:24:26 pid:34334 Workerman[start.php] has been stopped
+2018-08-01 23:24:27 pid:34390 Workerman[start.php] start in DEBUG mode
+2018-08-01 23:25:52 pid:34390 Workerman[start.php] stopping ...
+2018-08-01 23:25:52 pid:34390 Workerman[start.php] has been stopped
+2018-08-01 23:25:53 pid:34426 Workerman[start.php] start in DEBUG mode
+2018-08-01 23:27:21 pid:34426 Workerman[start.php] stopping ...
+2018-08-01 23:27:21 pid:34426 Workerman[start.php] has been stopped
+2018-08-01 23:27:23 pid:34459 Workerman[start.php] start in DEBUG mode
+2018-08-01 23:39:02 pid:34459 Workerman[start.php] stopping ...
+2018-08-01 23:39:02 pid:34459 Workerman[start.php] has been stopped
+2018-08-01 23:39:03 pid:34622 Workerman[start.php] start in DEBUG mode
+2018-08-01 23:50:35 pid:34622 Workerman[start.php] stopping ...
+2018-08-01 23:50:35 pid:34622 Workerman[start.php] has been stopped
+2018-08-01 23:50:36 pid:34821 Workerman[start.php] start in DEBUG mode
+2018-08-01 23:52:00 pid:34821 Workerman[start.php] stopping ...
+2018-08-01 23:52:00 pid:34821 Workerman[start.php] has been stopped
+2018-08-01 23:52:01 pid:34854 Workerman[start.php] start in DEBUG mode
+2018-08-01 23:57:08 pid:34854 Workerman[start.php] stopping ...
+2018-08-01 23:57:08 pid:34854 Workerman[start.php] has been stopped
+2018-08-01 23:57:09 pid:34940 Workerman[start.php] start in DEBUG mode
+2018-08-01 23:58:00 pid:34940 Workerman[start.php] stopping ...
+2018-08-01 23:58:00 pid:34940 Workerman[start.php] has been stopped
+2018-08-01 23:58:01 pid:34968 Workerman[start.php] start in DEBUG mode
+2018-08-01 23:58:38 pid:34968 Workerman[start.php] stopping ...
+2018-08-01 23:58:38 pid:34968 Workerman[start.php] has been stopped
+2018-08-01 23:58:38 pid:34988 Workerman[start.php] start in DEBUG mode
+2018-08-02 02:12:48 pid:34988 Workerman[start.php] stopping ...
+2018-08-02 02:12:48 pid:34988 Workerman[start.php] has been stopped
+2018-08-02 02:12:50 pid:36340 Workerman[start.php] start in DEBUG mode
+2018-08-02 02:14:04 pid:36340 Workerman[start.php] stopping ...
+2018-08-02 02:14:04 pid:36340 Workerman[start.php] has been stopped
+2018-08-02 02:14:19 pid:36380 Workerman[start.php] start in DEBUG mode
+2018-08-02 02:14:57 pid:36380 Workerman[start.php] stopping ...
+2018-08-02 02:14:57 pid:36380 Workerman[start.php] has been stopped
+2018-08-02 02:15:16 pid:36417 Workerman[start.php] start in DEBUG mode
+2018-08-02 02:16:45 pid:36417 Workerman[start.php] stopping ...
+2018-08-02 02:16:45 pid:36417 Workerman[start.php] has been stopped
+2018-08-02 02:17:31 pid:36491 Workerman[start.php] start in DEBUG mode
+2018-08-02 02:19:31 pid:36491 Workerman[start.php] stopping ...
+2018-08-02 02:19:31 pid:36491 Workerman[start.php] has been stopped
+2018-08-02 02:19:32 pid:36547 Workerman[start.php] start in DEBUG mode
+2018-08-02 02:21:28 pid:36547 Workerman[start.php] stopping ...
+2018-08-02 02:21:28 pid:36547 Workerman[start.php] has been stopped
+2018-08-02 02:21:29 pid:36595 Workerman[start.php] start in DEBUG mode
+2018-08-02 02:22:04 pid:36595 Workerman[start.php] stopping ...
+2018-08-02 02:22:04 pid:36595 Workerman[start.php] has been stopped
+2018-08-02 02:22:04 pid:36619 Workerman[start.php] start in DEBUG mode
+2018-08-02 02:22:55 pid:36619 Workerman[start.php] stopping ...
+2018-08-02 02:22:55 pid:36619 Workerman[start.php] has been stopped
+2018-08-02 02:22:56 pid:36642 Workerman[start.php] start in DEBUG mode
+2018-08-02 02:23:08 pid:36644 Error: Call to a member function close() on null in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:220
+Stack trace:
+#0 [internal function]: {closure}(Array)
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('updateData', Array)
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(307): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Socket.php(269): PHPSocketIO\Socket->onevent(Array)
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(202): PHPSocketIO\Socket->onpacket(Array)
+#6 [internal function]: PHPSocketIO\Client->ondecoded(Array)
+#7 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#8 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Parser/Decoder.php(34): PHPSocketIO\Event\Emitter->emit('decoded', Array)
+#9 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(182): PHPSocketIO\Parser\Decoder->add('2["updateData",...')
+#10 [internal function]: PHPSocketIO\Client->ondata('2["updateData",...')
+#11 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#12 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Socket.php(187): PHPSocketIO\Event\Emitter->emit('data', '2["updateData",...')
+#13 [internal function]: PHPSocketIO\Engine\Socket->onPacket(Array)
+#14 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Array, Array)
+#15 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transport.php(56): PHPSocketIO\Event\Emitter->emit('packet', Array)
+#16 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transport.php(61): PHPSocketIO\Engine\Transport->onPacket(Array)
+#17 [internal function]: PHPSocketIO\Engine\Transport->onData('42["updateData"...')
+#18 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Engine/Transports/WebSocket.php(26): call_user_func(Array, '42["updateData"...')
+#19 [internal function]: PHPSocketIO\Engine\Transports\WebSocket->onData2(Object(Workerman\Connection\TcpConnection), '42["updateData"...')
+#20 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Connection/TcpConnection.php(645): call_user_func(Array, Object(Workerman\Connection\TcpConnection), '42["updateData"...')
+#21 [internal function]: Workerman\Connection\TcpConnection->baseRead(Resource id #61)
+#22 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Events/Select.php(289): call_user_func_array(Array, Array)
+#23 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(2231): Workerman\Events\Select->loop()
+#24 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1356): Workerman\Worker->run()
+#25 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1188): Workerman\Worker::forkOneWorkerForLinux(Object(Workerman\Worker))
+#26 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(1162): Workerman\Worker::forkWorkersForLinux()
+#27 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/workerman/Worker.php(478): Workerman\Worker::forkWorkers()
+#28 /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start.php(12): Workerman\Worker::runAll()
+#29 {main}
+2018-08-02 02:23:08 pid:36644 Worker[36644] process terminated
+2018-08-02 02:23:08 pid:36642 worker[PHPSocketIO:36644] exit with status 64000
+2018-08-02 02:23:19 pid:36642 Workerman[start.php] stopping ...
+2018-08-02 02:23:19 pid:36642 Workerman[start.php] has been stopped
+2018-08-02 02:23:20 pid:36664 Workerman[start.php] start in DEBUG mode
+2018-08-02 02:23:46 pid:36664 Workerman[start.php] stopping ...
+2018-08-02 02:23:46 pid:36664 Workerman[start.php] has been stopped
+2018-08-02 02:23:49 pid:36687 Workerman[start.php] start in DEBUG mode
+2018-08-02 02:26:03 pid:36687 Workerman[start.php] stopping ...
+2018-08-02 02:26:03 pid:36687 Workerman[start.php] has been stopped
+2018-08-02 02:26:04 pid:36751 Workerman[start.php] start in DEBUG mode
+2018-08-02 02:27:00 pid:36751 Workerman[start.php] stopping ...
+2018-08-02 02:27:00 pid:36751 Workerman[start.php] has been stopped
+2018-08-02 02:27:01 pid:36781 Workerman[start.php] start in DEBUG mode
+2018-08-02 02:28:15 pid:36781 Workerman[start.php] stopping ...
+2018-08-02 02:28:15 pid:36781 Workerman[start.php] has been stopped
+2018-08-02 02:28:15 pid:36818 Workerman[start.php] start in DEBUG mode
+2018-08-02 02:33:32 pid:36818 Workerman[start.php] stopping ...
+2018-08-02 02:33:32 pid:36818 Workerman[start.php] has been stopped
+2018-08-02 02:33:33 pid:36939 Workerman[start.php] start in DEBUG mode
+2018-08-02 02:36:02 pid:36939 Workerman[start.php] stopping ...
+2018-08-02 02:36:02 pid:36939 Workerman[start.php] has been stopped
+2018-08-02 02:36:04 pid:36997 Workerman[start.php] start in DEBUG mode
+2018-08-02 02:36:48 pid:36997 Workerman[start.php] stopping ...
+2018-08-02 02:36:48 pid:36997 Workerman[start.php] has been stopped
+2018-08-02 02:36:49 pid:37029 Workerman[start.php] start in DEBUG mode
+2018-08-02 02:38:37 pid:37029 Workerman[start.php] stopping ...
+2018-08-02 02:38:37 pid:37029 Workerman[start.php] has been stopped
+2018-08-02 02:38:38 pid:37073 Workerman[start.php] start in DEBUG mode
+2018-08-02 02:39:46 pid:37073 Workerman[start.php] stopping ...
+2018-08-02 02:39:46 pid:37073 Workerman[start.php] has been stopped
+2018-08-02 02:39:46 pid:37104 Workerman[start.php] start in DEBUG mode
+2018-08-02 02:43:29 pid:37104 Workerman[start.php] stopping ...
+2018-08-02 02:43:29 pid:37104 Workerman[start.php] has been stopped
+2018-08-02 02:43:29 pid:37195 Workerman[start.php] start in DEBUG mode
+2018-08-02 02:57:35 pid:37195 Workerman[start.php] stopping ...
+2018-08-02 02:57:35 pid:37195 Workerman[start.php] has been stopped
+2018-08-02 02:57:40 pid:37394 Workerman[start.php] start in DEBUG mode
+2018-08-02 02:57:40 pid:37396 Worker[37396] process terminated with ERROR: E_ERROR "Uncaught Error: Call to undefined function makeCollection() in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:66
+Stack trace:
+#0 [internal function]: {closure}(Object(PHPSocketIO\Socket))
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('connection', Object(PHPSocketIO\Socket))
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Nsp.php(102): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Nsp.php(68): PHPSocketIO\Nsp->emit('connection', Object(PHPSocketIO\Socket))
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(64): PHPSocketIO\Nsp->add(Object(PHPSocketIO\Client), Object(PHPSocketIO\Nsp), Array)
+#6 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Soc in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php on line 66"
+2018-08-02 02:57:41 pid:37394 worker[PHPSocketIO:37396] exit with status 65280
+2018-08-02 02:57:41 pid:37398 Worker[37398] process terminated with ERROR: E_ERROR "Uncaught Error: Call to undefined function makeCollection() in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:66
+Stack trace:
+#0 [internal function]: {closure}(Object(PHPSocketIO\Socket))
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('connection', Object(PHPSocketIO\Socket))
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Nsp.php(102): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Nsp.php(68): PHPSocketIO\Nsp->emit('connection', Object(PHPSocketIO\Socket))
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(64): PHPSocketIO\Nsp->add(Object(PHPSocketIO\Client), Object(PHPSocketIO\Nsp), Array)
+#6 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Soc in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php on line 66"
+2018-08-02 02:57:41 pid:37394 worker[PHPSocketIO:37398] exit with status 65280
+2018-08-02 02:57:52 pid:37400 Worker[37400] process terminated with ERROR: E_ERROR "Uncaught Error: Call to undefined function makeCollection() in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:66
+Stack trace:
+#0 [internal function]: {closure}(Object(PHPSocketIO\Socket))
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('connection', Object(PHPSocketIO\Socket))
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Nsp.php(102): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Nsp.php(68): PHPSocketIO\Nsp->emit('connection', Object(PHPSocketIO\Socket))
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(64): PHPSocketIO\Nsp->add(Object(PHPSocketIO\Client), Object(PHPSocketIO\Nsp), Array)
+#6 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Soc in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php on line 66"
+2018-08-02 02:57:52 pid:37394 worker[PHPSocketIO:37400] exit with status 65280
+2018-08-02 02:57:54 pid:37410 Worker[37410] process terminated with ERROR: E_ERROR "Uncaught Error: Call to undefined function makeCollection() in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:66
+Stack trace:
+#0 [internal function]: {closure}(Object(PHPSocketIO\Socket))
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('connection', Object(PHPSocketIO\Socket))
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Nsp.php(102): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Nsp.php(68): PHPSocketIO\Nsp->emit('connection', Object(PHPSocketIO\Socket))
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(64): PHPSocketIO\Nsp->add(Object(PHPSocketIO\Client), Object(PHPSocketIO\Nsp), Array)
+#6 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Soc in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php on line 66"
+2018-08-02 02:57:54 pid:37394 worker[PHPSocketIO:37410] exit with status 65280
+2018-08-02 02:57:54 pid:37412 Worker[37412] process terminated with ERROR: E_ERROR "Uncaught Error: Call to undefined function makeCollection() in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:66
+Stack trace:
+#0 [internal function]: {closure}(Object(PHPSocketIO\Socket))
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('connection', Object(PHPSocketIO\Socket))
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Nsp.php(102): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Nsp.php(68): PHPSocketIO\Nsp->emit('connection', Object(PHPSocketIO\Socket))
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(64): PHPSocketIO\Nsp->add(Object(PHPSocketIO\Client), Object(PHPSocketIO\Nsp), Array)
+#6 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Soc in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php on line 66"
+2018-08-02 02:57:54 pid:37394 worker[PHPSocketIO:37412] exit with status 65280
+2018-08-02 02:58:18 pid:37413 Worker[37413] process terminated with ERROR: E_ERROR "Uncaught Error: Call to undefined function makeCollection() in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:66
+Stack trace:
+#0 [internal function]: {closure}(Object(PHPSocketIO\Socket))
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('connection', Object(PHPSocketIO\Socket))
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Nsp.php(102): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Nsp.php(68): PHPSocketIO\Nsp->emit('connection', Object(PHPSocketIO\Socket))
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(64): PHPSocketIO\Nsp->add(Object(PHPSocketIO\Client), Object(PHPSocketIO\Nsp), Array)
+#6 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Soc in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php on line 66"
+2018-08-02 02:58:18 pid:37394 worker[PHPSocketIO:37413] exit with status 65280
+2018-08-02 02:58:18 pid:37422 Worker[37422] process terminated with ERROR: E_ERROR "Uncaught Error: Call to undefined function makeCollection() in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:66
+Stack trace:
+#0 [internal function]: {closure}(Object(PHPSocketIO\Socket))
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('connection', Object(PHPSocketIO\Socket))
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Nsp.php(102): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Nsp.php(68): PHPSocketIO\Nsp->emit('connection', Object(PHPSocketIO\Socket))
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(64): PHPSocketIO\Nsp->add(Object(PHPSocketIO\Client), Object(PHPSocketIO\Nsp), Array)
+#6 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Soc in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php on line 66"
+2018-08-02 02:58:18 pid:37394 worker[PHPSocketIO:37422] exit with status 65280
+2018-08-02 02:58:25 pid:37423 Worker[37423] process terminated with ERROR: E_ERROR "Uncaught Error: Call to undefined function makeCollection() in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:66
+Stack trace:
+#0 [internal function]: {closure}(Object(PHPSocketIO\Socket))
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('connection', Object(PHPSocketIO\Socket))
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Nsp.php(102): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Nsp.php(68): PHPSocketIO\Nsp->emit('connection', Object(PHPSocketIO\Socket))
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(64): PHPSocketIO\Nsp->add(Object(PHPSocketIO\Client), Object(PHPSocketIO\Nsp), Array)
+#6 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Soc in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php on line 66"
+2018-08-02 02:58:25 pid:37394 worker[PHPSocketIO:37423] exit with status 65280
+2018-08-02 02:58:25 pid:37426 Worker[37426] process terminated with ERROR: E_ERROR "Uncaught Error: Call to undefined function makeCollection() in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php:66
+Stack trace:
+#0 [internal function]: {closure}(Object(PHPSocketIO\Socket))
+#1 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Event/Emitter.php(91): call_user_func_array(Object(Closure), Array)
+#2 [internal function]: PHPSocketIO\Event\Emitter->emit('connection', Object(PHPSocketIO\Socket))
+#3 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Nsp.php(102): call_user_func_array(Array, Array)
+#4 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Nsp.php(68): PHPSocketIO\Nsp->emit('connection', Object(PHPSocketIO\Socket))
+#5 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Client.php(64): PHPSocketIO\Nsp->add(Object(PHPSocketIO\Client), Object(PHPSocketIO\Nsp), Array)
+#6 /Applications/MAMP/htdocs/tsugi-php-standalone/vendor/workerman/phpsocket.io/src/Soc in /Applications/MAMP/htdocs/tsugi-php-standalone/src/socket/start_io.php on line 66"
+2018-08-02 02:58:25 pid:37394 worker[PHPSocketIO:37426] exit with status 65280
+2018-08-02 02:58:34 pid:37394 Workerman[start.php] stopping ...
+2018-08-02 02:58:34 pid:37394 Workerman[start.php] has been stopped
+2018-08-02 02:58:36 pid:37433 Workerman[start.php] start in DEBUG mode
+2018-08-02 03:15:32 pid:37433 Workerman[start.php] stopping ...
+2018-08-02 03:15:32 pid:37433 Workerman[start.php] has been stopped
+2018-08-02 03:15:33 pid:37783 Workerman[start.php] start in DEBUG mode
