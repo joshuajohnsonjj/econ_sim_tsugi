@@ -1,10 +1,10 @@
 <?php
 
 $REGISTER_LTI2 = array(
-"name" => "Josh Simulator Project",
-"FontAwesome" => "fa-university",
+"name" => "Economics Simulator App",
+"FontAwesome" => "fa-dollar-sign",
 "short_name" => "Sim",
-"description" => "Trying to run simulator with tsugi on live dev site.",
+"description" => "A web based simulator application for economics classes.",
 "messages" => array("launch", "launch_grade")
 );
 
