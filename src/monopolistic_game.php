@@ -13,7 +13,7 @@ Advanced: output=Q and prices, marketing, production facility development, produ
 Last Update:
 */
 	include 'utils/sql_settup.php';
-	require_once "../../tsugi/config.php";
+	require_once "../../config.php";
 
 	use \Tsugi\Core\LTIX;
 
