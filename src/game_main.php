@@ -1,8 +1,13 @@
 <?php
-/*
-game_main.php
+/* game_main.php
 
-Contains code for the game UI.
+- Game play for monopoly and oligopoly
+
+On monopoly mode, a user enters directly into game and can start playing. There is one descision to be made, that being output quanity. Once submission is made, an overview of the past year's data is shown in a table along with a chart tracking the quanitity history. The user can then change views using the slide over menue to view more detailed info of different types. The slide over menue can also resummon the instructions modal.
+
+On oligopoly mode, a waiting overlay is shown on top of the game screen preventing the user from starting until being matched with another player. When student submits, screen will wait to allow another submission unitl opponent has submitted as well. If one user quits, the other user is booted out to student.php and a message is displayed.
+
+Last Update:
 */
 	include 'utils/sql_settup.php';
 	require_once "../../config.php";
@@ -11,12 +16,11 @@ Contains code for the game UI.
 
 	$LAUNCH = LTIX::session_start();
 
-	if ($USER->instructor)
-		header("Location: ..");
-
+	// get the current games set up info
 	$gameInfo = getGameInfo($mysqli, (int)$_GET['session']);
 	$startGame = true;
 
+	// if multi mode (oligopoly) do not immediately start game - must wait to be matched with another player
 	if ($gameInfo['mode'] == 'multi') $startGame = false;
 ?>
 
@@ -45,10 +49,10 @@ Contains code for the game UI.
     			return;
     		}
 
-    		var headers = {"dashboard_section": "Dashboard", "income_section": "Income Statement", "cost_section": "Cost Data","industry_section": "Industry Data"};
+    		var headers = {"dashboard_section": "Dashboard", "income_section": "Income Statement", "cost_section": "Cost Data"};
     		var elements = document.getElementsByClassName("display_sections");
 
-    		if (firstSubmit) {
+    		if (firstSubmit) { // make sure a submit has occured before being able to switch to info sections
 	    		document.body.scrollTop = document.documentElement.scrollTop = 0; // force page to top
 
 	    		for (var i = elements.length - 1; i >= 0; i--) {
@@ -60,8 +64,11 @@ Contains code for the game UI.
 
 	    		init(to_section);
 	    	}
-	    	else
-	    		$('#emptyInputNotice').foundation('show');
+	    	else { // if no submit yet, show message
+			alertify.set('notifier','delay', 3);
+			alertify.set('notifier','position', 'top-right');
+			alertify.warning('<p style="text-align: center; margin: 0;"><i class="fas fa-exclamation-triangle"></i><br>Please  enter valid quantity!<br>(1-<?=$gameInfo['max_quantity']?> units)</p>');
+	    	}
     	}
     </script>
   </head>
@@ -75,7 +82,6 @@ Contains code for the game UI.
 		  <li><a onclick="change_content('dashboard_section')">Dashboard</a></li>
 		  <li><a onclick="change_content('income_section')">Income Statement</a></li>
 		  <li><a onclick="change_content('cost_section')">Cost Data</a></li>
-		  <li><a onclick="change_content('industry_section')">Industry Data</a></li>
 		  <li><a onclick="change_content('instructions')">'Instructions</a></li>
 		</ul>
 
@@ -109,7 +115,7 @@ Contains code for the game UI.
 			</div>
 		    <span class="title-bar-title">
 		    	<h3 style="margin: 30px 0 0 30px; font-weight: 500"><?= $gameInfo['name'] ?></h3>
-		    	<h6 style="margin-left: 30px">
+		    	<h6 style="margin-left: 30px; display: none;">
 		    		Opponent: <span class="competition"></span>
 		    	</h6>
 		    </span>
@@ -139,12 +145,9 @@ Contains code for the game UI.
 						</div>
 					</div>
 					<div class="cell large-6">
-						<p style="float: left; padding-right: 20px"><b>Enter quantity: </b></p>
-						<form>
-						<span id="emptyInputNotice" tabindex="1" data-tooltip data-click-open="false" data-disable-hover="true" data-allow-html="true" title='<p style="text-align: center; margin: 0;"><i class="fas fa-exclamation-triangle" style=""></i><br>Please valid enter quantity!<br>(0-500 units)</p>'>
-							<input type="number" id="quantity" min="1" max="500" placeholder="1 - 500 Units" oninput="$('#emptyInputNotice').foundation('hide');">
-						</span>
-						<button class="button" type="button" id="price_submit_btn" style="margin-left: 20px; font-weight: 500">Submit</i></button>
+						<p style="float: left; padding-right: 20px"><b>Quantity: </b></p>
+						<input type="number" id="quantity" style="width: 125px; float: left;" min="1" max="500" placeholder="1 - <?=$gameInfo['max_quantity']?> Units">
+						<button class="button" type="button" id="price_submit_btn" style="margin-left: 20px; font-weight: 500; float: left;">Submit</i></button>
 						<span id="waitOppSub" style="display: none;" data-tooltip tabindex="1" title="Waiting for opponent to submit quantity">
 							<i class="fas fa-spinner fa-pulse fa-2x"></i>
 						</span>
@@ -174,20 +177,46 @@ Contains code for the game UI.
 				<div class="section_content" id="summarySection" style="display: none;">
 					<div class="section_cell" style="float: left;">
 						<h4 id="summaryYear" style="text-align: center; font-weight: 450">Summary for Year </h4>
-						<hr>
-						<br>
-						<p>&bull; The market price last year was <span id="marketPrice"></span></p>
-						<p id="opponentQuantity" style="display: none">&bull; Your opponent's production was <span></span></p>
-						<p>&bull; Your production was <span id="prodQuantity"></span> units, thus your revenue was <span id="revenue"></span></p>
-						<p>&bull; Marginal cost was $<span id="unitCost"></span> per unit, and total production cost was $<span id="ttlCost"></span></p>
-						<p>&bull; Your profit for the year was <span id="profit"></span></p>
-						<br>
-						<p>&bull; Cumulative earnings are <span id="cumulative"></span></p>
+						<hr style="margin-bottom: 30px">
+						<table class="paleBlueRows">
+							<tbody>
+								<tr>
+									<td>Market Price</td>
+									<td><span id="marketPrice"></span></td>
+								</tr>
+								<tr>
+									<td>Production Output</td>
+									<td><span id="prodQuantity"></span></td>
+								</tr>
+								<tr>
+									<td>Marginal Cost</td>
+									<td>$<span id="unitCost"></span></td>
+								</tr>
+								<tr>
+									<td>Total Cost</td>
+									<td>$<span id="ttlCost"></span></p></td>
+								</tr>
+								<tr>
+									<td>Revenue</td>
+									<td><span id="revenue"></span></td>
+								</tr>
+								<tr>
+									<td>Profit</td>
+									<td><span id="profit"></span></p></td>
+								</tr>
+								<tr>
+									<td><b>Cumulative Earnings</b></td>
+									<td><b><span id="cumulative"></span></b></td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
 					<div class="section_cell cell_graph" style="float: right;">
 						<h4 style="text-align: center; font-weight: 450">Shipments</h4>
 						<hr style="margin-bottom: 0.65rem">
-						<canvas id="quantityChart"></canvas>
+						<div class="graph">
+							<canvas id="quantityChart"></canvas>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -198,22 +227,32 @@ Contains code for the game UI.
 				<div class="section_content">
 					<div style="min-height: 550px">
 						<div class="section_cell" style="width: 700px; margin: 0 auto 50px auto;">
-							<h4 style="text-align: center; font-weight: 450">Year <span id="yearSpan">1</span> Overview</h4>
-							<hr>
-							<br>
-							<p style="float:right; margin: 0 75px 0 0; display:<?=$gameInfo['mode'] == 'multi'?'':'none'?>;">
-								<strong>You</strong> / <em> Opponent</em>
-							</p>
-							<ul class="two-columns">
-								<li>Revenue</li>
-								<li>Net Profit</li>
-								<li>Return on Sales</li>
-								<li>Price</li>
-								<li id="liRevenue" style="text-align: right;">$</li>
-								<li id="liNet" style="text-align: right;">$</li>
-								<li id="liReturn" style="text-align: right;">%</li>
-								<li id="liPrice" style="text-align: right;">$</li>
-							</ul>
+							<h4 style="text-align: center; font-weight: 450">Year <span class="yearSpan">1</span> Overview</h4>
+							<hr style="margin-bottom: 20px">
+							<table class="paleBlueRows">
+								<tbody>
+									<?=$gameInfo['mode'] == 'multi'?'<tr><td> </td><td><b>You</b></td><td><em>Opponent</em></td></tr>':''?>
+									<tr>
+										<td>Revenue</td>
+										<td id="liRevenue"></td>
+										<?=$gameInfo['mode'] == 'multi'?'<td id="liRevenueOpp"></td>':''?>
+									</tr>
+									<tr>
+										<td>Net Profit</td>
+										<td id="liNet"></td>
+										<?=$gameInfo['mode'] == 'multi'?'<td id="liNetOpp"></td>':''?>
+									</tr>
+									<tr>
+										<td>Return on Sales</td>
+										<td id="liReturn"></td>
+										<?=$gameInfo['mode'] == 'multi'?'<td id="liReturnOpp"></td>':''?>
+									</tr>
+									<tr>
+										<td>Price</td>
+										<td id="liPrice"></td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
 						<div style="margin-bottom: 50px; margin-top: -20px; text-align: center;">
 							<i class="fas fa-angle-down fa-4x animated bounce" id="bouncingArrow"></i>
@@ -225,22 +264,30 @@ Contains code for the game UI.
 					<div id="animate1" class="section_cell cell_graph" style="float: left;">
 						<h4 style="text-align: center; font-weight: 450">Annual Income</h4>
 						<hr style="margin-bottom: 0.65rem">
-						<canvas id="incomeChart" ></canvas>
+						<div class="graph">
+							<canvas id="incomeChart" ></canvas>
+						</div>
 					</div>
 					<div id="animate2" class="section_cell cell_graph" style="float: right;">
 						<h4 style="text-align: center; font-weight: 450">Cummulative Earnings</h4>
 						<hr style="margin-bottom: 0.65rem">
-						<canvas id="cummulativeChart"></canvas>
+						<div class="graph">
+							<canvas id="cummulativeChart" ></canvas>
+						</div>
 					</div>
 					<div id="animate3" class="section_cell cell_graph" style="float: left; margin-top: 50px">
 						<h4 style="text-align: center; font-weight: 450">Price</h4>
 						<hr style="margin-bottom: 0.65rem">
-						<canvas id="priceChart"></canvas>
+						<div class="graph">
+							<canvas id="priceChart" ></canvas>
+						</div>
 					</div>
 					<div id="animate4" class="section_cell cell_graph" style="float: right; margin-top: 50px">
 						<h4 style="text-align: center; font-weight: 450">Shipments</h4>
 						<hr style="margin-bottom: 0.65rem">
-						<canvas id="quantityChart2"></canvas>
+						<div class="graph">
+							<canvas id="quantityChart2" ></canvas>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -251,20 +298,28 @@ Contains code for the game UI.
 				<div class="section_content">
 					<div style="min-height: 550px">
 						<div class="section_cell" style="width: 700px; margin: 0 auto 50px auto;">
-							<h4 style="text-align: center; font-weight: 450">Year <span id="yearSpan2">1</span> Overview</h4>
-							<hr>
-							<br>
-							<ul class="two-columns">
-								<li>Shipments</li>
-								<li>Price</li>
-								<li>Marginal Cost</li>
-								<li>Production Cost</li>
-								<li id="liSales" style="text-align: right;">Units</li>
-								<li id="liPrice2" style="text-align: right;">$</li>
-								<li id="liMarginal" style="text-align: right;">$/Unit</li>
-								<li id="liProduction" style="text-align: right;">$</li>
-							</ul>
-						</div>
+							<h4 style="text-align: center; font-weight: 450">Year <span class="yearSpan">1</span> Overview</h4>
+							<hr style="margin-bottom: 20px">
+							<table class="paleBlueRows">
+								<tbody>
+									<tr>
+										<td>Shipments</td>
+										<td id="liSales"></td>
+									</tr>
+									<tr>
+										<td>Price</td>
+										<td id="liPrice2"></td>
+									</tr>
+									<tr>
+										<td>Marginal Cost</td>
+										<td id="liMarginal"></td>
+									</tr>
+									<tr>
+										<td>Production Cost</td>
+										<td id="liProduction"></td>
+									</tr>
+								</tbody>
+							</table>
 						<div style="margin-bottom: 50px; margin-top: -20px; text-align: center;">
 							<i class="fas fa-angle-down fa-4x animated bounce" id="bouncingArrow"></i>
 						</div>
@@ -275,40 +330,49 @@ Contains code for the game UI.
 					<div id="animate1b" class="section_cell cell_graph" style="float: left;">
 						<h4 style="text-align: center; font-weight: 450">Production Cost</h4>
 						<hr style="margin-bottom: 0.65rem">
-						<canvas id="costChart"></canvas>
+						<div class="graph">
+							<canvas id="costChart"></canvas>
+						</div>
 					</div>
 					<div id="animate2b" class="section_cell cell_graph" style="float: right;">
 						<h4 style="text-align: center; font-weight: 450">Marginal Cost</h4>
 						<hr style="margin-bottom: 0.65rem">
-						<canvas id="marginalChart"></canvas>
+						<div class="graph">
+							<canvas id="marginalChart"></canvas>
+						</div>
 					</div>
 					<div id="animate3b" class="section_cell cell_graph" style="float: left; margin-top: 50px">
 						<h4 style="text-align: center; font-weight: 450">Average Total</h4>
 						<hr style="margin-bottom: 0.65rem">
-						<canvas id="avgTotalChart"></canvas>
+						<div class="graph">
+							<canvas id="avgTotalChart"></canvas>
+						</div>
 					</div>
 					<div id="animate4b" class="section_cell cell_graph" style="float: right; margin-top: 50px">
 						<h4 style="text-align: center; font-weight: 450">Shipments</h4>
 						<hr style="margin-bottom: 0.65rem">
-						<canvas id="quantityChart3"></canvas>
+						<div class="graph">
+							<canvas id="quantityChart3"></canvas>
+						</div>
 					</div>
 				</div>
 			</div>
 			<!-- --------- -->
-
-			<!-- Industry Data -->
-			<div class="display_sections" id="industry_section" style="display: none;">
-
-			</div>
-			<!-- ------------- -->
 		</div>
 	</div>
 
 	<!-- MODALS -->
-	<!-- begining of game instructions -->
 	<div class="reveal" id="beginModal" data-reveal data-animation-in="slide-in-up" style="border-radius: 5px; opacity: 0.9">
 		<h2 style="text-align: left;"><strong>Instructions</strong></h2>
-		<p style="text-align: left;">You are a firm that sells mustard bottles. Your firm operates <?= $gameInfo['market_struct'] == 'monopoly' ? 'as a monopoly' : ($gameInfo['market_struct'] == 'oligopoly' ? 'from within an oligopoly' : ($gameInfo['market_struct'] == 'monopolistic' ? 'within a monopolisticly competetive market structure' : 'from within a perfectly competetive market structure')) ?>. <?= $gameInfo['mode'] == 'multi' ? 'Your competition in this market is <span class="competition"></span>.':''?> Your goal is to maximize profit by choosing a quantity of bottles to sell for each of <?= $gameInfo['num_rounds'] ?> years. Additional instructions/background... etc etc etc ...</p>
+		<?php if ($gameInfo['market_struct']=='oligopoly') { ?>
+			<p>In this simulation you will be the owner of a non-durable commodity, selling your product in a oligopolistic market environment. Your goal is to determine output levels in this strategically interactive environment in order to profit maximize.</p> 
+			<p>For each of <?= $gameInfo['num_rounds'] ?> periods you will observe previous prices and choose a quantity to sell in the next period.  Since you are one of two firms selling in this market, your choice, along with your competitor’s choice will determine your profits each round.</p>
+			<p>At the end of the simulation, cumulative profits will be measured and grading against a hypothetical firm acting optimally.</p>
+		<?php } else { ?>
+			<p>In this simulation you will be the owner of a non-durable commodity, selling your product in a monopolistic market environment. Your goal is to determine output levels in order to profit maximize.</p> 
+			<p>Each period you will observe previous prices and choose a quantity to sell in the next period.  Since you are the only firm selling in this market, there is no industry market research to consult.</p>
+			<p>At the end of the simulation, cumulative profits will be measured and grading against a hypothetical firm acting optimally.</p> 
+		<?php } ?>
 		<button class="close-button" data-close aria-label="Close reveal" type="button">
 			<span aria-hidden="true">&times;</span>
 		</button>
@@ -338,13 +402,42 @@ Contains code for the game UI.
     <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/js/foundation.js"></script>
     <script src="../js/app.js"></script>
     <script src="../js/node_modules/chart.js/dist/Chart.js"></script>
-	<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.1/build/alertify.min.js"></script>
-	<script src="http://localhost:8080/socket.io/socket.io.js"></script>
-    <script type="text/javascript">	
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.1/build/alertify.min.js"></script>
+    <script src="socket.io-client/socket.io.js"></script>
+    <script type="text/javascript">
+	// submissions
+    	var quantity, oppQuantity;
+
+    	const numRounds = parseInt($('#numRounds').val(), 10);
+
+    	// Economic Data
+    	// -------------
+    	var year = 1;
+    	var cumulativeRevenue = 0;
+    	var cumulativeProfit = 0;
+    	var cumulativeHistory = [];
+    	var cumulativeProfHistory = [];
+    	var quantityHistory = [];
+    	var revenueHistory = [];
+    	var profitHistory = [];
+    	var ttlCostHist = [];
+    	var avgTtlCostHist = [];
+    	var priceHistory = [];
+    	var marginalCostHist = [];
+
+    	// opponent data for multiplayer games
+    	var oppCumulativeRevenue = 0;
+    	var oppCumulativeProfit = 0;
+    	var oppCumulativeHistory = [];
+    	var oppCumulativeProfHistory = [];
+    	var oppProfitHistory = [];
+    	var oppRevenueHistory = [];
+    	var oppQuantityHistory = [];
+    	// -------------------
     	// STUFF FOR SOCKET.IO
     	// ===================
     	// connect to server 
-	    var socket = io.connect('http://localhost:8080');
+	    var socket = io('http://'+document.domain+':2020');
 	    var groupId = window.location.hash.substring(1), gameObject;
 
 	    if (groupId == '')
@@ -356,20 +449,27 @@ Contains code for the game UI.
 
 		// when a student first enters game
 		socket.on('studentJoinedGame', function(gameObj) {
-			console.log('Generated groupId: '+gameObj['groupId']);
 			groupId = gameObj['groupId'];
-
+			
+			// if single mode open instuction modal upon entering game
+			if ($('#mode').val() == 'single')
+				$('#beginModal').foundation('open');
+			
 			// if multi game is full, players have been matched successfully
 			if ($('#mode').val() == 'multi' && gameObj['full']) { 
 				// hide the wait screen
 				dismissWaitScreen();
-	
+				
+				// open instructions
+				$('#beginModal').foundation('open');
+				
 				// grab opponent from gameObject
 				var opp;
-				if ($('#usrname').val() == gameObj['playerOne']) opp = gameObj['playerTwo'].substr(0, gameObj['playerTwo'].indexOf('@'));
-				else opp = gameObj['playerOne'].substr(0, gameObj['playerOne'].indexOf('@'));
+				if ($('#usrname').val() == gameObj['playerOne']) opp = gameObj['playerTwo'].substring(0, gameObj['playerTwo'].indexOf('@'));
+				else opp = gameObj['playerOne'].substring(0, gameObj['playerOne'].indexOf('@'));
 				$('#opponent').val(opp);
 				$('.competition').text(opp);
+				$('span.title-bar-title > h6').css('display', 'inherit');
 			}
 
 			window.location.href = window.location.href+"#"+groupId;
@@ -437,7 +537,7 @@ Contains code for the game UI.
 
 					// Set text in summary section to represent retrieved data
 					document.getElementById("marketPrice").innerHTML = marketPriceString;
-					document.getElementById("prodQuantity").innerHTML = quantity;
+					document.getElementById("prodQuantity").innerHTML = quantity + " Units";
 					document.getElementById("revenue").innerHTML = revenueString;
 					document.getElementById("unitCost").innerHTML = constCost;
 					document.getElementById("ttlCost").innerHTML = totalCost.toLocaleString();
@@ -463,35 +563,45 @@ Contains code for the game UI.
 
 					// enable button
 					if (!gameOver) $('#price_submit_btn').prop('disabled', false);
+			
+					// call func to submit data in querry
+					$.ajax({
+				  		url: "utils/session.php", 
+				  		method: 'POST',
+			  			data: { action: 'update_gameSessionData', groupId: groupId, username: $('#usrname').val(), opponent: null, quantity: quantity, revenue: totalRev,
+			  				profit: profit, percentReturn: percReturn.toPrecision(4), price: demand, unitCost: constCost, totalCost: totalCost, complete: gameOver?1:0, gameId: <?= $gameInfo['id'] ?>  }
+			  		});
+
+			  		socket.emit('studentSubmitedQuantity');
 		});
 
 		// multiplayer submission occured
     	socket.on('multiplayerSubmission', function(gameObj) {
-
 		gameObject = gameObj;
 		var gameOver = true;
-
 		// if the legnths of the data arrays for both players are unequal, wait for other player to submit
-		if ((gameObject['p1Data'].length != gameObject['p2Data'].length)) {
-			if ((gameObject['username']==$('#usrname').val())) { // display waiting spinner for submitted player
+		if (!gameObject['bothSubmitted']) {
+			if (gameObject['p1']==$('#usrname').val()) { // display waiting spinner for submitted player
 				$('#waitOppSub').css('display', '');
 			}
 		}
 		else { // both players have submitted now
 			if (year != numRounds) intervalId = setInterval(startTimer, 1000);
 
+			$('#preStartPrompt').css('display','none');
+
 			// hide spinner
 			$('#waitOppSub').css('display', 'none');
 
 			// grab opponent's most recent submission value
 			if ($('#usrname').val() == gameObject['p1']) {
-				var oppQuantity = gameObject['p2Data'][gameObject['p2Data'].length-1];
-				var quantity = gameObject['p1Data'][gameObject['p1Data'].length-1];
+				oppQuantity = gameObject['p2Data'];
+				quantity = gameObject['p1Data'];
 			}
-			else {
-				var oppQuantity = gameObject['p1Data'][gameObject['p1Data'].length-1];
-				var quantity = gameObject['p2Data'][gameObject['p2Data'].length-1];
-			}
+		else {
+			oppQuantity = gameObject['p1Data'];
+			quantity = gameObject['p2Data'];
+    		}
 
 	    		// MATH FOR GETTING RESULTS
 			// ------------------------
@@ -593,43 +703,64 @@ Contains code for the game UI.
 
 			// enable button
 			if (!gameOver) $('#price_submit_btn').prop('disabled', false);
+			
+			// call func to submit data in querry
+			$.ajax({
+				url: "utils/session.php", 
+				method: 'POST',
+				data: { action: 'update_gameSessionData', groupId: groupId, username: $('#usrname').val(), opponent: $('#opponent').val(), quantity: quantity, 
+					revenue: revenue1, profit: profit1, percentReturn: percReturn1.toPrecision(4), price: demand,
+					unitCost: constCost, totalCost: totalCost, complete: gameOver, gameId: <?= $gameInfo['id'] ?> }
+			});
+
+			// have one player emit to client, telling instructor results to update (otherwised both would send and duplicate data on instructor side)
+			if ($('#usrname').val() == gameObject['p1'])
+				socket.emit('studentSubmitedQuantity');
 			}
 		});
 
+		const urlPrefix = window.location.href.substr(0, window.location.href.indexOf('src'));
+		var exitButtonPressed = false;
+
+		//  handle refreshes 
+    	if (performance.navigation.type == 1) {
+    		dismissWaitScreen();	
+	  		socket.emit('refresh', groupId, $('#usrname').val());
+    	}
+    	
 		// student exits game early, or cancels during player match
-		socket.on('gameExited', function(user) { 
+		socket.on('gameExited', function(user) {
 			// when one player quits, both players will be booted from game
 			// for the user that did not press the exit button, display error message notifying them of what happened, 
-			// (their opponent quit)
-			urlPrefix = window.location.href.substr(0, window.location.href.indexOf('src'));
 			if ($('#usrname').val() != user) 
-				window.location = urlPrefix+'src/student.php?PHPSESSID=<?=$_GET["PHPSESSID"]?>&session=err2';
-			else
-				window.location = urlPrefix+'src/student.php?PHPSESSID=<?=$_GET["PHPSESSID"]?>';
+				window.location = urlPrefix+'src/student.php?session=err2';
+			else {
+				// remove student(s) from gamesession table
+				$.ajax({
+			  		url: "utils/session.php", 
+			  		method: 'POST',
+		  			data: { action: 'remove_student', groupId: groupId }
+		  		});
+
+				window.location = urlPrefix+'src/student.php?session=left';
+			}
 		});
 
 		function leaveGame() { // fires when one player hits exit game button in side menu
-			console.log(groupId);
 			socket.emit('leaveGame', $('#usrname').val(), groupId);
 		}
-		// ==================
 
-    	//  handle refreshes - kick user(s) out to previous screen
-    	$(window).on('beforeunload', function(e) {
-				console.log('page navigation captured');
-				return 'By leaving this page you will lose your current game.';
-			});
-    	if (performance.navigation.type == 1) {
-    		dismissWaitScreen();
-    		socket.emit('leaveGame', $('#usrname').val(), groupId);	
-    	}
+		// window.onbeforeunload = function () {
+		//     leaveGame();
+		// };
+		// ==================
 
     	// Scrolling animations
     	//---------------------------
     	var animated = [false,false,false];
     	var animatedB = [false,false,false];
     	$(window).scroll(function() { 
-    	 	if(window.pageYOffset>70){
+    	 	if(window.pageYOffset>55){
 		    	if ($('#dynamicHeader').text() == 'Income Statement' && !animated[0]) {
 		    		$('#animate0').addClass('animated flipInX').one('webkitAnimationEnd mozAnimationEnd', function() {
 		    			$(this).removeClass('animated flipInX');
@@ -643,7 +774,7 @@ Contains code for the game UI.
 		    		animatedB[0]=true;
 		    	}
 		    }
-		    if(window.pageYOffset>215){
+		    if(window.pageYOffset>205){
 		    	if ($('#dynamicHeader').text() == 'Income Statement' && !animated[1]) {
 		    		$('#animate1').addClass('animated slideInLeft').one('webkitAnimationEnd mozAnimationEnd', function() {
 		    			$(this).removeClass('animated slideInLeft');
@@ -684,34 +815,115 @@ Contains code for the game UI.
 		    	}
 		    }
 		});
-		// --------------------------
+		// -------------------------
+    		// timer set up
+	  var minute = $('#timer').attr('data-legnth');
+	  var seconds = 0;
+	  var totalSeconds = $('#timer').attr('data-legnth')*60;
+	  var storeTotal = totalSeconds;
+	  
+	  var intervalId = null;
+	  
+	  function startTimer() {
+	    --totalSeconds;
 
-	    const numRounds = parseInt($('#numRounds').val(), 10);
+	    if (totalSeconds == 0) { // if time runs out notify user. submit quanitity. restart timer
+	    	if ($('#quantity').val()=='')
+	    		$('#quantity').val(quantity);
 
-    	// Economic Data
-    	var year = 1;
-    	var cumulativeRevenue = 0;
-    	var cumulativeProfit = 0;
-    	var cumulativeHistory = [];
-    	var cumulativeProfHistory = [];
-    	var quantityHistory = [];
-    	var revenueHistory = [];
-    	var profitHistory = [];
-    	var ttlCostHist = [];
-    	var avgTtlCostHist = [];
-    	var priceHistory = [];
-    	var marginalCostHist = [];
+	    	alertify.set('notifier','delay', 3);
+			alertify.set('notifier','position', 'top-right');
+			alertify.error('<i class="fas fa-exclamation-circle"></i><br><strong>Year: '+year+ ' - Time\'s Up!</strong><br>'+$("#quantity").val()+' was submitted.');
+			
+	    	clearInterval(intervalId);
+	    	$('#price_submit_btn').prop('disabled', true);
+	    	
+	    	submitResponse();
+	    }
 
-    	// opponent data for multiplayer games
-    	var oppCumulativeRevenue = 0;
-    	var oppCumulativeProfit = 0;
-    	var oppCumulativeHistory = [];
-    	var oppCumulativeProfHistory = [];
-    	var oppProfitHistory = [];
-    	var oppRevenueHistory = [];
-    	var oppQuantityHistory = [];
+	    minute = Math.floor((totalSeconds)/60);
+	    seconds = totalSeconds - (minute*60);
+	    (seconds < 10) ? (seconds = "0" + seconds) : seconds = seconds;
 
-    	// CHARTS SET UP \\
+	    // show progress bar visualizing time left
+	    var percent = ((totalSeconds/storeTotal)*100).toPrecision(3);
+	    if (percent <= 25) $('#progressContainer').attr('class', 'alert progress');
+	    else if (percent <= 50) $('#progressContainer').attr('class', 'warning progress');
+	    $('#progressBar').css("width", percent+"%");
+	    document.getElementById("timer").innerHTML = minute+":"+seconds;
+	  }
+
+	  // Submit button Pressed
+	  document.getElementById('price_submit_btn').addEventListener('click', function() {
+	  	if (!window.location.hash)
+	  		leaveGame();
+
+  		// check validity
+  		if ($('#quantity').val() >= 1 && $('#quantity').val() <= <?=$gameInfo['max_quantity']?>) {
+  			firstSubmit = true;
+	  		$('#price_submit_btn').prop('disabled', true);
+	  		if (year == numRounds) {
+	  			submitResponse();
+	  			$('#endModal').foundation('open');
+	  			clearInterval(intervalId);
+	  		}
+	  		else
+	  			submitResponse();
+	  	} else { // If user hasn't entered quantity or entered invalid quantity, button will shake
+	  		alertify.set('notifier','delay', 3);
+			alertify.set('notifier','position', 'top-right');
+			alertify.error('<p style="text-align: center; margin: 0;"><i class="fas fa-exclamation-triangle" style=""></i><br>Please  enter valid quantity!<br>(1-<?=$gameInfo["max_quantity"]?> units)</p>');
+	  		$('#price_submit_btn').addClass('animated shake').one('webkitAnimationEnd mozAnimationEnd', function() {
+	    			$(this).removeClass('animated shake');
+	    		});
+	  	}
+	  });
+
+
+	function submitResponse() {
+		quantity = $("#quantity").val();
+	  	$('#progressContainer').attr('class', 'success progress');
+
+	  	// starts timer
+	  	if (intervalId) {
+	  		clearInterval(intervalId);
+	  		totalSeconds = $('#timer').attr('data-legnth')*60;
+	  		document.getElementById("timer").innerHTML = $('#timer').attr('data-legnth')+":00";
+	  	}
+
+	  	// the following sends the student input to server for saving, server will fire event to call
+	  	// python scripts to get results
+
+	  	// single player
+	    if ($('#mode').val() == 'single') {
+	    	// socket.io -- Save submission to player's data in gameObject
+	    	socket.emit('updateData', {
+	    		groupId: groupId,
+	    		username: $('#usrname').val(),
+	    		mode: 'single',
+	    		value: quantity
+	    	});
+		}
+		// Multiplayer mode
+		else {
+			// socket.io -- Save submission to player's data in gameObject
+	    	socket.emit('updateData', {
+	    		groupId: groupId,
+	    		username: $('#usrname').val(),
+	    		mode: 'multi',
+	    		value: quantity
+	    	});
+		}
+	}
+
+	// hide the waiting overlay, allowing gameplay to start
+	function dismissWaitScreen() {
+		$('#multWaitScreen').css('display','none');
+		$('.off-canvas-content').css('filter','none');
+		$('.footer').css('filter','none');
+	}
+
+		// CHARTS SET UP \\
     	// =================
     	var graphLabels = ["Yr. 1", "Yr. 2", "Yr. 3", "Yr. 4", "Yr. 5", "Yr. 6", "Yr. 7", "Yr. 8", "Yr. 9", "Yr. 10", "Yr. 11", "Yr. 12", "Yr. 13",  "Yr. 14",  "Yr. 15",  "Yr. 16", "Yr. 17",  "Yr. 18",  "Yr. 19",  "Yr. 20",  "Yr. 21",  "Yr. 22",  "Yr. 23",  "Yr. 24",  "Yr. 25"];
     	graphLabels = graphLabels.slice(0, $('#numRounds').val());
@@ -1020,104 +1232,6 @@ Contains code for the game UI.
 		}
 
 		// =========================
-
-
-		// timer set up
-	  var minute = $('#timer').attr('data-legnth');
-	  var seconds = 0;
-	  var totalSeconds = $('#timer').attr('data-legnth')*60;
-	  var storeTotal = totalSeconds;
-	  
-	  var intervalId = null;
-	  
-	  function startTimer() {
-	    --totalSeconds;
-
-	    if (totalSeconds == 0) { // if time runs out notify user. submit quanitity. restart timer
-	    	alertify.set('notifier','delay', 5);
-			alertify.set('notifier','position', 'top-right');
-			alertify.error('<i class="fas fa-exclamation-circle"></i><br><strong>Year: '+year+ ' - Time\'s Up!</strong><br>'+$("#quantity").val()+' was submitted.');
-	    	clearInterval(intervalId);
-	    	$('#price_submit_btn').prop('disabled', true);
-	    	submitResponse();
-	    }
-
-	    minute = Math.floor((totalSeconds)/60);
-	    seconds = totalSeconds - (minute*60);
-	    (seconds < 10) ? (seconds = "0" + seconds) : seconds = seconds;
-
-	    var percent = ((totalSeconds/storeTotal)*100).toPrecision(3);
-	    if (percent <= 25) $('#progressContainer').attr('class', 'alert progress');
-	    else if (percent <= 50) $('#progressContainer').attr('class', 'warning progress');
-	    $('#progressBar').css("width", percent+"%");
-	    document.getElementById("timer").innerHTML = minute+":"+seconds;
-	  }
-
-	  // Submit button Pressed
-	  document.getElementById('price_submit_btn').addEventListener('click', function(){
-	  		if ($('#quantity').val() >= 1 && $('#quantity').val() <= 500) {
-	  			firstSubmit = true;
-		  		$('#price_submit_btn').prop('disabled', true);
-		  		$('#preStartPrompt').css('display','none');
-		  		if (year == numRounds) {
-		  			submitResponse();
-		  			$('#endModal').foundation('open');
-		  			clearInterval(intervalId);
-		  		}
-		  		else
-		  			submitResponse();
-		  	} else { // If user hasn't entered quantity, button will shake
-		  		$('#emptyInputNotice').foundation('show');
-		  		$('#price_submit_btn').addClass('animated shake').one('webkitAnimationEnd mozAnimationEnd', function() {
-		    			$(this).removeClass('animated shake');
-		    			$('#emptyInputNotice').foundation('hide');
-		    		});
-		  	}
-	  });
-
-
-	function submitResponse() {
-		var quantity = $("#quantity").val();
-	  	$('#progressContainer').attr('class', 'success progress');
-
-	  	// starts timer
-	  	if (intervalId) {
-	  		clearInterval(intervalId);
-	  		totalSeconds = $('#timer').attr('data-legnth')*60;
-	  		document.getElementById("timer").innerHTML = $('#timer').attr('data-legnth')+":00";
-	  	}
-
-	  	// the following sends the student input to server for saving, server will fire event to call
-	  	// python scripts to get results
-
-	  	// single player
-	    if ($('#mode').val() == 'single') {
-	    	// socket.io -- Save submission to player's data in gameObject
-	    	socket.emit('updateData', {
-	    		groupId: groupId,
-	    		username: $('#usrname').val(),
-	    		mode: 'single',
-	    		value: quantity
-	    	});
-		}
-		// Multiplayer mode
-		else {
-			// socket.io -- Save submission to player's data in gameObject
-	    	socket.emit('updateData', {
-	    		groupId: groupId,
-	    		username: $('#usrname').val(),
-	    		mode: 'multi',
-	    		value: quantity
-	    	});
-		}
-	}
-
-	function dismissWaitScreen() {
-		$('#multWaitScreen').css('display','none');
-		$('.off-canvas-content').css('filter','none');
-		$('.footer').css('filter','none');
-	}
-
     </script>
   </body>
 
@@ -1162,8 +1276,9 @@ Contains code for the game UI.
 		width: 550px;
 		height: 460px; 
 	}
-	canvas {
-		height: 350px !important;
+	.graph {
+		width: 520px;
+		height: 360px;
 	}
 	ul a {
 		color: white;
@@ -1206,16 +1321,6 @@ Contains code for the game UI.
 		-moz-animation-duration: 3s;
 		color: #a8a8a4;
 	}
-	#emptyInputNotice:focus {
-		outline-width: 0;
-		box-shadow: none;
-	}
-	#emptyInputNotice {
-		width: 150px;
-		float: left;
-		border: none;
-		cursor: inherit;
-	}
 	#topToolbar {
 		width: 100%;
 		height: 150px;
@@ -1231,6 +1336,32 @@ Contains code for the game UI.
 		position: -webkit-sticky;
 		z-index: 2;
 		top: 0;
+	}
+	.data_grid > .grid-x{
+		margin-bottom: 15px;
+	}
+	.reveal {
+		outline: none;
+		box-shadow: none;
+	}
+	table.paleBlueRows {
+	  font-family: "Times New Roman", Times, serif;
+	  border: 1px solid #FFFFFF;
+	  width: 100%;
+	  height: 200px;
+	  text-align: center;
+	  border-collapse: collapse;
+	}
+	table.paleBlueRows td {
+	  border: 1px solid #FFFFFF;
+	  padding: 3px 2px;
+	  width: 250px;
+	}
+	table.paleBlueRows tbody td {
+	  font-size: 16px;
+	}
+	table.paleBlueRows tr:nth-child(even) {
+	  background: #D0E4F5;
 	}
   </style>
 </html>
