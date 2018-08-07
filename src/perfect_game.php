@@ -1069,7 +1069,7 @@ Last Update:
 			        labels: graphLabels,
 			        datasets: [{
 			            label: 'Price ($)',
-			            data: priceHistory.slice(25),
+			            data: priceHistory.slice(20),
 			            backgroundColor: [
 			                'rgba(0, 99, 0, 0.2)'
 			            ],
@@ -1079,7 +1079,21 @@ Last Update:
 			            borderWidth: 1
 			        }]
 			    },
-			    options: chartOptions
+			    options: chartOptions,
+			    annotation: {
+			    	annotations: [{
+			    		type: 'line',
+                        mode: 'vertical',
+                        scaleID: 'x-axis-1',
+                        value: 5,
+                        borderColor: 'rgba(255, 0, 0, 0.5)',
+                        borderWidth: 2,
+                        label: {
+                            enabled: false,
+                            content: 'You Entered Market'
+                        }
+			    	}]
+			    }
 			});
 			new Chart(document.getElementById("quantityChart2"), {
 			    type: 'line',
