@@ -46,17 +46,9 @@ Last Update:
     	// Func for off canvas menu to change screen content
     	function change_content(to_section) {
     		if (to_section == 'instructions') {
-    			$('.instructionsStuff').css('display','inherit');$('.initMarkReportStuff').css('display','none');
-    			$('button.instructionsStuff').css('display','none');
     			$('#beginModal').foundation('open');
     			return;
-    		} else if (to_section == "init_report") {
-    			$('.initMarkReportStuff').css('display','inherit');$('.instructionsStuff').css('display','none');
-    			$('button.initMarkReportStuff').css('display','none');
-    			$('#beginModal').foundation('open');
-    			return;
-    		}
-
+    		} 
     		var headers = {"dashboard_section": "Dashboard", "income_section": "Income Statement", "cost_section": "Production Cost Data", "expenditures_section": "Expenditures Data"};
     		var elements = document.getElementsByClassName("display_sections");
 
@@ -90,7 +82,7 @@ Last Update:
 		  <li><a onclick="change_content('dashboard_section')">Dashboard</a></li>
 		  <li><a onclick="change_content('income_section')">Income Statement</a></li>
 		  <li><a onclick="change_content('cost_section')">Production Cost Data</a></li>
-		  <?=$gameInfo['difficulty']!='principles'?'<li><a onclick="change_content(\'expenditures_section\')">Expenditures Data</a></li><li><a onclick="change_content(\'init_report\')">Market Research</a></li>':''?>
+		  <?=$gameInfo['difficulty']!='principles'?'<li><a onclick="change_content(\'expenditures_section\')">Expenditures Data</a></li>':''?>
 		  <li><a onclick="change_content('instructions')">Instructions</a></li>
 		</ul>
 
@@ -436,26 +428,24 @@ Last Update:
 					<div id="animate0c" class="section_cell" style="width: 500px; margin: 0 auto 50px auto;">
 						<h4 style="text-align: center; font-weight: 450">Key Values</h4>
 						<hr style="margin-bottom: 0.65rem">
-						<div class="grid-x">
-							<div class="cell small-10">
-								Advertising Coefficient
-							</div>
-							<div class="cell small-2" id="B2"></div>
-						</div>
-						<div class="grid-x">
-							<div class="cell small-10">
-								Facility Coefficient
-							</div>
-							<div class="cell small-2" id="B3"></div>
-						</div>
-						<?php if ($gameInfo['difficulty']=='advanced') { ?>
-							<div class="grid-x">
-								<div class="cell small-10">
-									Product Coefficient
-								</div>
-								<div class="cell small-2" id="B4"></div>
-							</div>
-						<?php } ?>
+						<table class="paleBlueRows">
+							<tbody>
+								<tr>
+									<td>Advertising Coefficient</td>
+									<td id="B2"></td>
+								</tr>
+								<tr>
+									<td>Product Development Coefficient</td>
+									<td id="B3"></td>
+								</tr>
+								<?php if ($gameInfo['difficulty']=='advanced') { ?>
+									<tr>
+										<td>Distribution Development Coefficient</td>
+										<td id="B4"></td>
+									</tr>
+								<?php } ?>
+							</tbody>
+						</table>
 					</div>
 					<div id="animate1c" class="section_cell cell_graph" style="float: left;">
 						<h4 style="text-align: center; font-weight: 450">Spending Breakdown</h4>
@@ -478,59 +468,10 @@ Last Update:
 	<div class="reveal" id="beginModal" data-reveal data-animation-in="slide-in-up" style="border-radius: 5px; opacity: 0.9;">
 		<div class="instructionsStuff">
 			<h2 style="text-align: left;"><strong>Instructions</strong></h2>
-			<!-- <p style="text-align: left;">You are a firm that sells mustard bottles. Your firm operates from within a monopolisticly competetive market structure. Your goal is to maximize profit by making annual descisions over a period of <?= $gameInfo['num_rounds'] ?> years.</p>
-			<p>You will be in charge of choosing your sale price and production quantity. <?=$gameInfo['difficulty']!='principles'?'Additionally, you can choose how much to invest in marketing, production facility development':''?><?=$gameInfo['difficulty']=='intermediate'?', and product development.':($gameInfo['difficulty']=='advanced'?', product development, human capital development, and distribution development.':'')?></p>
-			<p>If you produce more units that you are able to sell in a given year, the excess will be stored for use during the following year, however, you will be charged a fee for storage. After one year, if still not sold, excess production will expire and be automatically discarded.</p> -->
-
 			<p>In this simulation you will be the owner of a Financial Analytics firm, selling your services in a monopolistically competitive environment. Your goal is to set prices and output levels in this environment in order to profit maximize.</p> 
 			<p>For each of <?= $gameInfo['num_rounds'] ?> periods you will observe previous prices and choose both a price and a quantity to bring to the market in the next period.  Since you are one of many firms selling in this market, consulting the market research reports detailing the industry averages may help as you make the profit maximizing choices.</p> 
 			<p>At the end of the simulation, cumulative profits will be measured and grading against a hypothetical firm acting optimally.</p>
-
 		</div>
-		<div class="initMarkReportStuff">
-			<h2 style="text-align: left;"><strong>Market Research</strong></h2>
-			<table class="paleBlueRows" style="margin-left: 15px; width: 95%">
-				<tbody>
-					<tr>
-						<td><h6 style="float: left;"><strong>Industry Averages ($/year)</strong></h6></td>
-					</tr>
-					<tr>
-						<td>Marketing</td>
-						<td>$1,000,000</td>
-					</tr>
-					<tr>
-						<td>Production Facility Development</td>
-						<td>$50,000</td>
-					</tr>
-					<tr>
-						<td>Product Development</td>
-						<td>$100,000</td>
-					</tr>
-					<?php if ($gameInfo['difficulty']=='advanced') { ?>
-						<tr>
-							<td>Human Capital Development</td>
-							<td>$75,000</td>
-						</tr>
-						<tr>
-							<td>Distribution Development</td>
-							<td>$300,000</td>
-						</tr>
-					<?php } ?>
-				</tbody>
-			</table>
-		</div>
-		<button class="button instructionsStuff" style="width: 210px; float: right; display:<?=$gameInfo['difficulty']!='principles'?'inherit':'none'?>;" onclick="$('.initMarkReportStuff').css('display','inherit');$('.instructionsStuff').css('display','none');">
-			<div>
-			<h6 style="float: left; margin: 0; font-weight: 650; margin-top: 2px">Market Research</h6>
-			<i class="fas fa-arrow-right fa-2x" style="float: right;"></i>
-			</div>
-		</button>
-		<button class="button initMarkReportStuff" style="width: 180px; float: left;" onclick="$('.instructionsStuff').css('display','inherit');$('.initMarkReportStuff').css('display','none');">
-			<div>
-			<i class="fas fa-arrow-left fa-2x" style="float: left;"></i>
-			<h6 style="float: right; margin: 0; font-weight: 650; margin-top: 2px">Instructions</h6>
-			</div>
-		</button>
 		<button class="close-button" data-close aria-label="Close reveal" type="button">
 			<span aria-hidden="true">&times;</span>
 		</button>
