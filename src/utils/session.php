@@ -64,7 +64,6 @@ else if ($_POST['action'] == 'toggle') {
 }
 // save game info to gameSessionData
 else if ($_POST['action'] == 'update_gameSessionData') {
-
 	$result = $mysqli->query('SELECT * FROM GameSessionData WHERE groupId="'.$_POST["groupId"].'" AND player="'.$_POST["username"].'"');
 
 	// game session entry for this player exists already, so update it with new submission
@@ -96,9 +95,7 @@ else if ($_POST['action'] == 'remove_student') {
 
 // instructor results page uses this function to grab the session data and display it 
 else if ($_POST['action'] == 'retrieve_gameSessionData') {
-
 	$result = $mysqli->query('SELECT player, '.$_POST['valueType'].' FROM GameSessionData WHERE gameId="'.$_POST["gameId"].'"');
-
 	$data=[];
 
 	if ($result->num_rows > 0) {
@@ -107,10 +104,19 @@ else if ($_POST['action'] == 'retrieve_gameSessionData') {
 			$splitWithName = array('username'=> $row['player'], 'data'=> $splitData);
 			array_push($data, $splitWithName);
 		}
-	echo json_encode($data);
-
+		echo json_encode($data);
 	} else { 
 		echo "ERROR no match";
+	}
+}
+
+// returns the username the opponent of a selected row from oligopoly game mode to instructor results page, for auto selecting opponent's row 
+else if ($_POST['action'] == 'getOpponent') {
+	$result = $mysqli->query('SELECT opponent FROM GameSessionData WHERE player='.$_POST['selectedUser'].' AND gameId="'.$_POST["gameId"].'"');
+	if ($result->num_rows > 0) {
+		echo $result->fetch_assoc()['opponent'];
+	} else { 
+		echo "ERROR no opponent match";
 	}
 }
 $mysqli->close();

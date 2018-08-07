@@ -232,7 +232,7 @@ Last Update:
 		var columns = [{ title: "Yr. 1" },{ title: "Yr. 2" },{ title: "Yr. 3" },{ title: "Yr. 4" },{ title: "Yr. 5" },{ title: "Yr. 6" },{ title: "Yr. 7" }, { title: "Yr. 8" },{ title: "Yr. 9" },{ title: "Yr. 10" }, { title: "Yr. 11" }, { title: "Yr. 12" }, { title: "Yr. 13" },  { title: "Yr. 14" },  { title: "Yr. 15" }, { title: "Yr. 16" }, { title: "Yr. 17" }, { title: "Yr. 18" }, { title: "Yr. 19" }, { title: "Yr. 20" }, { title: "Yr. 21" }, { title: "Yr. 22" }, { title: "Yr. 23" }, { title: "Yr. 24" }, { title: "Yr. 25" }];
 		columns = columns.splice(0, $('#numRounds').val());
 
-		function tableCallback(data) { console.log('building table'); console.log(data);
+		function tableCallback(data) {
 			$.fn.dataTable.ext.errMode = 'none'; // supress error from not all columns being
 		    var table = $('#table_id').DataTable( {
 		        data: data,
@@ -258,19 +258,52 @@ Last Update:
 
 		    // limit the number of selected rows to a max of 2
 			table.on( 'select', function ( e, dt, type, ix ) {
-			   var selected = dt.rows({selected: true});
-			   table.buttons().enable();
-			   if ( selected.count() > 2 ) {
-			      dt.rows(ix).deselect();
-			   }
+				if (type == 'row') {
+					if (<?=$gameInfo['market_struct']=='oligopoly'?>) {
+						var selected = dt.rows({selected: true});
+						var opponentName;
+
+						// ajax to get name of selected student's opponent
+			        	$.ajax({
+					  		url: "utils/session.php", 
+					  		method: 'POST',
+				  			data: { action: 'getOpponent', gameId: <?=$gameInfo['id']?>, selectedUser: dt.rows(ix).data()[0] },
+				  			success: function(response) {
+				  				opponentName=response;
+				  			}
+				  		});
+
+						for (var i=0;i<table.data().count();i++) {
+							if (dt.rows(i).data()[0]==opponentName) {
+								dt.rows(i).select();
+								break;
+							}
+						}
+
+
+						table.buttons().enable();
+					}
+					else {
+						var selected = dt.rows({selected: true});
+						table.buttons().enable();
+						if ( selected.count() > 2 ) {
+						  dt.rows(ix).deselect();
+						}
+					}
+				}
 			} );
 			// if no buttons selected, show graph button should be disabled
 			table.on( 'deselect', function ( e, dt, type, ix ) {
-				var selected = dt.rows({selected: true});
-			    if ( selected.count() == 0 ) {
-			       table.buttons().disable();
-			    }
-			} );
+				if (<?=$gameInfo['market_struct']=='oligopoly'?>) {
+					dt.rows().deselect();
+				}
+				else {
+					var selected = dt.rows({selected: true});
+				    if ( selected.count() == 0 ) {
+				       table.buttons().disable();
+				    }
+				}
+			});
 		}
 		
 		var graphLabels = ["Yr. 1", "Yr. 2", "Yr. 3", "Yr. 4", "Yr. 5", "Yr. 6", "Yr. 7", "Yr. 8", "Yr. 9", "Yr. 10", "Yr. 11", "Yr. 12", "Yr. 13",  "Yr. 14",  "Yr. 15",  "Yr. 16", "Yr. 17",  "Yr. 18",  "Yr. 19",  "Yr. 20",  "Yr. 21",  "Yr. 22",  "Yr. 23",  "Yr. 24",  "Yr. 25"];
