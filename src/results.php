@@ -72,9 +72,11 @@ Last Update:
 			<i class="far fa-angle-left"></i> Back
 		</button>
 		<div class="navButtons">
+			<?php if ($gameInfo['market_struct']!='perfect_competition') { ?>
 			<div id="avgButton" class="selected" style="border-right: 1px solid #666666" onclick="javascript:changeContent('avg')">
 				Annual Averages
 			</div>
+			<?php } ?>
 			<div id="indivButton" class="nonselected" style="border-right: 1px solid #666666" onclick="javascript:changeContent('indiv')">
 				Individual Submissions
 			</div>
