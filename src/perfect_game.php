@@ -169,12 +169,12 @@ Last Update:
 		<div id="mainContent"> 
 
 			<!-- before first submission prompt -->
-			<div id="preStartPrompt" style="width: 500px; margin: 280px auto 30px auto;">
+<!-- 			<div id="preStartPrompt" style="width: 500px; margin: 280px auto 30px auto;">
 				<h3 style="text-align: center; color: #bdbebf">
 					<i class="far fa-play-circle fa-5x"></i><br>
 					<strong style="font-weight: 500;">Enter Quantity to Begin!</strong>
 				</h3>
-			</div>
+			</div> -->
 
 			<!-- Dashboard -->
 			<div class="display_sections" id="dashboard_section"> 
@@ -221,6 +221,19 @@ Last Update:
 						<div class="graph">
 							<canvas id="quantityChart"></canvas>
 						</div>
+					</div>
+					<div class="section_cell cell_graph preStartPrompt" style="float: left;">
+						<h2 style="text-align: left;"><strong>Instructions</strong></h2>
+						<p style="text-align: left;">In this simulation you will be the owner of a non-durable commodity, selling your product in a perfectly competitive market environment. Your goal is to determine productions levels in the face of fluctuating prices, in order to profit maximize.</P>
+						<p>For each of <?= $gameInfo['num_rounds'] ?> periods you will observe prices, choose a quantity to sell and determine productivity changes for next period.  To make your decisions easier, consult the market research reports detailing the industry averages.</p>
+						<p>At the end of the simulation, cumulative profits will be measured and graded against the average firm.</p>
+					</div>
+					<div class="section_cell cell_graph preStartPrompt" style="float: right;">
+						<h2 style="text-align: left;"><strong>Initial Market Report</strong></h2>
+						<div style="width: 100%; height: 350px">
+							<canvas id="twentyFiveYrHist"></canvas>
+						</div>
+						<p>The above chart tracks the price history in your market for the previous 25 years. You will now enter the market such that your first year corresponds with the market's twenty sixth year.</p>
 					</div>
 				</div>
 			</div>
@@ -602,7 +615,7 @@ Last Update:
 			var marginalCost = (year>=2&&quantity-quantityHistory[year-2]!=0)?parseInt(((totalCost-ttlCostHist[year-2])/(quantity-quantityHistory[year-2])).toFixed(2)):0;
 			// -----------------------
 
-			$('#preStartPrompt').css('display','none');
+			$('.preStartPrompt').css('display','none');
 			// Enable/update summary display content
 			if (year != numRounds) {
 			  	document.getElementById("summarySection").style.display = "";
