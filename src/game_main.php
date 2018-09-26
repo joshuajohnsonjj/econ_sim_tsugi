@@ -7,12 +7,18 @@ On monopoly mode, a user enters directly into game and can start playing. There 
 
 On oligopoly mode, a waiting overlay is shown on top of the game screen preventing the user from starting until being matched with another player. When student submits, screen will wait to allow another submission unitl opponent has submitted as well. If one user quits, the other user is booted out to student.php and a message is displayed.
 
-Last Update:
+Last Update: Updated socket.io to Tsugi Websockets
 */
 	include 'utils/sql_settup.php';
 	require_once "../../config.php";
 
 	use \Tsugi\Core\LTIX;
+	use Tsugi\Core\WebSocket;
+
+	$LAUNCH = LTIX::session_start();
+
+	// Render view
+	$OUTPUT->header();
 
 	$LAUNCH = LTIX::session_start();
 
@@ -109,7 +115,7 @@ Last Update:
 		<div class="title-bar">
 		  <div class="title-bar-left">
 		  	<div class="media-object" style="float: left;">
-			    <div class="thumbnail" style="margin: 0; border: none;">
+			    <div class="thumbnail" style="margin: 0; border: none; background: none;">
 			      <img src="../assets/img/no_bg_monogram.png" height="100px" width="100px">
 			    </div>
 			</div>
@@ -148,7 +154,7 @@ Last Update:
 						<p style="float: left; padding-right: 20px"><b>Quantity: </b></p>
 						<input type="number" id="quantity" style="width: 125px; float: left;" min="1" max="500" placeholder="1 - <?=$gameInfo['max_quantity']?> Units">
 						<button class="button" type="button" id="price_submit_btn" style="margin-left: 20px; font-weight: 500; float: left;">Submit</i></button>
-						<span id="waitOppSub" style="display: none;" data-tooltip tabindex="1" title="Waiting for opponent to submit quantity">
+						<span id="waitOppSub" style="display: none; text-decoration: none; border: none; outline: none;" data-tooltip tabindex="1" title="Waiting for opponent to submit quantity">
 							<i class="fas fa-spinner fa-pulse fa-2x"></i>
 						</span>
 					</div>
@@ -397,18 +403,26 @@ Last Update:
 	<!-- Bottom bar -->
 	<footer class="footer" style="filter: <?= !$startGame ? 'blur(10px) brightness(0.7);' : 'none'?>"></footer>
 
+	<?php
+		$OUTPUT->footerStart();
+	?>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/what-input/5.1.0/what-input.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/6.4.3/js/foundation.js"></script>
     <script src="../js/app.js"></script>
     <script src="../js/node_modules/chart.js/dist/Chart.js"></script>
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.1/build/alertify.min.js"></script>
-    <script src="socket.io-client/socket.io.js"></script>
     <script type="text/javascript">
 	// submissions
     	var quantity, oppQuantity;
 
     	const numRounds = parseInt($('#numRounds').val(), 10);
+	    
+	var gameIsComplete = false;
+    	
+    	broadcast_web_socket = null;
+    	room_web_socket = null;
 
     	// Economic Data
     	// -------------
@@ -434,49 +448,79 @@ Last Update:
     	var oppRevenueHistory = [];
     	var oppQuantityHistory = [];
     	// -------------------
-    	// STUFF FOR SOCKET.IO
-    	// ===================
-    	// connect to server 
-	    var socket = io('http://'+document.domain+':2020');
-	    var groupId = window.location.hash.substring(1), gameObject;
+    	
+	    
+	    var groupId = (Math.random()+1).toString(36).slice(2, 18);
 
-	    if (groupId == '')
-			socket.emit('joinGame', { // add user to gameObject as a player
-				id: $('#sessionId').val(),
-				username: $('#usrname').val(),
-				mode: $('#mode').val()
-			});
+	    if ('<?=$gameInfo['mode']?>' == 'single') {
+	    	$('#beginModal').foundation('open');
+	    } 
+	    else {
+	    	$.ajax({
+		  		url: "utils/websocket_util.php", 
+		  		method: 'POST',
+	  			data: { action: 'join_multi', sessionId: $('#sessionId').val(), username: $('#usrname').val(), groupId: groupId },
+	  			success: function(response) {
+	  				// if response is returned, the user joined a waiting player, so game can start
+	  				if (response) { 
+	  					let json = JSON.parse(response);
+	  					if (json[0].length > 10)
+							groupId=json[0].substring(0, json[0].length - 1);
+						else
+							groupId=json[0];
 
-		// when a student first enters game
-		socket.on('studentJoinedGame', function(gameObj) {
-			groupId = gameObj['groupId'];
-			
-			// if single mode open instuction modal upon entering game
-			if ($('#mode').val() == 'single')
-				$('#beginModal').foundation('open');
-			
-			// if multi game is full, players have been matched successfully
-			if ($('#mode').val() == 'multi' && gameObj['full']) { 
-				// hide the wait screen
-				dismissWaitScreen();
-				
-				// open instructions
-				$('#beginModal').foundation('open');
-				
-				// grab opponent from gameObject
-				var opp;
-				if ($('#usrname').val() == gameObj['playerOne']) opp = gameObj['playerTwo'].substring(0, gameObj['playerTwo'].indexOf('@'));
-				else opp = gameObj['playerOne'].substring(0, gameObj['playerOne'].indexOf('@'));
-				$('#opponent').val(opp);
-				$('.competition').text(opp);
-				$('span.title-bar-title > h6').css('display', 'inherit');
-			}
+	  					// join socket to room
+	  					room_web_socket = tsugiNotifySocket(groupId);
+	  					
+	  					// hide the wait screen
+						dismissWaitScreen();
+						// open instructions
+						$('#beginModal').foundation('open');
 
-			window.location.href = window.location.href+"#"+groupId;
-		});
+						// set labels based on opponent and groupId recieved
+						let opp = json[1].substring(0, json[1].indexOf('@'));
+						$('#opponent').val(opp);
+						$('.competition').text(opp);
+						$('span.title-bar-title > h6').css('display', 'inherit');
+
+						// send message to room to notify other player that game is starting
+						room_web_socket.onopen = function(evt) {
+							room_web_socket.send($('#usrname').val());
+						}
+
+	  				}
+	  				// if no response returned, user joined new game and is waiting for opponent
+	  				else {
+	  					if (groupId.length > 10)
+							groupId=groupId.substring(0, groupId.length - 1);
+
+					  	room_web_socket = tsugiNotifySocket(groupId);
+					  	room_web_socket.onmessage = function(evt) {
+					  		if (evt.data.includes('@')) { 
+						        // hide the wait screen
+								dismissWaitScreen();
+								// open instructions
+								$('#beginModal').foundation('open');
+
+								// set labels based on opponent and groupId recieved
+								let opp = evt.data.substring(0, evt.data.indexOf('@'));
+								$('#opponent').val(opp);
+								$('.competition').text(opp);
+								$('span.title-bar-title > h6').css('display', 'inherit');
+							}
+							else if (evt.data = "exit") {
+								const urlPrefix = window.location.href.substr(0, window.location.href.indexOf('src'));
+								window.location = urlPrefix+'src/student.php?session=err2';	
+							}
+					    };
+					}
+
+	  			}
+	  		});
+	    }
 
 		// singleplayer submission occured
-		socket.on('singleplayerSubmission', function(quantity) {
+		function getSingleResults(quantity) {
 			var gameOver = true;
 			if (year != numRounds) intervalId = setInterval(startTimer, 1000);
 
@@ -572,188 +616,178 @@ Last Update:
 			  				profit: profit, percentReturn: percReturn.toPrecision(4), price: demand, unitCost: constCost, totalCost: totalCost, complete: gameOver?1:0, gameId: <?= $gameInfo['id'] ?>  }
 			  		});
 
-			  		socket.emit('studentSubmitedQuantity');
+			  		// send message to notify instructor results to update
+					if (!broadcast_web_socket) {
+				  		broadcast_web_socket = tsugiNotifySocket(); 
+				  		broadcast_web_socket.onopen = function(evt) { 
+							broadcast_web_socket.send($('#sessionId').val());
+						}
+					}
+					else
+						broadcast_web_socket.send($('#sessionId').val());
 		});
 
 		// multiplayer submission occured
-    	socket.on('multiplayerSubmission', function(gameObj) {
-		gameObject = gameObj;
+    	function getMultiResults(submitData)  {
 		var gameOver = true;
-		// if the legnths of the data arrays for both players are unequal, wait for other player to submit
-		if (!gameObject['bothSubmitted']) {
-			if (gameObject['p1']==$('#usrname').val()) { // display waiting spinner for submitted player
-				$('#waitOppSub').css('display', '');
-			}
+		if (year != numRounds) intervalId = setInterval(startTimer, 1000);
+		
+		$('#preStartPrompt').css('display','none');
+
+		// hide spinner
+		$('#waitOppSub').css('display', 'none');
+		
+		// set variables with submission for correct player
+		if ($('#usrname').val() == submitData[0]) {
+			oppQuantity = submitData[3];
+			quantity = submitData[1];
 		}
-		else { // both players have submitted now
-			if (year != numRounds) intervalId = setInterval(startTimer, 1000);
+    		else {
+			oppQuantity = submitData[1];
+			quantity = submitData[3];
+		}
+		
+		
+		 // both players have submitted now
+		if (year != numRounds) intervalId = setInterval(startTimer, 1000);
 
-			$('#preStartPrompt').css('display','none');
+		$('#preStartPrompt').css('display','none');
 
-			// hide spinner
-			$('#waitOppSub').css('display', 'none');
+		// hide spinner
+		$('#waitOppSub').css('display', 'none');
 
-			// grab opponent's most recent submission value
-			if ($('#usrname').val() == gameObject['p1']) {
-				oppQuantity = gameObject['p2Data'];
-				quantity = gameObject['p1Data'];
-			}
+		// grab opponent's most recent submission value
+		if ($('#usrname').val() == gameObject['p1']) {
+			oppQuantity = gameObject['p2Data'];
+			quantity = gameObject['p1Data'];
+		}
 		else {
 			oppQuantity = gameObject['p1Data'];
 			quantity = gameObject['p2Data'];
     		}
 
-	    		// MATH FOR GETTING RESULTS
-			// ------------------------
-			// Demand calculaton
-			var totalQuantity = quantity+oppQuantity;
-			var demandIntercept = $('#dIntr').val();
-			var demandSlope = $('#dSlope').val();
-			var demand = demandIntercept - demandSlope*quantity;
+		// MATH FOR GETTING RESULTS
+		// ------------------------
+		// Demand calculaton
+		var totalQuantity = quantity+oppQuantity;
+		var demandIntercept = $('#dIntr').val();
+		var demandSlope = $('#dSlope').val();
+		var demand = demandIntercept - demandSlope*quantity;
 
-			// Cost calculation
-			var fixedCost = $('#fCost').val();
-			var constCost = $('#cCost').val();      // Price to produce per unit
-			var totalCost = fixedCost + constCost*quantity;
-			var avgTtlCost = (fixedCost/quantity) + ((constCost*quantity)/quantity);
+		// Cost calculation
+		var fixedCost = $('#fCost').val();
+		var constCost = $('#cCost').val();      // Price to produce per unit
+		var totalCost = fixedCost + constCost*quantity;
+		var avgTtlCost = (fixedCost/quantity) + ((constCost*quantity)/quantity);
 
-			// Profit & Revenue calculations
-			var profit1 = demand*quantity - totalCost;
-			var profit2 = demand*oppQuantity - totalCost;
-			var revenue1 = demand*quantity;
-			var revenue2 = demand*oppQuantity;
+		// Profit & Revenue calculations
+		var profit1 = demand*quantity - totalCost;
+		var profit2 = demand*oppQuantity - totalCost;
+		var revenue1 = demand*quantity;
+		var revenue2 = demand*oppQuantity;
 
-			// % return caluclations
-			var percReturn1 = (profit1/revenue1)*100;
-			var percReturn2 = (profit2/revenue2)*100;
-			// ------------------------
+		// % return caluclations
+		var percReturn1 = (profit1/revenue1)*100;
+		var percReturn2 = (profit2/revenue2)*100;
+		// ------------------------
 
-			// Enable/update summary display content
-			if (year != numRounds) {
-				document.getElementById("summarySection").style.display = "";
-				document.getElementById("summaryYear").innerHTML = "Summary for Year "+year;
-				year+=1;
-				$('#yearSpan').text(year-1);
-				$('#yearSpan2').text(year-1);
-				document.getElementById("year").innerHTML = "<b>Year: </b>"+year;
-				gameOver = false;
-			 }
-			// update values based on retrieved data
-			cumulativeRevenue += revenue1;
-			cumulativeProfit += profit1;
-			oppCumulativeRevenue += revenue2;
-			oppCumulativeProfit += profit2;
-			oppCumulativeHistory.push(oppCumulativeRevenue);
-			oppCumulativeProfHistory.push(oppCumulativeProfit);
-			cumulativeHistory.push(cumulativeRevenue);
-			cumulativeProfHistory.push(cumulativeProfit);
-			oppProfitHistory.push(profit2);
-			oppRevenueHistory.push(revenue2);
-			profitHistory.push(profit1);
-			revenueHistory.push(revenue1);
-			ttlCostHist.push(totalCost);
-			avgTtlCostHist.push(avgTtlCost);
-			quantityHistory.push(quantity);
-			oppQuantityHistory.push(oppQuantity);
-			priceHistory.push(demand);
-			marginalCostHist.push(constCost);
+		// Enable/update summary display content
+		if (year != numRounds) {
+			document.getElementById("summarySection").style.display = "";
+			document.getElementById("summaryYear").innerHTML = "Summary for Year "+year;
+			year+=1;
+			$('#yearSpan').text(year-1);
+			$('#yearSpan2').text(year-1);
+			document.getElementById("year").innerHTML = "<b>Year: </b>"+year;
+			gameOver = false;
+		 }
+		// update values based on retrieved data
+		cumulativeRevenue += revenue1;
+		cumulativeProfit += profit1;
+		oppCumulativeRevenue += revenue2;
+		oppCumulativeProfit += profit2;
+		oppCumulativeHistory.push(oppCumulativeRevenue);
+		oppCumulativeProfHistory.push(oppCumulativeProfit);
+		cumulativeHistory.push(cumulativeRevenue);
+		cumulativeProfHistory.push(cumulativeProfit);
+		oppProfitHistory.push(profit2);
+		oppRevenueHistory.push(revenue2);
+		profitHistory.push(profit1);
+		revenueHistory.push(revenue1);
+		ttlCostHist.push(totalCost);
+		avgTtlCostHist.push(avgTtlCost);
+		quantityHistory.push(quantity);
+		oppQuantityHistory.push(oppQuantity);
+		priceHistory.push(demand);
+		marginalCostHist.push(constCost);
 
-			// correctly format output with commas and negatives where neccissary
-			var marketPriceString, revenue1String, revenue2String, profit1String, profit2String, cumulativeString;
-			if (demand < 0 ) marketPriceString = '-$'+(demand*(-1)).toLocaleString();
-			else marketPriceString = '$'+demand.toLocaleString();
-			if (revenue1 < 0 ) revenue1String = '-$'+(revenue1*(-1)).toLocaleString();
-			else revenue1String = '$'+revenue1.toLocaleString();
-			if (revenue2 < 0 ) revenue2String = '-$'+(revenue2*(-1)).toLocaleString();
-			else revenue2String = '$'+revenue2.toLocaleString();
-			if (profit1 < 0 ) profit1String = '-$'+(profit1*(-1)).toLocaleString();
-			else profit1String = '$'+profit1.toLocaleString();
-			if (profit2 < 0 ) profit2String = '-$'+(profit2*(-1)).toLocaleString();
-			else profit2String = '$'+profit2.toLocaleString();
-			if (cumulativeRevenue < 0 ) cumulativeString = '-$'+(cumulativeRevenue*(-1)).toLocaleString();
-			else cumulativeString = '$'+cumulativeRevenue.toLocaleString();
+		// correctly format output with commas and negatives where neccissary
+		var marketPriceString, revenue1String, revenue2String, profit1String, profit2String, cumulativeString;
+		if (demand < 0 ) marketPriceString = '-$'+(demand*(-1)).toLocaleString();
+		else marketPriceString = '$'+demand.toLocaleString();
+		if (revenue1 < 0 ) revenue1String = '-$'+(revenue1*(-1)).toLocaleString();
+		else revenue1String = '$'+revenue1.toLocaleString();
+		if (revenue2 < 0 ) revenue2String = '-$'+(revenue2*(-1)).toLocaleString();
+		else revenue2String = '$'+revenue2.toLocaleString();
+		if (profit1 < 0 ) profit1String = '-$'+(profit1*(-1)).toLocaleString();
+		else profit1String = '$'+profit1.toLocaleString();
+		if (profit2 < 0 ) profit2String = '-$'+(profit2*(-1)).toLocaleString();
+		else profit2String = '$'+profit2.toLocaleString();
+		if (cumulativeRevenue < 0 ) cumulativeString = '-$'+(cumulativeRevenue*(-1)).toLocaleString();
+		else cumulativeString = '$'+cumulativeRevenue.toLocaleString();
 
-			// Set text in summary section to represent retrieved data
-			document.getElementById("marketPrice").innerHTML = marketPriceString;
-			$('#opponentQuantity').css('display', '');
-			$('#opponentQuantity > span').text(oppQuantity+ " units.");
-			document.getElementById("prodQuantity").innerHTML = quantity;
-			document.getElementById("revenue").innerHTML = revenue1String;
-			document.getElementById("unitCost").innerHTML = constCost;
-			document.getElementById("ttlCost").innerHTML = totalCost;
-			document.getElementById("profit").innerHTML = profit1String;
-			document.getElementById("cumulative").innerHTML = cumulativeString;
+		// Set text in summary section to represent retrieved data
+		document.getElementById("marketPrice").innerHTML = marketPriceString;
+		$('#opponentQuantity').css('display', '');
+		$('#opponentQuantity > span').text(oppQuantity+ " units.");
+		document.getElementById("prodQuantity").innerHTML = quantity;
+		document.getElementById("revenue").innerHTML = revenue1String;
+		document.getElementById("unitCost").innerHTML = constCost;
+		document.getElementById("ttlCost").innerHTML = totalCost;
+		document.getElementById("profit").innerHTML = profit1String;
+		document.getElementById("cumulative").innerHTML = cumulativeString;
 
-			// set income screen stuff
-			$('#liRevenue').html('<b>'+revenue1String+'</b> / <em>'+revenue2String+'</em>');
-			$('#liNet').html('<b>'+profit1String+'</b> / <em>'+profit2String+'</em>');
-			$('#liPrice').text(marketPriceString);
-			$('#liReturn').html('<b>'+percReturn1.toPrecision(4)+'%</b> / <em>'+percReturn2.toPrecision(4)+'%</em>');
+		// set income screen stuff
+		$('#liRevenue').html('<b>'+revenue1String+'</b> / <em>'+revenue2String+'</em>');
+		$('#liNet').html('<b>'+profit1String+'</b> / <em>'+profit2String+'</em>');
+		$('#liPrice').text(marketPriceString);
+		$('#liReturn').html('<b>'+percReturn1.toPrecision(4)+'%</b> / <em>'+percReturn2.toPrecision(4)+'%</em>');
 
-			// set cost screen stuff
-			$('#liSales').text(quantity+" Units");
-			$('#liPrice2').text('$'+demand);
-			$('#liMarginal').text('$'+constCost+"/Unit");
-			$('#liProduction').text('$'+totalCost);
+		// set cost screen stuff
+		$('#liSales').text(quantity+" Units");
+		$('#liPrice2').text('$'+demand);
+		$('#liMarginal').text('$'+constCost+"/Unit");
+		$('#liProduction').text('$'+totalCost);
 
-			// redraw graph
-			init('dashboard_section');
-			init('income_section');
-			init('cost_section');
+		// redraw graph
+		init('dashboard_section');
+		init('income_section');
+		init('cost_section');
 
-			// enable button
-			if (!gameOver) $('#price_submit_btn').prop('disabled', false);
-			
-			// call func to submit data in querry
-			$.ajax({
-				url: "utils/session.php", 
-				method: 'POST',
-				data: { action: 'update_gameSessionData', groupId: groupId, username: $('#usrname').val(), opponent: $('#opponent').val(), quantity: quantity, 
-					revenue: revenue1, profit: profit1, percentReturn: percReturn1.toPrecision(4), price: demand,
-					unitCost: constCost, totalCost: totalCost, complete: gameOver, gameId: <?= $gameInfo['id'] ?> }
-			});
+		// enable button
+		if (!gameOver) $('#price_submit_btn').prop('disabled', false);
 
-			// have one player emit to client, telling instructor results to update (otherwised both would send and duplicate data on instructor side)
-			if ($('#usrname').val() == gameObject['p1'])
-				socket.emit('studentSubmitedQuantity');
-			}
+		// call func to submit data in querry
+		$.ajax({
+			url: "utils/session.php", 
+			method: 'POST',
+			data: { action: 'update_gameSessionData', groupId: groupId, username: $('#usrname').val(), opponent: $('#opponent').val(), quantity: quantity, 
+				revenue: revenue1, profit: profit1, percentReturn: percReturn1.toPrecision(4), price: demand,
+				unitCost: constCost, totalCost: totalCost, complete: gameOver, gameId: <?= $gameInfo['id'] ?> }
 		});
 
-		const urlPrefix = window.location.href.substr(0, window.location.href.indexOf('src'));
-		var exitButtonPressed = false;
-
-		//  handle refreshes 
-    	if (performance.navigation.type == 1) {
-    		dismissWaitScreen();	
-	  		socket.emit('refresh', groupId, $('#usrname').val());
-    	}
-    	
-		// student exits game early, or cancels during player match
-		socket.on('gameExited', function(user) {
-			// when one player quits, both players will be booted from game
-			// for the user that did not press the exit button, display error message notifying them of what happened, 
-			if ($('#usrname').val() != user) 
-				window.location = urlPrefix+'src/student.php?session=err2';
-			else {
-				// remove student(s) from gamesession table
-				$.ajax({
-			  		url: "utils/session.php", 
-			  		method: 'POST',
-		  			data: { action: 'remove_student', groupId: groupId }
-		  		});
-
-				window.location = urlPrefix+'src/student.php?session=left';
+		// send global message for instructor results
+		if ($('#usrname').val() == submitData[0]) {
+			if (!broadcast_web_socket) { 
+				broadcast_web_socket = tsugiNotifySocket(); 
+				broadcast_web_socket.onopen = function(evt) {
+					broadcast_web_socket.send($('#sessionId').val());
+				}
 			}
-		});
-
-		function leaveGame() { // fires when one player hits exit game button in side menu
-			socket.emit('leaveGame', $('#usrname').val(), groupId);
+			broadcast_web_socket.send($('#sessionId').val());
 		}
-
-		// window.onbeforeunload = function () {
-		//     leaveGame();
-		// };
-		// ==================
+		
+	}
 
     	// Scrolling animations
     	//---------------------------
@@ -855,17 +889,16 @@ Last Update:
 
 	  // Submit button Pressed
 	  document.getElementById('price_submit_btn').addEventListener('click', function() {
-	  	if (!window.location.hash)
-	  		leaveGame();
-
   		// check validity
   		if ($('#quantity').val() >= 1 && $('#quantity').val() <= <?=$gameInfo['max_quantity']?>) {
   			firstSubmit = true;
-	  		$('#price_submit_btn').prop('disabled', true);
-	  		if (year == numRounds) {
+	  		$('#price_submit_btn').prop('disabled', true); // disable submit button so it isn't pressed twice for same year
+	  		if (year == numRounds) { // check if the game is over
 	  			submitResponse();
 	  			$('#endModal').foundation('open');
 	  			clearInterval(intervalId);
+
+	  			gameIsComplete = true;
 	  		}
 	  		else
 	  			submitResponse();
@@ -896,23 +929,55 @@ Last Update:
 
 	  	// single player
 	    if ($('#mode').val() == 'single') {
-	    	// socket.io -- Save submission to player's data in gameObject
-	    	socket.emit('updateData', {
-	    		groupId: groupId,
-	    		username: $('#usrname').val(),
-	    		mode: 'single',
-	    		value: quantity
-	    	});
-		}
+	    	// call function to get results from the year based on submission and update UI
+	    	getSingleResults(quantity);
+	    }
 		// Multiplayer mode
 		else {
-			// socket.io -- Save submission to player's data in gameObject
-	    	socket.emit('updateData', {
-	    		groupId: groupId,
-	    		username: $('#usrname').val(),
-	    		mode: 'multi',
-	    		value: quantity
-	    	});
+			$.ajax({
+		  		url: "utils/websocket_util.php", 
+		  		method: 'POST',
+	  			data: { action: 'submit_multi', username: $('#usrname').val(), groupId: groupId, quantity: quantity },
+	  			success: function(response) {
+	  				// if response is returned, both players have submited. (This player submitted second)
+	  				if (response) {  
+	  					let json = JSON.parse(response); 
+	  					
+	  					
+						room_web_socket.send($('#opponent').val());
+						
+
+	  					getMultiResults(json);
+	  				}
+	  				// if no response returned, user joined new game and is waiting for opponent
+	  				else { 
+	  					$('#waitOppSub').css('display', 'inherit');
+
+	  					// wait for message that other player has submitted
+					  	room_web_socket.onmessage = function(evt) { 
+					  		if (evt.data==$('#usrname').val().substring(0, $('#usrname').val().indexOf('@'))) {
+					  			// grab opponent's submission data from database
+					  			$.ajax({
+							  		url: "utils/websocket_util.php", 
+							  		method: 'POST',
+						  			data: { action: 'get_opponent_data', groupId: groupId },
+						  			success: function(response) {
+						  				var json = JSON.parse(response);
+						  				var tmpArr = [$('#usrname').val(), quantity];
+						  				json = tmpArr.concat(json);
+						  				getMultiResults(json);
+						  			}
+						  		});
+					  		}
+					  		else if (evt.data = "exit") {
+								const urlPrefix = window.location.href.substr(0, window.location.href.indexOf('src'));
+								window.location = urlPrefix+'src/student.php?session=err2';	
+							}
+					    };
+					}
+
+	  			}
+	  		});
 		}
 	}
 
@@ -922,6 +987,32 @@ Last Update:
 		$('.off-canvas-content').css('filter','none');
 		$('.footer').css('filter','none');
 	}
+	    
+	function leaveGame() {
+		const urlPrefix = window.location.href.substr(0, window.location.href.indexOf('src'));
+
+		// if game is not over, remove student from session table so they can restart game
+		if (!gameIsComplete)
+			$.ajax({
+		  		url: "utils/session.php", 
+		  		method: 'POST',
+	  			data: { action: 'remove_student', groupId: groupId }
+	  		});
+
+  		// if its a multi game, notify opponent
+  		if (room_web_socket)
+  			room_web_socket.send("exit");
+
+  		// exit to student.php
+  		if (!gameIsComplete)
+  			window.location = urlPrefix+'src/student.php?session=left';
+  		else
+  			window.location = urlPrefix+'src/student.php?session=comp';
+	}
+
+	window.onbeforeunload = function () {
+	    leaveGame();
+	};
 
 		// CHARTS SET UP \\
     	// =================
@@ -1365,3 +1456,6 @@ Last Update:
 	}
   </style>
 </html>
+
+<?php
+$OUTPUT->footerEnd();
