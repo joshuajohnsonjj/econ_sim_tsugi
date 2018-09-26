@@ -9,20 +9,24 @@ Initially shows "annual averages," which is table showing average quantities sub
 
 Last Update:
 */
-	ini_set('display_errors', 1); error_reporting(-1); 
-	include 'utils/sql_settup.php';
-	require_once "../../config.php";
+ini_set('display_errors', 1); error_reporting(-1); 
+include 'utils/sql_settup.php';
+require_once "../../config.php";
 
-	use \Tsugi\Core\LTIX;
+use \Tsugi\Core\LTIX;
+use Tsugi\Core\WebSocket;
 
-	$LAUNCH = LTIX::session_start();
+$LAUNCH = LTIX::session_start();
 
-	if (!$USER->instructor)
-		header("Location: ..");
+// Render view
+$OUTPUT->header();
 
-	$selectedGame = $_GET['game'];
+if (!$USER->instructor)
+	header("Location: ..");
 
-	$gameInfo = getGameInfo($mysqli, (int)$selectedGame);
+$selectedGame = $_GET['game'];
+
+$gameInfo = getGameInfo($mysqli, (int)$selectedGame);
 ?>
 
 <!doctype html>
@@ -46,7 +50,7 @@ Last Update:
   	<div class="title-bar" style="background-color: #0a4c6d">
 	  <div class="title-bar-left">
 	  	<div class="media-object" style="float: left;">
-		    <div class="thumbnail" style="margin: 0; border: none;">
+		    <div class="thumbnail" style="margin: 0; border: none; background: none;">
 		      <img src="../assets/img/no_bg_monogram.png" height="100px" width="100px">
 		    </div>
 		</div>
@@ -69,7 +73,7 @@ Last Update:
 	<!-- end title bar -->
 	<div style="background-color: #fcfcfc; width: 100%; height: 40px; margin-bottom: 50px">
 		<button id="backButton" class="secondary button" style="float: left; margin-right: 20px" onclick="redirectAdimn(<?=$selectedGame?>)">
-			<i class="far fa-angle-left"></i> Back
+			<i class="fas fa-angle-left"></i> Back
 		</button>
 		<div class="navButtons">
 			<?php if ($gameInfo['market_struct']!='perfect_competition') { ?>
@@ -125,6 +129,10 @@ Last Update:
 
 	<!-- Bottom bar -->
 	<footer class="footer"></footer>
+	
+	<?php
+		$OUTPUT->footerStart();
+	?>
 
 	  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/what-input/5.1.0/what-input.js"></script>
@@ -132,10 +140,14 @@ Last Update:
     <script src="../js/app.js"></script>
     <script src="../js/node_modules/chart.js/dist/Chart.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/v/zf/dt-1.10.18/b-1.5.2/sl-1.2.6/datatables.min.js"></script>
-    <script src="socket.io-client/socket.io.js"></script>
 	<script type="text/javascript">
-		// connect to server
-		var socket = io('http://'+document.domain+':2020');
+		broadcast_web_socket = tsugiNotifySocket(); 
+  		broadcast_web_socket.onmessage = function(evt) { 
+				// check to see if message came from correct gameId, if so update results 
+				if (evt.data=='<?=$gameInfo['id']?>') {
+					updateResults();
+				}
+		    };
 
 		// initialize variables needed for chart and table
 		var tableData = [], indivData = [], indivData2 = [];
@@ -147,8 +159,8 @@ Last Update:
 
 		// make explicit call to get data one time on load, them listen for dynamic updates thereafter
 		// (populates the graph and chart on intial page load as well as refreshes)
-		socket.emit('instructorGrabData');
-
+		updateResults();
+		
 		/* 
 		\\\\when a student submits quantity from gaim_main.php////
 		- tableData contains the data for table under "Individual Submissions" tab
@@ -157,8 +169,7 @@ Last Update:
 		- chart is indended to display averages of all students for selected value
 		- averages contains this compiled data to display on chart
 		*/
-		socket.on('studentSubmitedQuantity', function() {
-
+		function updateResults() {
 			if ($.fn.dataTable.isDataTable( '#table_id' ) ) { // if table has already been created, clear it and empty the data array
         		$('#table_id').DataTable().destroy();
         		$('#table_id').empty();
@@ -182,8 +193,10 @@ Last Update:
 	  					chartData.push(indivData);
 
 	  					// data for table (add username to front of individual data arrays)
-	        			indivData = [json[i]['username'].substr(0, json[i]['username'].indexOf('@'))]
-	        			indivData = indivData.concat(json[i]['data']);
+	        			indivData = [json[i]['username'].substr(0, json[i]['username'].indexOf('@'))];
+	        			if ('<?=$gameInfo["market_struct"]?>'=='oligopoly')
+	        				indivData = indivData.concat(json[i]['group'])
+					indivData = indivData.concat(json[i]['data']);
 	        			tableData.push(indivData);
 
 	        			indivData = [];
@@ -217,7 +230,7 @@ Last Update:
 	  			}
 	  		});
 
-		});
+		}
 
 		function changeContent(section) {
 			// set header
@@ -238,12 +251,17 @@ Last Update:
 		
 		var columns = [{ title: "Yr. 1" },{ title: "Yr. 2" },{ title: "Yr. 3" },{ title: "Yr. 4" },{ title: "Yr. 5" },{ title: "Yr. 6" },{ title: "Yr. 7" }, { title: "Yr. 8" },{ title: "Yr. 9" },{ title: "Yr. 10" }, { title: "Yr. 11" }, { title: "Yr. 12" }, { title: "Yr. 13" },  { title: "Yr. 14" },  { title: "Yr. 15" }, { title: "Yr. 16" }, { title: "Yr. 17" }, { title: "Yr. 18" }, { title: "Yr. 19" }, { title: "Yr. 20" }, { title: "Yr. 21" }, { title: "Yr. 22" }, { title: "Yr. 23" }, { title: "Yr. 24" }, { title: "Yr. 25" }];
 		columns = columns.splice(0, $('#numRounds').val());
+		
+		if ('<?=$gameInfo["market_struct"]?>'=='oligopoly') 
+			columns = [{ title: "Student" }, { title: "Group" }].concat(columns)
+		else
+			columns = [{ title: "Student" }].concat(columns)
 
 		function tableCallback(data) {
 			$.fn.dataTable.ext.errMode = 'none'; // supress error from not all columns being
 		    var table = $('#table_id').DataTable( {
 		        data: data,
-		        columns: [{ title: "Student" }].concat(columns),
+		        columns: columns,
 		        destroy: true,
 		        dom: 'Bfrtip',
 		        select: {
@@ -263,53 +281,21 @@ Last Update:
 
 		    table.buttons().disable();
 
-		    // limit the number of selected rows to a max of 2
+		   
+			// limit the number of selected rows to a max of 2
 			table.on( 'select', function ( e, dt, type, ix ) {
-				if (type == 'row') {
-					if (<?=$gameInfo['market_struct']=='oligopoly'?>) {
-						var selected = dt.rows({selected: true});
-						var opponentName;
-
-						// ajax to get name of selected student's opponent
-			        	$.ajax({
-					  		url: "utils/session.php", 
-					  		method: 'POST',
-				  			data: { action: 'getOpponent', gameId: <?=$gameInfo['id']?>, selectedUser: dt.rows(ix).data()[0] },
-				  			success: function(response) {
-				  				opponentName=response;
-				  			}
-				  		});
-
-						for (var i=0;i<table.data().count();i++) {
-							if (dt.rows(i).data()[0]==opponentName) {
-								dt.rows(i).select();
-								break;
-							}
-						}
-
-
-						table.buttons().enable();
-					}
-					else {
-						var selected = dt.rows({selected: true});
-						table.buttons().enable();
-						if ( selected.count() > 2 ) {
-						  dt.rows(ix).deselect();
-						}
-					}
-				}
-			} );
+			   var selected = dt.rows({selected: true});
+			   table.buttons().enable();
+			   if ( selected.count() > 2 ) {
+			      dt.rows(ix).deselect();
+			   }
+			});
 			// if no buttons selected, show graph button should be disabled
 			table.on( 'deselect', function ( e, dt, type, ix ) {
-				if (<?=$gameInfo['market_struct']=='oligopoly'?>) {
-					dt.rows().deselect();
-				}
-				else {
-					var selected = dt.rows({selected: true});
+				    var selected = dt.rows({selected: true});
 				    if ( selected.count() == 0 ) {
 				       table.buttons().disable();
 				    }
-				}
 			});
 		}
 		
@@ -359,7 +345,7 @@ Last Update:
 
 		function revealChartCallback(data, count) {
 			const name1 = data[0][0];
-			const data1 = data[0].slice(1);
+			const data1 = data[0].slice(2);
 			const equilibrium = new Array(20).fill($('#eq').val()).splice(0, $('#numRounds').val());
 
 			// create data object based on number of selected students (1 or 2)
@@ -386,7 +372,7 @@ Last Update:
 				    };
 			else {
 				const name2 = data[1][0];
-				const data2 = data[1].slice(1);
+				const data2 = data[1].slice(2);
 
 				var dataObj = {
 			        labels: graphLabels,
@@ -577,3 +563,6 @@ Last Update:
 		}
 	</style>
   </body>
+
+ <?php
+$OUTPUT->footerEnd();
