@@ -11,17 +11,21 @@ Once submission is made, an overview of the past year's data is shown in a table
 
 Last Update:
 */
-	include 'utils/sql_settup.php';
-	require_once "../../config.php";
+include 'utils/sql_settup.php';
+require_once "../../config.php";
 
-	use \Tsugi\Core\LTIX;
+use \Tsugi\Core\LTIX;
+use Tsugi\Core\WebSocket;
 
-	$LAUNCH = LTIX::session_start();
+$LAUNCH = LTIX::session_start();
 
-	if ($USER->instructor)
-		header("Location: ..");
+// Render view
+$OUTPUT->header();
 
-	$gameInfo = getGameInfo($mysqli, (int)$_GET['session']);
+if ($USER->instructor)
+	header("Location: ..");
+
+$gameInfo = getGameInfo($mysqli, (int)$_GET['session']);
 ?>
 
 <!doctype html>
@@ -45,8 +49,6 @@ Last Update:
     	// Func for off canvas menu to change screen content
     	function change_content(to_section) {
     		if (to_section == 'instructions') {
-    			$('.instructionsStuff').css('display','inherit');$('.initMarkReportStuff').css('display','none');
-    			$('button.instructionsStuff').css('display','none');
     			$('#beginModal').foundation('open');
     			return;
     		} else if (to_section == "init_report") {
@@ -93,7 +95,6 @@ Last Update:
 		  <?php if ($gameInfo['market_struct']=='monopolistic'||$gameInfo['market_struct']=='perfect') { ?>
 		  		<li><a onclick="change_content('industry_section')">Industry Data</a></li>
 		  <?php } ?>
-		  <li><a onclick="change_content('init_report')">Initial Market Report</a></li>
 		  <li><a onclick="change_content('instructions')">Instructions</a></li>
 		</ul>
 
@@ -110,7 +111,7 @@ Last Update:
 		<div class="title-bar">
 		  <div class="title-bar-left">
 		  	<div class="media-object" style="float: left;">
-			    <div class="thumbnail" style="margin: 0; border: none;">
+			    <div class="thumbnail" style="margin: 0; border: none; background: none;">
 			      <img src="../assets/img/no_bg_monogram.png" height="100px" width="100px">
 			    </div>
 			</div>
@@ -167,15 +168,7 @@ Last Update:
 		<input type="hidden" id="mode" value="<?=$gameInfo['mode']?>">
 
 		<div id="mainContent"> 
-
-			<!-- before first submission prompt -->
-<!-- 			<div id="preStartPrompt" style="width: 500px; margin: 280px auto 30px auto;">
-				<h3 style="text-align: center; color: #bdbebf">
-					<i class="far fa-play-circle fa-5x"></i><br>
-					<strong style="font-weight: 500;">Enter Quantity to Begin!</strong>
-				</h3>
-			</div> -->
-
+			
 			<!-- Dashboard -->
 			<div class="display_sections" id="dashboard_section"> 
 				<div class="section_content" id="summarySection" style="display: none;">
@@ -222,18 +215,20 @@ Last Update:
 							<canvas id="quantityChart"></canvas>
 						</div>
 					</div>
-					<div class="section_cell cell_graph preStartPrompt" style="float: left;">
-						<h2 style="text-align: left;"><strong>Instructions</strong></h2>
-						<p style="text-align: left;">In this simulation you will be the owner of a non-durable commodity, selling your product in a perfectly competitive market environment. Your goal is to determine productions levels in the face of fluctuating prices, in order to profit maximize.</P>
-						<p>For each of <?= $gameInfo['num_rounds'] ?> periods you will observe prices, choose a quantity to sell and determine productivity changes for next period.  To make your decisions easier, consult the market research reports detailing the industry averages.</p>
-						<p>At the end of the simulation, cumulative profits will be measured and graded against the average firm.</p>
-					</div>
-					<div class="section_cell cell_graph preStartPrompt" style="float: right;">
-						<h2 style="text-align: left;"><strong>Initial Market Report</strong></h2>
-						<div style="width: 100%; height: 350px">
-							<canvas id="twentyFiveYrHist"></canvas>
+					<div class="section_content preStartPrompt" style="float: left;">
+						<div class="section_cell cell_graph" style="float: left;">
+							<h2 style="text-align: left;"><strong>Instructions</strong></h2>
+							<p style="text-align: left;">In this simulation you will be the owner of a non-durable commodity, selling your product in a perfectly competitive market environment. Your goal is to determine productions levels in the face of fluctuating prices, in order to profit maximize.</P>
+							<p>For each of <?= $gameInfo['num_rounds'] ?> periods you will observe prices, choose a quantity to sell and determine productivity changes for next period.  To make your decisions easier, consult the market research reports detailing the industry averages.</p>
+							<p>At the end of the simulation, cumulative profits will be measured and graded against the average firm.</p>
+							<p>The initial market report tracks the price history in your market for the previous 25 years. You will now enter the market such that your first year corresponds with the market's twenty sixth year.</p>
 						</div>
-						<p>The above chart tracks the price history in your market for the previous 25 years. You will now enter the market such that your first year corresponds with the market's twenty sixth year.</p>
+						<div class="section_cell cell_graph" style="float: right;">
+							<h2 style="text-align: left;"><strong>Initial Market Report</strong></h2>
+							<div style="width: 100%; height: 350px">
+								<canvas id="twentyFiveYrHist"></canvas>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -417,25 +412,6 @@ Last Update:
 			<p>For each of <?= $gameInfo['num_rounds'] ?> periods you will observe prices, choose a quantity to sell and determine productivity changes for next period.  To make your decisions easier, consult the market research reports detailing the industry averages.</p>
 			<p>At the end of the simulation, cumulative profits will be measured and graded against the average firm.</p>
 		</div>
-		<div class="initMarkReportStuff">
-			<h2 style="text-align: left;"><strong>Initial Market Report</strong></h2>
-			<div style="width: 100%; height: 350px">
-				<canvas id="twentyFiveYrHist"></canvas>
-			</div>
-			<p>The above chart tracks the price history in your market for the previous 25 years. You will now enter the market such that your first year corresponds with the market's twenty sixth year.</p>
-		</div>
-		<button class="button instructionsStuff" style="width: 180px; float: right;" onclick="$('.initMarkReportStuff').css('display','inherit');$('.instructionsStuff').css('display','none');">
-			<div>
-			<p style="float: left; width: 120px; margin: 0; font-weight: 600">Go to Initial Market Report</p>
-			<i class="fas fa-arrow-right fa-2x" style="float: left; margin-top: 10px"></i>
-			</div>
-		</button>
-		<button class="button initMarkReportStuff" style="width: 180px; float: left;" onclick="$('.instructionsStuff').css('display','inherit');$('.initMarkReportStuff').css('display','none');">
-			<div>
-			<i class="fas fa-arrow-left fa-2x" style="float: left; margin-top: 10px"></i>
-			<p style="float: left; width: 120px; margin: 0; font-weight: 600">Back to Instructions</p>
-			</div>
-		</button>
 		<button class="close-button" data-close aria-label="Close reveal" type="button">
 			<span aria-hidden="true">&times;</span>
 		</button>
@@ -455,15 +431,20 @@ Last Update:
 
 	<!-- Bottom bar -->
 	<footer class="footer"></footer>
+	
+	<?php
+	$OUTPUT->footerStart();
+	?>
 
     <script src="../js/vendor/jquery.js"></script>
     <script src="../js/vendor/what-input.js"></script>
     <script src="../js/vendor/foundation.js"></script>
     <script src="../js/app.js"></script>
     <script src="../js/node_modules/chart.js/dist/Chart.js"></script>
-	<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.1/build/alertify.min.js"></script>
-	<script src="socket.io-client/socket.io.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.1/build/alertify.min.js"></script>
     <script type="text/javascript">
+	broadcast_web_socket= null;
+
     	// from submission
     	var quantity; var prodLevel;
     	const numRounds = parseInt($('#numRounds').val(), 10);
@@ -482,163 +463,143 @@ Last Update:
     	var profitHistory = [];
     	var ttlCostHist = [];
     	var avgTtlCostHist = [];
-    	var priceHistory = [50];
+    	var priceHistory = [];
     	var marginalCostHist = [];
     	var productionLevelHist = [];
     	// -------------------
 
-    	// For perfect competition game mode, an initial period of 25 years of prices are generated using autoregressive process w/ shock
-    	for (var i=1;i<25;i++) {
-    		var prevPrice = priceHistory[i-1];
-
-    		// if 5th year or 5 years since sock, allow random shock occurance (1 in 5 probability of occuring)
-    		if (i >= 5 && i-shockYear >= 5 && getRandomArbitrary()==3) {
-    			price = 0.5+0.999*prevPrice+random(1,2)+random(0,10);
-    			shockYear=i; console.log("SHOCK! "+i);
-    		}
-    		else 
-    			price = 0.5+0.999*prevPrice+random(1,2);
-
-    		priceHistory.push(price.toFixed(2));
-    	}
-    	shockYear = 25-shockYear; // After initial period, adjust shock year to work starting from 1
+    	var groupId = (Math.random()+1).toString(36).slice(2, 18);
 
     	// display the generated 25 year history on chart in "Initial Market Report Section"
     	var graphLabels = ["Yr. 1", "Yr. 2", "Yr. 3", "Yr. 4", "Yr. 5", "Yr. 6", "Yr. 7", "Yr. 8", "Yr. 9", "Yr. 10", "Yr. 11", "Yr. 12", "Yr. 13",  "Yr. 14",  "Yr. 15",  "Yr. 16", "Yr. 17",  "Yr. 18",  "Yr. 19",  "Yr. 20",  "Yr. 21",  "Yr. 22",  "Yr. 23",  "Yr. 24",  "Yr. 25"];
-    	var genPriceData = [{
-			label: 'Price ($)',
-			data: priceHistory,
-			backgroundColor: 'rgba(24, 188, 24, 0.2)',
-			borderColor: 'rgba(24, 188, 24,1)',
-			borderWidth: 1
-		}];
-		var displayGenPriceData = {
-			labels: graphLabels,
-			datasets: genPriceData
-		};
-		var chartOptions = {
-			maintainAspectRatio: false,
-			scales: {
-	            yAxes: [{
-	                ticks: {
-	                    beginAtZero:true
-	                }
-	            }]
-	        }
+    	let twentyFiveYrHist = graphLabels;
+    	var histLabels = ["Yr. -4", "Yr. -3", "Yr. -2", "Yr. -1", "Yr. 0"];
+	   
+	var chartOptions = {
+		maintainAspectRatio: false,
+		scales: {
+		    yAxes: [{
+			ticks: {
+			    beginAtZero:true
+			}
+		    }]
 		}
-		new Chart(document.getElementById("twentyFiveYrHist"), {
-		    type: 'line',
-		    data: displayGenPriceData,
-		    options: chartOptions
-		});
+	}
+	
+	// For perfect competition game mode, an initial period of 25 years of prices are generated using autoregressive process w/ shock
+    	// this is generated on admin side when session is toggled on so that all players have same price history
+    	// retrieve price history from sql table w/ ajax
+    	$.ajax({
+		url: "utils/game_util.php", 
+		method: 'POST',
+		data: { action: 'getHistory', id: <?=$gameInfo['id']?> },
+		success: function(response) {
+			priceHistory=response.split(',');
+
+			var genPriceData = [{
+				label: 'Price ($)',
+				data: priceHistory,
+				backgroundColor: 'rgba(24, 188, 24, 0.2)',
+				borderColor: 'rgba(24, 188, 24,1)',
+				borderWidth: 1
+			}];
+			var displayGenPriceData = {
+				labels: twentyFiveYrHist,
+				datasets: genPriceData
+			};
+
+			console.log(twentyFiveYrHist);
 
 
-    	// STUFF FOR SOCKET.IO
-    	// ===================
-    	// connect to server 
-	    var socket = io('http://'+document.domain+':2020');
-	    var groupId = window.location.hash.substring(1), gameObject;
-
-	    if (groupId == '')
-			socket.emit('joinGame', { // add user to gameObject as a player
-				id: $('#sessionId').val(),
-				username: $('#usrname').val(),
-				mode: $('#mode').val()
+			new Chart(document.getElementById("twentyFiveYrHist"), {
+			    type: 'line',
+			    data: displayGenPriceData,
+			    options: chartOptions
 			});
+		}	
+	});
 
-		// when a student first enters game
-		socket.on('studentJoinedGame', function(gameObj) {
-			groupId = gameObj['groupId'];
+	// singleplayer submission occured
+	function getResults(quantity, prodLevel) {
+		var gameOver = true;
+		if (year != numRounds) intervalId = setInterval(startTimer, 1000);
 
-			//  open instuction modal upon entering game
-			$('#beginModal').foundation('open');
+		// CALCULATIONS && IMPORTANT VALUES
+		// --------------------------------
+		const maxQ=500;
+		var totalCost; var price;
 
-			window.location.href = window.location.href+"#"+groupId;
-		});
+		// total cost calculations
+		switch (prodLevel) { // production level determines cost function
+			case 1:
+				totalCost = 0.025*Math.pow(quantity,3)-5*Math.pow(quantity,2)+300*quantity+500;
+				break;
+			case 2:
+				totalCost = 0.025*Math.pow(quantity,3)-7.5*Math.pow(quantity,2)+602.5*quantity+1000;
+				break;
+			case 3:
+				totalCost = 0.025*Math.pow(quantity,3)-10*Math.pow(quantity,2)+1030*quantity+1500;
+				break;
+			case 4:
+				totalCost = 0.025*Math.pow(quantity,3)-12.5*Math.pow(quantity,2)+1602.5*quantity+2000;
+				break;
+			case 5:
+				totalCost = 0.025*Math.pow(quantity,3)-15*Math.pow(quantity,2)+23000*quantity+2500;
+				break;
+		} 
 
-		// singleplayer submission occured
-		socket.on('perfectSubmission', function(submission) {
-			var gameOver = true;
-			if (year != numRounds) intervalId = setInterval(startTimer, 1000);
+		totalCost = parseInt(totalCost.toFixed(2));
 
-			// CALCULATIONS && IMPORTANT VALUES
-			// --------------------------------
-
-			quantity = submission['value'];
-			const maxQ=500;
-			var totalCost; var price;
-
-			// total cost calculations
-			switch (submission['production']) { // production level determines cost function
-				case 1:
-					totalCost = 0.025*Math.pow(quantity,3)-5*Math.pow(quantity,2)+300*quantity+500;
-					break;
-				case 2:
-					totalCost = 0.025*Math.pow(quantity,3)-7.5*Math.pow(quantity,2)+602.5*quantity+1000;
-					break;
-				case 3:
-					totalCost = 0.025*Math.pow(quantity,3)-10*Math.pow(quantity,2)+1030*quantity+1500;
-					break;
-				case 4:
-					totalCost = 0.025*Math.pow(quantity,3)-12.5*Math.pow(quantity,2)+1602.5*quantity+2000;
-					break;
-				case 5:
-					totalCost = 0.025*Math.pow(quantity,3)-15*Math.pow(quantity,2)+23000*quantity+2500;
-					break;
-			} 
-
-			totalCost = parseInt(totalCost.toFixed(2));
-
-			// price calculations
-			var prevPrice = priceHistory[23+year];
-			if ('<?=$gameInfo['macro_econ']?>' == 'stable') { // regular economy/price growth
-				if (year-shockYear >= 5 && getRandomArbitrary()==3) {
-					price = 0.5+0.999*prevPrice+random(1,2)+random(0,10);
-					shockYear=i;
-				}
-				else
-					price = 0.5+0.999*prevPrice+random(1,2);
-			} else { // high inflation economy
-				if (year-shockYear >= 5 && getRandomArbitrary()==3) {
-					price = 0.125*year+0.999*prevPrice+random(1,2)+random(0,10);
-					shockYear=i;
-				}
-				else
-					price = 0.125*year+0.999*prevPrice+random(1,2);
+		// price calculations
+		var prevPrice = priceHistory[23+year];
+		if ('<?=$gameInfo['macro_econ']?>' == 'stable') { // regular economy/price growth
+			if (year-shockYear >= 5 && getRandomArbitrary()==3) {
+				price = 0.5+0.999*prevPrice+random(1,2)+random(0,10);
+				shockYear=i;
 			}
-			price = parseInt(price.toFixed(2));
-
-			var profit = parseInt((price*quantity-totalCost).toFixed(2));
-			var revenue = parseInt((price*quantity).toFixed(2));
-			var percentReturn = (profit/revenue)*100;
-			var averageTotalCost = parseInt((totalCost/quantity).toFixed(2));
-			var marginalCost = (year>=2&&quantity-quantityHistory[year-2]!=0)?parseInt(((totalCost-ttlCostHist[year-2])/(quantity-quantityHistory[year-2])).toFixed(2)):0;
-			// -----------------------
-
-			$('.preStartPrompt').css('display','none');
-			// Enable/update summary display content
-			if (year != numRounds) {
-			  	document.getElementById("summarySection").style.display = "";
-			  	document.getElementById("summaryYear").innerHTML = "Summary for Year "+year;
-			  	year+=1;
-			  	$('.yearSpan').text(year-1);
-			  	document.getElementById("year").innerHTML = "<b>Year:</b> "+year;
-			  	gameOver = false;
+			else
+				price = 0.5+0.999*prevPrice+random(1,2);
+		} else { // high inflation economy
+			if (year-shockYear >= 5 && getRandomArbitrary()==3) {
+				price = 0.125*year+0.999*prevPrice+random(1,2)+random(0,10);
+				shockYear=i;
 			}
+			else
+				price = 0.125*year+0.999*prevPrice+random(1,2);
+		}
+		price = parseInt(price.toFixed(2));
 
-			// update values based on retrieved data
-			cumulativeRevenue += revenue;
-			cumulativeProfit += profit;
-			cumulativeHistory.push(cumulativeRevenue);
-			cumulativeProfHistory.push(cumulativeProfit);
-			profitHistory.push(profit);
-			revenueHistory.push(revenue);
-			ttlCostHist.push(totalCost);
-			avgTtlCostHist.push(averageTotalCost);
-			quantityHistory.push(quantity);
-			priceHistory.push(price);
-			marginalCostHist.push(marginalCost);
-			productionLevelHist.push(submission['production']);
+		var profit = parseInt((price*quantity-totalCost).toFixed(2));
+		var revenue = parseInt((price*quantity).toFixed(2));
+		var percentReturn = (profit/revenue)*100;
+		var averageTotalCost = parseInt((totalCost/quantity).toFixed(2));
+		var marginalCost = (year>=2&&quantity-quantityHistory[year-2]!=0)?parseInt(((totalCost-ttlCostHist[year-2])/(quantity-quantityHistory[year-2])).toFixed(2)):0;
+		// -----------------------
+
+		$('.preStartPrompt').css('display','none');
+		// Enable/update summary display content
+		if (year != numRounds) {
+			document.getElementById("summarySection").style.display = "";
+			document.getElementById("summaryYear").innerHTML = "Summary for Year "+year;
+			year+=1;
+			$('.yearSpan').text(year-1);
+			document.getElementById("year").innerHTML = "<b>Year:</b> "+year;
+			gameOver = false;
+		}
+
+		// update values based on retrieved data
+		cumulativeRevenue += revenue;
+		cumulativeProfit += profit;
+		cumulativeHistory.push(cumulativeRevenue);
+		cumulativeProfHistory.push(cumulativeProfit);
+		profitHistory.push(profit);
+		revenueHistory.push(revenue);
+		ttlCostHist.push(totalCost);
+		avgTtlCostHist.push(averageTotalCost);
+		quantityHistory.push(quantity);
+		priceHistory.push(price);
+		marginalCostHist.push(marginalCost);
+		productionLevelHist.push(prodLevel);
 
 	        // correctly format output with commas and negatives where neccissary
 	        var marketPriceString, revenueString, profitString, cumulativeString;
@@ -650,83 +611,75 @@ Last Update:
 	        if (cumulativeProfit < 0 ) cumulativeString = '-$'+(cumulativeProfit*(-1)).toLocaleString();
 	        else cumulativeString = '$'+cumulativeProfit.toLocaleString();
 
-			// Set text in summary section to represent retrieved data
-			document.getElementById("marketPrice").innerHTML = marketPriceString;
-			document.getElementById("prodQuantity").innerHTML = quantity;
-			document.getElementById("revenue").innerHTML = revenueString;
-			document.getElementById("unitCost").innerHTML = marginalCost;
-			document.getElementById("ttlCost").innerHTML = totalCost.toLocaleString();
-			document.getElementById("profit").innerHTML = profitString;
-			document.getElementById("cumulative").innerHTML = cumulativeString;
+		// Set text in summary section to represent retrieved data
+		document.getElementById("marketPrice").innerHTML = marketPriceString;
+		document.getElementById("prodQuantity").innerHTML = quantity;
+		document.getElementById("revenue").innerHTML = revenueString;
+		document.getElementById("unitCost").innerHTML = marginalCost;
+		document.getElementById("ttlCost").innerHTML = totalCost.toLocaleString();
+		document.getElementById("profit").innerHTML = profitString;
+		document.getElementById("cumulative").innerHTML = cumulativeString;
 
-			// set income screen stuff
-			$('#liRevenue').text(revenueString);
-			$('#liNet').text(profitString);
-			$('#liPrice').text(marketPriceString);
-			$('#liReturn').text(percentReturn.toPrecision(4)+'%');
+		// set income screen stuff
+		$('#liRevenue').text(revenueString);
+		$('#liNet').text(profitString);
+		$('#liPrice').text(marketPriceString);
+		$('#liReturn').text(percentReturn.toPrecision(4)+'%');
 
-			// set cost screen stuff
-			$('#liSales').text(quantity+" Units");
-			'<?=$gameInfo["difficulty"]?>'=='advanced'?($('#liProdLevel').text("Level "+prodLevel)):($('#liProdLevel').parent().css('display','none'));
-			$('#liPrice2').text('$'+price.toLocaleString());
-			$('#liMarginal').text('$'+marginalCost+"/Unit");
-			$('#liProduction').text('$'+totalCost.toLocaleString());
+		// set cost screen stuff
+		$('#liSales').text(quantity+" Units");
+		'<?=$gameInfo["difficulty"]?>'=='advanced'?($('#liProdLevel').text("Level "+prodLevel)):($('#liProdLevel').parent().css('display','none'));
+		$('#liPrice2').text('$'+price.toLocaleString());
+		$('#liMarginal').text('$'+marginalCost+"/Unit");
+		$('#liProduction').text('$'+totalCost.toLocaleString());
 
-			// redraw graph
-			init('dashboard_section');
-			init('income_section');
-			init('cost_section');
+		// redraw graph
+		init('dashboard_section');
+		init('income_section');
+		init('cost_section');
 
-			// enable button
-			if (!gameOver) $('#price_submit_btn').prop('disabled', false);
+		// enable button
+		if (!gameOver) $('#price_submit_btn').prop('disabled', false);
 
-			// call func to submit data in querry
-			$.ajax({
-		  		url: "utils/session.php", 
-		  		method: 'POST',
-	  			data: { action: 'update_gameSessionData', groupId: groupId, username: $('#usrname').val(), opponent: null, quantity: quantity, revenue: revenue,
-	  				profit: profit, percentReturn: percentReturn.toPrecision(4), price: price, unitCost: marginalCost, totalCost: totalCost, complete: gameOver?1:0, gameId: <?= $gameInfo['id'] ?>  }
-	  		});
-
-	  		socket.emit('studentSubmitedQuantity');
-				
-			// update industry data with averages of other students in same game
-			getIndustryData();
+		// call func to submit data in querry
+		$.ajax({
+			url: "utils/session.php", 
+			method: 'POST',
+			data: { action: 'update_gameSessionData', groupId: groupId, username: $('#usrname').val(), opponent: null, quantity: quantity, revenue: revenue,
+				profit: profit, percentReturn: percentReturn.toPrecision(4), price: price, unitCost: marginalCost, totalCost: totalCost, complete: gameOver?1:0, gameId: <?= $gameInfo['id'] ?>  }
 		});
 
-		const urlPrefix = window.location.href.substr(0, window.location.href.indexOf('src'));
-
-    	//  handle refreshes 
-    	if (performance.navigation.type == 1) {
-    		dismissWaitScreen();	
-	  		socket.emit('refresh', groupId, $('#usrname').val());
-    	}
-
-		// student exits game early, or cancels during player match
-		socket.on('gameExited', function(user) { 
-			// remove student from gamesession table
-			$.ajax({
-		  		url: "utils/session.php", 
-		  		method: 'POST',
-	  			data: { action: 'remove_student', id: $('#sessionId').val(), player: $('#usrname').val() }
-	  		});
-			// when one player quits, both players will be booted from game
-			// for the user that did not press the exit button, display error message notifying them of what happened, 
-			if ($('#usrname').val() != user) 
-				window.location = urlPrefix+'src/student.php?session=err2';
-			else
-				window.location = urlPrefix+'src/student.php?session=left';
-		});
-
-		function leaveGame() { // fires when one player hits exit game button in side menu
-			socket.emit('leaveGame', $('#usrname').val(), groupId);
+		// send message to tell instructor results to update
+		if (!broadcast_web_socket) {
+			broadcast_web_socket = tsugiNotifySocket(); 
+			broadcast_web_socket.onopen = function(evt) { 
+				broadcast_web_socket.send($('#sessionId').val());
+			}
 		}
+		else
+			broadcast_web_socket.send($('#sessionId').val());
 
-		window.onunload = function () {
-		    leaveGame();
-		};
+		// update industry data with averages of other students in same game
+		getIndustryData();
+	});
 
-		// ==================
+	const urlPrefix = window.location.href.substr(0, window.location.href.indexOf('src'));
+
+    	function leaveGame() { // fires when one player hits exit game button in side menu
+		// remove student from gamesession table
+		$.ajax({
+			url: "utils/session.php", 
+			method: 'POST',
+			data: { action: 'remove_student', id: $('#sessionId').val(), player: $('#usrname').val() }
+		});
+		window.location = urlPrefix+'src/student.php?session=left';
+	}
+
+	window.onunload = function () {
+	    leaveGame();
+	};
+
+	// ==================
 
 
     	// Scrolling animations
@@ -969,31 +922,13 @@ Last Update:
 	  		document.getElementById("timer").innerHTML = $('#timer').attr('data-legnth')+":00";
 	  	}
 
-	  	// the following sends the student input to server for saving, server will fire event to call
-	  	// python scripts to get results
-
-    	// socket.io -- Save submission to player's data in gameObject
-    	socket.emit('updateDataPerfect', {
-    		groupId: groupId,
-    		username: $('#usrname').val(),
-    		value: quantity,
-    		production: prodLevel
-    	});
+	  	getResults(quantity, prodLevel);
 	}
-
-	// Helper function for economic calculations. Accepts a mean and std deviation and returns rand num
-	function random(m, s) {
-	  return m + 2.0 * s * (Math.random() + Math.random() + Math.random() - 1.5);
-	}
-	// Returns random number between 1 and 5, determening if shock will occur
-	function getRandomArbitrary() {
-	    return (Math.random() * (6 - 1) + 1).toPrecision(1);
-	}
-
-
+	    
 	// =================
 	// //CHARTS SET UP\\
 	// =================
+	let historicalLabels = histLabels.concat(graphLabels.slice(0, $('#numRounds').val()));
 	graphLabels = graphLabels.slice(0, $('#numRounds').val());
 	var selectedValType = "player_quantity";
 
@@ -1079,7 +1014,7 @@ Last Update:
 			new Chart(document.getElementById("priceChart"), {
 			    type: 'line',
 			    data: {
-			        labels: graphLabels,
+			        labels: historicalLabels,
 			        datasets: [{
 			            label: 'Price ($)',
 			            data: priceHistory.slice(20),
@@ -1092,20 +1027,30 @@ Last Update:
 			            borderWidth: 1
 			        }]
 			    },
-			    options: chartOptions,
-			    annotation: {
-			    	annotations: [{
-			    		type: 'line',
-                        mode: 'vertical',
-                        scaleID: 'x-axis-1',
-                        value: 5,
-                        borderColor: 'rgba(255, 0, 0, 0.5)',
-                        borderWidth: 2,
-                        label: {
-                            enabled: false,
-                            content: 'You Entered Market'
-                        }
-			    	}]
+			    // Show annotation to seperate previously generated price history
+			    options: {
+			      maintainAspectRatio: false,
+			      responsive: true,
+			      annotation: {
+			        events: ["click"],
+			        annotations: [
+			          {
+			            type: "line",
+			            mode: "vertical",
+			            scaleID: "y-axis-0",
+			            value: 0,
+			            endValue: 0,
+			            borderColor: "rgba(0,0,0,0.0)",
+			            borderWidth: 0,
+			            label: {
+			              backgroundColor: "red",
+			              content: "You Entered Market on Year 1",
+			              enabled: true,
+			              xAdjust: -80,
+			            }
+			          }
+			        ]
+			      }
 			    }
 			});
 			new Chart(document.getElementById("quantityChart2"), {
@@ -1419,5 +1364,13 @@ Last Update:
 		background: green !important;
 		transform: scale(1.25);
 	}
+	  canvas {
+	  -moz-user-select: none;
+	  -webkit-user-select: none;
+	  -ms-user-select: none;
+	}
   </style>
 </html>
+
+<?php
+$OUTPUT->footerEnd();
