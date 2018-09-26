@@ -16,8 +16,12 @@ Last Update:
 	require_once "../../config.php";
 
 	use \Tsugi\Core\LTIX;
+	use Tsugi\Core\WebSocket;
 
 	$LAUNCH = LTIX::session_start();
+
+	// Render view
+	$OUTPUT->header();
 
 	if ($USER->instructor)
 		header("Location: ..");
@@ -99,7 +103,7 @@ Last Update:
 		<div class="title-bar">
 		  <div class="title-bar-left">
 		  	<div class="media-object" style="float: left;">
-			    <div class="thumbnail" style="margin: 0; border: none;">
+			    <div class="thumbnail" style="margin: 0; border: none; background: none;">
 			      <img src="../assets/img/no_bg_monogram.png" height="100px" width="100px">
 			    </div>
 			</div>
@@ -491,15 +495,20 @@ Last Update:
 
 	<!-- Bottom bar -->
 	<footer class="footer"></footer>
+	
+	<?php
+	$OUTPUT->footerStart();
+	?>
 
     <script src="../js/vendor/jquery.js"></script>
     <script src="../js/vendor/what-input.js"></script>
     <script src="../js/vendor/foundation.js"></script>
     <script src="../js/app.js"></script>
     <script src="../js/node_modules/chart.js/dist/Chart.js"></script>
-	<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.1/build/alertify.min.js"></script>
-	<script src="socket.io-client/socket.io.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.11.1/build/alertify.min.js"></script>
     <script type="text/javascript">
+	broadcast_web_socket = null;
+	    
     	// from submission
     	var quantity;
 
@@ -529,130 +538,110 @@ Last Update:
 
     	var excessQuantity=0, prevExcess=0;
     	// -------------------
+	    
+	var groupId = (Math.random()+1).toString(36).slice(2, 18);
 
-    	// STUFF FOR SOCKET.IO
-    	// ===================
-    	// connect to server 
-	    var socket = io('http://'+document.domain+':2020');
-	    var groupId = window.location.hash.substring(1), gameObject;
+	//  open instuction modal upon entering game
+	$('#beginModal').foundation('open');
 
-	    if (groupId == '')
-			socket.emit('joinGame', { // add user to gameObject as a player
-				id: $('#sessionId').val(),
-				username: $('#usrname').val(),
-				mode: $('#mode').val()
-			});
+	// submission occured
+	function getResults(quantity, price, marketingAmount, productionFacilAmount, productDevAmount, humanCapAmount, distributionAmount) {
+		var gameOver=true;
+		if (year != numRounds) intervalId = setInterval(startTimer, 1000);
 
-		// when a student first enters game
-		socket.on('studentJoinedGame', function(gameObj) {
-			groupId = gameObj['groupId'];
+		// constant values
+		const B0=100, B1=3, B2=4, B3=5, B4=6;
+		const a0=500, a1=0.000006, a2=-0.0147, a3=41, a4=1, a5=1;
+		const surplusFee = 0.35;
 
-			//  open instuction modal upon entering game
-			$('#beginModal').foundation('open');
+		// variables
+		var totalCost, profit, revenue, percentReturn, averageTotalCost, marginalCost;
 
-			window.location.href = window.location.href+"#"+groupId;
-		});
+		// demand function
+		var qDemand = Math.floor(B0-B1*price+B2*Math.pow(marketingAmount,0.5)+B3*Math.pow(productDevAmount,0.5)+B4*Math.pow(distributionAmount,0.5));
 
-		// submission occured
-		socket.on('monopCompSubmission', function(submission) {
-			var gameOver=true;
-			if (year != numRounds) intervalId = setInterval(startTimer, 1000);
+		// total cost function
+		switch ('<?=$gameInfo["difficulty"]?>') {
+			case 'principles':
+				var totalCost = a0+a1*Math.pow(quantity,3)-a2*Math.pow(quantity,2)+a3*quantity;
+				break;
+			case 'advanced':
+				var totalCost = a0+a1*Math.pow(quantity,3)-a2*Math.pow(quantity,2)+a3*quantity+a4*price+humanCapAmount-a5*Math.pow(humanCapAmount,0.5)+productDevAmount+distributionAmount+marketingAmount;
+				pieData=[marketingAmount,productionFacilAmount,productDevAmount,humanCapAmount,distributionAmount];	
+				break;
+			case 'intermediate':
+				var totalCost = a0+a1*Math.pow(quantity,3)-a2*Math.pow(quantity,2)+a3*quantity+a4*price+productDevAmount+marketingAmount;
+				pieData=[marketingAmount,productionFacilAmount,productDevAmount];
+				break;
+		}
+		totalCost = parseInt(totalCost);
 
-			// constant values
-			const B0=2, B1=3, B2=4, B3=5, B4=6;
-			const a0=1, a1=2, a2=3, a3=4, a4=5, a5=6;
-			const surplusFee = 0.35;
+		// excess production
+		// excess inventory can only be stored for 1 year, so subtract prevExcess from current excess
+		// if excessQuanitiy becomes 0 or negative, there's no more surplus, so update prevQuantity accordingly for use the next year
+		excessQuantity=quantity-qDemand;
+		excessQuantity=excessQuantity-prevExcess;
 
-			// variables
-			var totalCost, profit, revenue, percentReturn, averageTotalCost, marginalCost;
+		// if  surplus show tooltip above output input
+		if (excessQuantity > 0) {
+			prevExcess = excessQuantity;
+			updateSurplusText();
+			$(".surplusTooltip").first().addClass('makeVisible');
+			$(".surplusTooltiptext").first().addClass('makeVisible');
+		} else {
+			prevExcess = 0;
+			$(".surplusTooltip").first().removeClass('makeVisible');
+			$(".surplusTooltiptext").first().removeClass('makeVisible');
+		}
 
-			// demand function
-			var qDemand = Math.floor(B0-B1*submission['price']+B2*Math.pow(submission['marketingAmount'],0.5)+B3*Math.pow(submission['productDevAmount'],0.5)+B4*Math.pow(submission['distributionAmount'],0.5));
+		// profit & revenue
+		if (excessQuantity>0)
+			revenue = price*qDemand;
+		else 
+			revenue = price*quantity;
+		profit = revenue-totalCost;
+		profit = parseInt(profit.toFixed(2));
+		revenue = parseInt(revenue.toFixed(2));
+		percentReturn = (profit/revenue)*100;
 
-			// total cost function
-			switch ('<?=$gameInfo["difficulty"]?>') {
-				case 'principles':
-					var totalCost = a0+a1*Math.pow(submission['quantity'],3)-a2*Math.pow(submission['quantity'],2)+a3*submission['quantity'];
-					break;
-				case 'advanced':
-					var totalCost = a0+a1*Math.pow(submission['quantity'],3)-a2*Math.pow(submission['quantity'],2)+a3*submission['quantity']+a4*submission['price']+submission['humanCapAmount']-a5*Math.pow(submission['humanCapAmount'],0.5)+submission['productDevAmount']+submission['distributionAmount']+submission['marketingAmount'];
-
-					pieData=[submission['marketingAmount'],submission['productionFacilAmount'],submission['productDevAmount'],submission['humanCapAmount'],submission['distributionAmount']];					
-					break;
-				case 'intermediate':
-					var totalCost = a0+a1*Math.pow(submission['quantity'],3)-a2*Math.pow(submission['quantity'],2)+a3*submission['quantity']+a4*submission['price']+submission['productDevAmount']+submission['marketingAmount'];
-
-					pieData=[submission['marketingAmount'],submission['productionFacilAmount'],submission['productDevAmount']];
-					break;
-			}
-			totalCost = parseInt(totalCost);
-
-			// excess production
-			// excess inventory can only be stored for 1 year, so subtract prevExcess from current excess
-			// if excessQuanitiy becomes 0 or negative, there's no more surplus, so update prevQuantity accordingly for use the next year
-			excessQuantity=submission['quantity']-qDemand; console.log(excessQuantity);
-			excessQuantity=excessQuantity-prevExcess;
-
-			// if  surplus show tooltip above output input
-			if (excessQuantity > 0) {
-				prevExcess = excessQuantity;
-				updateSurplusText();
-				$(".surplusTooltip").first().addClass('makeVisible');
-				$(".surplusTooltiptext").first().addClass('makeVisible');
-			} else {
-				prevExcess = 0;
-				$(".surplusTooltip").first().removeClass('makeVisible');
-				$(".surplusTooltiptext").first().removeClass('makeVisible');
-			}
-
-			// profit & revenue
-			if (excessQuantity>0)
-				revenue = submission['price']*qDemand;
-			else 
-				revenue = submission['price']*submission['quantity'];
-			profit = revenue-totalCost;
-			profit = parseInt(profit.toFixed(2));
-			revenue = parseInt(revenue.toFixed(2));
-			percentReturn = (profit/revenue)*100;
-
-			// cost values
-			averageTotalCost = parseInt((totalCost/quantity).toFixed(2));
-			marginalCost = (year>=2&&quantity-quantityHistory[year-2]!=0)?parseInt(((totalCost-ttlCostHist[year-2])/(quantity-quantityHistory[year-2])).toFixed(2)):0;
+		// cost values
+		averageTotalCost = parseInt((totalCost/quantity).toFixed(2));
+		marginalCost = (year>=2&&quantity-quantityHistory[year-2]!=0)?parseInt(((totalCost-ttlCostHist[year-2])/(quantity-quantityHistory[year-2])).toFixed(2)):0;
 
 
-			$('#preStartPrompt').css('display','none');
-			// Enable/update summary display content
-			if (year != numRounds) {
-			  	document.getElementById("summarySection").style.display = "";
-			  	document.getElementById("summaryYear").innerHTML = "Summary for Year "+year;
-			  	year+=1;
-			  	$('.yearSpan').text(year-1);
-			  	document.getElementById("year").innerHTML = "<b>Year:</b> "+year;
-			  	gameOver = false;
-			}
+		$('#preStartPrompt').css('display','none');
+		// Enable/update summary display content
+		if (year != numRounds) {
+			document.getElementById("summarySection").style.display = "";
+			document.getElementById("summaryYear").innerHTML = "Summary for Year "+year;
+			year+=1;
+			$('.yearSpan').text(year-1);
+			document.getElementById("year").innerHTML = "<b>Year:</b> "+year;
+			gameOver = false;
+		}
 
-			// update values based on retrieved data
-			cumulativeRevenue += revenue;
-			cumulativeProfit += profit;
-			cumulativeHistory.push(cumulativeRevenue);
-			cumulativeProfHistory.push(cumulativeProfit);
-			profitHistory.push(profit);
-			revenueHistory.push(revenue);
-			ttlCostHist.push(totalCost);
-			avgTtlCostHist.push(averageTotalCost);
-			quantityHistory.push(quantity);
-			priceHistory.push(price);
-			marginalCostHist.push(marginalCost);
-			advertisingHist.push(submission['marketingAmount']);
-    	    facilityDevHist.push(submission['productionFacilAmount']);
-    		productDevHist.push(submission['productDevAmount']);
-    		humanCapHist.push(submission['humanCapAmount']);
-    		distributionDevHist.push(submission['distributionAmount']);
+		// update values based on retrieved data
+		cumulativeRevenue += revenue;
+		cumulativeProfit += profit;
+		cumulativeHistory.push(cumulativeRevenue);
+		cumulativeProfHistory.push(cumulativeProfit);
+		profitHistory.push(profit);
+		revenueHistory.push(revenue);
+		ttlCostHist.push(totalCost);
+		avgTtlCostHist.push(averageTotalCost);
+		quantityHistory.push(quantity);
+		priceHistory.push(price);
+		marginalCostHist.push(marginalCost);
+		advertisingHist.push(marketingAmount);
+    	    	facilityDevHist.push(productionFacilAmount);
+    		productDevHist.push(productDevAmount);
+    		humanCapHist.push(humanCapAmount);
+    		distributionDevHist.push(distributionAmount);
 
-    		expendituresTotal = parseInt(submission['marketingAmount'])+parseInt(submission['productionFacilAmount'])+parseInt(submission['productDevAmount'])+parseInt(submission['humanCapAmount'])+parseInt(submission['distributionAmount']);
+    		expendituresTotal = parseInt(marketingAmount)+parseInt(productionFacilAmount)+parseInt(productDevAmount)+parseInt(humanCapAmount)+parseInt(distributionAmount);
 
 	        // correctly format output with commas and negatives where neccissary
-	        var marketPriceString = '$'+submission['price'].toLocaleString(), revenueString, profitString, cumulativeString;
+	        var marketPriceString = '$'+price.toLocaleString(), revenueString, profitString, cumulativeString;
 	        if (revenue < 0 ) revenueString = '-$'+(revenue*(-1)).toLocaleString();
 	        else revenueString = '$'+revenue.toLocaleString();
 	        if (profit < 0 ) profitString = '-$'+(profit*(-1)).toLocaleString();
@@ -660,86 +649,84 @@ Last Update:
 	        if (cumulativeProfit < 0 ) cumulativeString = '-$'+(cumulativeProfit*(-1)).toLocaleString();
 	        else cumulativeString = '$'+cumulativeProfit.toLocaleString();
 
-			// Set text in summary section to represent retrieved data
-			document.getElementById("marketPrice").innerHTML = marketPriceString;
-			document.getElementById("prodQuantity").innerHTML = quantity + " Units";
-			document.getElementById("revenue").innerHTML = revenueString;
-			document.getElementById("unitCost").innerHTML = marginalCost;
-			document.getElementById("ttlCost").innerHTML = totalCost.toLocaleString();
-			document.getElementById("profit").innerHTML = profitString;
-			document.getElementById("cumulative").innerHTML = cumulativeString;
-			document.getElementById("qDemand").innerHTML = qDemand.toLocaleString() + " Units";
-			document.getElementById("numSurplus").innerHTML = excessQuantity>=0?excessQuantity+" Units":"0 Units";
-			document.getElementById("surplueCost").innerHTML = excessQuantity>=0?"$"+(excessQuantity*surplusFee).toFixed(2):"$0.00";
+		// Set text in summary section to represent retrieved data
+		document.getElementById("marketPrice").innerHTML = marketPriceString;
+		document.getElementById("prodQuantity").innerHTML = quantity + " Units";
+		document.getElementById("revenue").innerHTML = revenueString;
+		document.getElementById("unitCost").innerHTML = marginalCost;
+		document.getElementById("ttlCost").innerHTML = totalCost.toLocaleString();
+		document.getElementById("profit").innerHTML = profitString;
+		document.getElementById("cumulative").innerHTML = cumulativeString;
+		document.getElementById("qDemand").innerHTML = qDemand.toLocaleString() + " Units";
+		document.getElementById("numSurplus").innerHTML = excessQuantity>=0?excessQuantity+" Units":"0 Units";
+		document.getElementById("surplueCost").innerHTML = excessQuantity>=0?"$"+(excessQuantity*surplusFee).toFixed(2):"$0.00";
 
-			// set income screen stuff
-			$('#liRevenue').text(revenueString);
-			$('#liNet').text(profitString);
-			$('#liPrice').text(marketPriceString);
-			$('#liReturn').text(percentReturn.toPrecision(4)+'%');
+		// set income screen stuff
+		$('#liRevenue').text(revenueString);
+		$('#liNet').text(profitString);
+		$('#liPrice').text(marketPriceString);
+		$('#liReturn').text(percentReturn.toPrecision(4)+'%');
 
-			// set cost screen stuff
-			$('#liSales').text(quantity+" Units");
-			$('#liPrice2').text(marketPriceString);
-			$('#liMarginal').text('$'+marginalCost+"/Unit");
-			$('#liProduction').text('$'+totalCost.toLocaleString());
+		// set cost screen stuff
+		$('#liSales').text(quantity+" Units");
+		$('#liPrice2').text(marketPriceString);
+		$('#liMarginal').text('$'+marginalCost+"/Unit");
+		$('#liProduction').text('$'+totalCost.toLocaleString());
 
-			// set expenditures screen stuff
-			$('#advertisingDisp').text('$'+submission['marketingAmount']);
-			$('#facilityDevDisp').text('$'+submission['productionFacilAmount']);
-			$('#productDevDisp').text('$'+submission['productDevAmount']);
-			$('#humanCapDisp').text('$'+submission['humanCapAmount']);
-			$('#distributionDisp').text('$'+submission['distributionAmount']);
-			$('#totalExpDisp').text('$'+expendituresTotal);
-			$('#B2').text(B2);
-			$('#B3').text(B3);
-			$('#B4').text(B4);
+		// set expenditures screen stuff
+		$('#advertisingDisp').text('$'+marketingAmount);
+		$('#facilityDevDisp').text('$'+productionFacilAmount);
+		$('#productDevDisp').text('$'+productDevAmount);
+		$('#humanCapDisp').text('$'+humanCapAmount);
+		$('#distributionDisp').text('$'+distributionAmount);
+		$('#totalExpDisp').text('$'+expendituresTotal);
+		$('#B2').text(B2);
+		$('#B3').text(B3);
+		$('#B4').text(B4);
 
-			// redraw graphs
-			init('income_section');
-			init('cost_section');
-			init('expenditures_section');
+		// redraw graphs
+		init('income_section');
+		init('cost_section');
+		init('expenditures_section');
 
-			// enable button
-			if (!gameOver) $('#price_submit_btn').prop('disabled', false);
+		// enable button
+		if (!gameOver) $('#price_submit_btn').prop('disabled', false);
 
-			// call func to submit data in querry
-			$.ajax({
-		  		url: "utils/session.php", 
-		  		method: 'POST',
-	  			data: { action: 'update_gameSessionData', groupId: groupId, username: $('#usrname').val(), opponent: null, quantity: quantity, revenue: revenue,
-	  				profit: profit, percentReturn: percentReturn.toPrecision(4), price: submission['price'], unitCost: marginalCost, totalCost: totalCost, complete: gameOver?1:0, gameId: <?= $gameInfo['id'] ?>  }
-	  		});
-	  		socket.emit('studentSubmitedQuantity');
-				
+		// call func to submit data in querry
+		$.ajax({
+			url: "utils/session.php", 
+			method: 'POST',
+			data: { action: 'update_gameSessionData', groupId: groupId, username: $('#usrname').val(), opponent: null, quantity: quantity, revenue: revenue,
+				profit: profit, percentReturn: percentReturn.toPrecision(4), price: price, unitCost: marginalCost, totalCost: totalCost, complete: gameOver?1:0, gameId: <?= $gameInfo['id'] ?>  }
 		});
-
-		const urlPrefix = window.location.href.substr(0, window.location.href.indexOf('src'));
-
-		//  handle refreshes 
-    	if (performance.navigation.type == 1) {
-	  		socket.emit('refresh', groupId, $('#usrname').val());
-    	}
-    	
-		// student exits game early, or cancels during player match
-		socket.on('gameExited', function(user) {
-			// remove student from gamesession table
-			$.ajax({
-		  		url: "utils/session.php", 
-		  		method: 'POST',
-	  			data: { action: 'remove_student', groupId: groupId }
-	  		});
-
-			window.location = urlPrefix+'src/student.php?session=left';
-		});
-
-		function leaveGame() { // fires when one player hits exit game button in side menu
-			socket.emit('leaveGame', $('#usrname').val(), groupId);
+		
+		// send message to tell instructor results to update
+		if (!broadcast_web_socket) {
+			broadcast_web_socket = tsugiNotifySocket(); 
+			broadcast_web_socket.onopen = function(evt) { 
+				broadcast_web_socket.send($('#sessionId').val());
+			}
 		}
+		else
+			broadcast_web_socket.send($('#sessionId').val());
+				
+	}
 
-		// window.onunload = function () {
-		//     leaveGame();
-		// };
+	const urlPrefix = window.location.href.substr(0, window.location.href.indexOf('src'));
+
+	function leaveGame() { // fires when one player hits exit game button in side menu
+		// remove student from gamesession table
+		$.ajax({
+			url: "utils/session.php", 
+			method: 'POST',
+			data: { action: 'remove_student', id: $('#sessionId').val(), player: $('#usrname').val() }
+		});
+		window.location = urlPrefix+'src/student.php?session=left';
+	}
+
+	window.onunload = function () {
+	    leaveGame();
+	};
 		// ==================
 
 		// Update surplus tooltip text
@@ -867,9 +854,6 @@ Last Update:
 
 	  // Submit button Pressed
 	  document.getElementById('price_submit_btn').addEventListener('click', function() {
-	  	if (!window.location.hash)
-	  		leaveGame();
-
   		// check validity
   		if ($('#quantity').val() >= 1 && $('#quantity').val() <= 500) {
   			firstSubmit = true;
@@ -906,21 +890,7 @@ Last Update:
 	  		document.getElementById("timer").innerHTML = $('#timer').attr('data-legnth')+":00";
 	  	}
 
-	  	// the following sends the student input to server for saving, server will fire event to call
-	  	// python scripts to get results
-
-    	// socket.io -- Save submission to player's data in gameObject
-    	socket.emit('updateDataMonopComp', {
-    		groupId: groupId,
-    		username: $('#usrname').val(),
-    		quantity: quantity,
-    		price: $("#price").val(),
-    		marketingAmount: $("#marketingInput").val(),
-    		productionFacilAmount: $("#facilityInput").val(),
-    		productDevAmount: $("#productInput").val(),
-    		humanCapAmount: $("#humanInput").val(),
-    		distributionAmount: $("#distributionInput").val()
-    	});
+	  	getResults(quantity, $("#price").val(), $("#marketingInput").val(), $("#facilityInput").val(), $("#productInput").val(), $("#humanInput").val(), $("#distributionInput").val());
 	}
 
 	// =================
@@ -1379,3 +1349,6 @@ Last Update:
 	}
   </style>
 </html>
+
+<?php
+$OUTPUT->footerEnd();
