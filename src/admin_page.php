@@ -28,7 +28,7 @@ Last Update:
 	$selectedCourseSection = NULL;
 	
 	// if neither course nor game in query string, show courses view
-	// call func from sql_settup to get the instructor's saved course
+	// call func from sql_settup to get the instructor's saved courses
 	if (!isset($_GET['course']) && !isset($_GET['game']))	
 		$courses = getCourses($mysqli, $USER->email);
 	
@@ -609,10 +609,29 @@ Last Update:
     	}
 
     	function toggleSession(id, gameName, mode) { // makes call to change session live status
+		var priceHistory = []; var shockYear=0;
+    		if ('<?= $gameInfo["market_struct"] ?>' == 'perfect') {
+    			// if toggling a perfect comp game, generate the 25 yr price history
+    			priceHistory = [50];
+    			for (var i=1;i<25;i++) {
+		    		var prevPrice = priceHistory[i-1];
+
+		    		// if 5th year or 5 years since sock, allow random shock occurance (1 in 5 probability of occuring)
+		    		if (i >= 5 && i-shockYear >= 5 && getRandomArbitrary()==3) {
+		    			price = 0.5+0.999*prevPrice+random(1,2)+random(0,10);
+		    			shockYear=i;
+		    		}
+		    		else 
+		    			price = 0.5+0.999*prevPrice+random(1,2);
+
+		    		priceHistory.push(price.toFixed(2));
+		    	}
+    		}
+		
 		    $.ajax({
 		    	url: "utils/session.php",
 		    	method: "POST",
-		    	data: {action: "toggle", id: id, PHPSESSID: '<?=$_GET['PHPSESSID']?>'},
+		    	data: {action: "toggle", id: id, PHPSESSID: '<?=$_GET['PHPSESSID']?>', priceHist: priceHistory.join()},
 		    	success: function(toggledOn) { // update screen accordingly based on weather going online or offline
 		    		if (toggledOn) {
 		    			$('#sessionIdSubheader').css('display', '');
@@ -720,7 +739,6 @@ Last Update:
 	
 	// when user clicks to create game / save update
     	function createGame() {
-    		document.getElementById('rand').value = document.getElementById('smallSwitch').checked;
     		document.getElementById('limit').value = $('#s5').children('.slider-handle').attr('aria-valuenow');
     		document.getElementById('numRnd').value = $('#s6').children('.slider-handle').attr('aria-valuenow');
     		document.getElementById('dIntr').value = $('#s1').children('.slider-handle').attr('aria-valuenow');
@@ -780,6 +798,15 @@ Last Update:
     				break;
     		}
     	}
+	    
+	// Helper function for economic calculations. Accepts a mean and std deviation and returns rand num
+	function random(m, s) {
+	  return m + 2.0 * s * (Math.random() + Math.random() + Math.random() - 1.5);
+	}
+	// Returns random number between 1 and 5, determening if shock will occur
+	function getRandomArbitrary() {
+	    return (Math.random() * (6 - 1) + 1).toPrecision(1);
+	}
     </script>
 
   </body>
