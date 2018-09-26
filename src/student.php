@@ -108,6 +108,11 @@ if ($LAUNCH->user->instructor)
 			alertify.set('notifier','position', 'top-center');
 			alertify.warning('<i class="fas fa-exclamation-triangle"></i>  You Left The Game!');
     	}
+	else if (window.location.search.includes("session=comp")) {
+			alertify.set('notifier','delay', 4);
+			alertify.set('notifier','position', 'top-center');
+			alertify.success('<i class="fas fa-thumbs-up"></i>  Game Complete!');
+    	}
 
     	function enterGame() {
     		var form = document.createElement("form");
