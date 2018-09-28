@@ -5,14 +5,18 @@
 - When saving, checks if game exists alreay to decide wheter to save as new,
 or update existing.\
 
-Last Update:
+Last Update: Added save equilibrium
 */
 ini_set('display_errors', 1); error_reporting(-1);
 include 'sql_settup.php';
 require_once "../../../config.php";
 
 // Create/save game game
-if (isset($_POST['mode']) && isset($_POST['difficulty']) && isset($_POST['market_struct']) 
+// saves equilibrium to game in table
+if (isset($_POST['equilibrium'])) {
+	$mysqli->query("UPDATE Games Set equilibrium='".$_POST['equilibrium']."' WHERE id=".$_POST['id']);
+}
+else if (isset($_POST['mode']) && isset($_POST['difficulty']) && isset($_POST['market_struct']) 
 	&& isset($_POST['macroEconomy']) && isset($_POST['limit']) 
 	&& isset($_POST['numRounds']) && isset($_POST['course_id']) && isset($_POST['gameName'])) {
 	
@@ -62,4 +66,8 @@ else if (isset($_POST['deleteId']) && isset($_POST['deletedGameCourse'])) {
 	}
 	else 
 	    echo "Error: " . $delete_sql . "<br>" . $mysqli->error;
+}
+else if ($_POST['action']=='getHistory') {
+	$result = $mysqli->query('SELECT price_hist FROM Games WHERE id="'.$_POST["id"].'"');
+	echo $result->fetch_assoc()['price_hist'];
 }
