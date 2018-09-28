@@ -5,8 +5,7 @@
 */
 
 ini_set('display_errors', 1); error_reporting(-1);
-include 'sql_settup.php';
-
+require_once "../../../config.php";
 
 if ($_POST['action']=='join_multi') {
 	$result = $mysqli->query('SELECT * FROM Sessions WHERE gameId="'.$_POST['sessionId'].'" AND player2 IS NULL LIMIT 1');
