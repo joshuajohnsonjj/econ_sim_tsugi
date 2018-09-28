@@ -24,18 +24,6 @@ if (mysqli_connect_error()) {
 
 // INITIALIZES TABLES
 // =======================
-// $usertbl = "CREATE TABLE Users (
-// 	id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-// 	email VARCHAR(30) NOT NULL,
-//  in_session INT(6) DEFAULT NULL,
-//  opponent VARCHAR(15) DEFAULT NULL,
-// 	reg_date TIMESTAMP
-// )";
-// if ($mysqli->query($usertbl) === TRUE) {
-// 	echo "make table success";
-// } else {
-// 	echo 'failed: users ';
-// }
 // $coursetbl = "CREATE TABLE Courses (
 // 	id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 // 	name VARCHAR(30) NOT NULL,
@@ -68,6 +56,7 @@ if (mysqli_connect_error()) {
 // 	fixed_cost INT(6) NOT NULL,
 // 	const_cost INT(6) NOT NULL,
 // 	equilibrium INT(6) DEFAULT NULL,
+//  	price_hist 	VARCHAR(300) 	DEFAULT NULL,
 // 	reg_date TIMESTAMP
 // )";
 // if ($mysqli->query($gamestbl) === TRUE) {
@@ -75,30 +64,11 @@ if (mysqli_connect_error()) {
 // } else {
 // 	echo 'failed: games ';
 // }
-// // gameCollection contains all live game sessions
-// $gameCollection = "CREATE TABLE GameCollection (
-// 	id 				INT(6)			UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-// 	groupId			INT(20)			NOT NULL,
-// 	game_num		INT(6)			NOT NULL,
-// 	num_players 	INT(1)			NOT NULL,
-// 	player1 		VARCHAR(30) 	DEFAULT NULL,
-// 	player1_data 	VARCHAR(300) 	DEFAULT NULL,
-// 	player2 		VARCHAR(30) 	DEFAULT NULL,
-// 	player2_data 	VARCHAR(300) 	DEFAULT NULL,
-// 	player3 		VARCHAR(30) 	DEFAULT NULL,
-// 	player3_data 	VARCHAR(300) 	DEFAULT NULL,
-// 	full 			BOOLEAN			DEFAULT FALSE
-// 	)";
-// if ($mysqli->query($gameCollection) === TRUE) {
-// 	echo "make gameCollection success";
-// } else {
-// 	echo 'failed: gameCollection ';
-// }
 // // gameSessionData contains data all current or finished game sessions (one entry for each player)
 // $gameSessionData = "CREATE TABLE GameSessionData (
 // 	id 					INT(6)			UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 // 	complete 			BOOLEAN			DEFAULT FALSE,
-// 	groupId				INT(20)			NOT NULL,
+// 	groupId				VARCHAR(10)			NOT NULL,
 // 	player 				VARCHAR(30) 	NOT NULL,
 // 	opponent 			VARCHAR(30) 	DEFAULT NULL,
 // 	player_quantity 	VARCHAR(300) 	NOT NULL,
@@ -117,7 +87,7 @@ if (mysqli_connect_error()) {
 // // Sessions contains all live game sessions
 // $sessions = "CREATE TABLE Sessions (
 // 	id 					INT(6)			UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-// 	groupId				INT(20)			NOT NULL,
+// 	groupId				VARCHAR(10)			NOT NULL,
 //	gameId 				Int(6)			NOT NULL,
 // 	p1 					VARCHAR(30) 	DEFAULT NULL,
 //	p1Data 				INT(20)			DEFAULT NULL,
