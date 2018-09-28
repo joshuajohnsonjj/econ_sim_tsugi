@@ -50,7 +50,7 @@ if (isset($_POST["checkExistance"])) { // Called when student tries to enter gam
 else if ($_POST['action'] == 'toggle') {
 	$toggledOn = false;
 	// Get game's live status and change it to opposite of current value
-	$result = $mysqli->query('SELECT live FROM Games WHERE id='.$_POST["id"].' LIMIT 1');
+	$result = $mysqli->query('SELECT live, price_hist FROM Games WHERE id='.$_POST["id"].' LIMIT 1');
 	if ($result->fetch_assoc()['live']) {
 		$mysqli->query("UPDATE Games Set live=0 WHERE id='".$_POST["id"]."'");
 		// if going from live to not live, delete data from session
@@ -58,7 +58,7 @@ else if ($_POST['action'] == 'toggle') {
 	}
 	else {
 		$toggledOn = true;
-		$mysqli->query("UPDATE Games Set live=1 WHERE id='".$_POST["id"]."'");
+		$mysqli->query("UPDATE Games Set live=1, price_hist='".$_POST['priceHist']."' WHERE id='".$_POST["id"]."'");
 	}
 	echo $toggledOn;
 }
@@ -90,7 +90,7 @@ else if ($_POST['action'] == 'update_gameSessionData') {
 // remove student from GameSessionData 
 else if ($_POST['action'] == 'remove_student') {
 	$mysqli->query("DELETE FROM GameSessionData WHERE `groupId`='".$_POST['groupId']."'");
-	$mysqli->query("DELETE FROM Sessions WHERE `groupId`='".$_POST['groupId']."'"); echo "delete from Session";
+	$mysqli->query("DELETE FROM Sessions WHERE `groupId`='".$_POST['groupId']."'"); 
 }
 
 // instructor results page uses this function to grab the session data and display it 
@@ -110,13 +110,4 @@ else if ($_POST['action'] == 'retrieve_gameSessionData') {
 	}
 }
 
-// returns the username the opponent of a selected row from oligopoly game mode to instructor results page, for auto selecting opponent's row 
-else if ($_POST['action'] == 'getOpponent') {
-	$result = $mysqli->query('SELECT opponent FROM GameSessionData WHERE player='.$_POST['selectedUser'].' AND gameId="'.$_POST["gameId"].'"');
-	if ($result->num_rows > 0) {
-		echo $result->fetch_assoc()['opponent'];
-	} else { 
-		echo "ERROR no opponent match";
-	}
-}
 $mysqli->close();
